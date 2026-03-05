@@ -31,7 +31,7 @@ public class TileData
 
     public float Damage(float damage)
     {
-        durability += -damage;
+        durability += -damage*Time.deltaTime;
         if (durability <= 0)
         {
             map.SetTile(gridPosition, null);

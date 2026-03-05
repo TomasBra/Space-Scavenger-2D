@@ -42,11 +42,11 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public void HitTile(Vector2 position)
+    public void HitTile(Vector2 position, float damage)
     {
         Vector3Int gridPosition = map.WorldToCell(position);
 
-        float remainingDuration = tileDatas[gridPosition].Damage(1);
+        float remainingDuration = tileDatas[gridPosition].Damage(damage);
 
         if (remainingDuration <= 0)
         {
