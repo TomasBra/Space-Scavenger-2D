@@ -260,7 +260,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -982,7 +982,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.26722732
+        value: 0.1570436
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -990,8 +990,8 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.6835303
-        value: 0.24676615
+        time: 0.6787848
+        value: 0.13659006
         inSlope: -0.1360707
         outSlope: -0.1360707
         tangentMode: 0
@@ -1000,7 +1000,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.20936981
+        value: 0.11569496
         inSlope: 0
         outSlope: 0
         tangentMode: 0
