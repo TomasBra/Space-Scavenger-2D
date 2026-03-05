@@ -9,27 +9,19 @@ public class MapManager : MonoBehaviour
     private Tilemap map;
 
     [SerializeField]
+    private Tilemap overlayMap;
+
+    [SerializeField]
     private TileBase tile;
 
+    [SerializeField]
+    private TileBase overlayTile;
+    [SerializeField]
+    private TileBase overlayTile2;
+    [SerializeField]
+    private TileBase overlayTile3;
+
     private Dictionary<Vector3Int, TileData> tileDatas;
-
-    /*[SerializeField]
-    private List<TileData> tileDatas;
-
-    private Dictionary<TileBase, TileData> dataFromTiles;
-
-    private void Awake()
-    {
-        dataFromTiles = new Dictionary<TileBase, TileData>();
-
-        foreach (var tileData in tileDatas)
-        {
-            foreach (var tile in tileData.tiles)
-            {
-                dataFromTiles.Add(tile, tileData);
-            }   
-        }
-    }*/
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,7 +32,7 @@ public class MapManager : MonoBehaviour
         tileDatas = new Dictionary<Vector3Int, TileData>();
 
         for (int i = 0; i < HEIGHT; i++)
-        { 
+        {
             for (int j = 0; j < WIDTH; j++)
             {
                 Vector3Int gridPosition = new Vector3Int(i, j, 0);
@@ -50,26 +42,53 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public void HitTile(Vector2 position)
+    {
+        Vector3Int gridPosition = map.WorldToCell(position);
+
+        float remainingDuration = tileDatas[gridPosition].Damage(1);
+
+        if (remainingDuration <= 0)
+        {
+            overlayMap.SetTile(gridPosition, null);
+        }
+        else if (remainingDuration < 2)
+        {
+            overlayMap.SetTile(gridPosition, overlayTile3);
+        }
+        else if (remainingDuration < 3)
+        {
+            overlayMap.SetTile(gridPosition, overlayTile2);
+        }
+        else if (remainingDuration < 4)
+        {
+            overlayMap.SetTile(gridPosition, overlayTile);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int gridPosition = map.WorldToCell(mousePosition);
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    Vector3Int gridPosition = map.WorldToCell(mousePosition);
 
-            tileDatas[gridPosition].Damage(1);
-            
-            /*TileBase clickedTile = map.GetTile(gridPosition);
+        //    float remainingDuration = tileDatas[gridPosition].Damage(1);
 
-            dataFromTiles[clickedTile].durability += -1;
-
-            print("Durability: " + dataFromTiles[clickedTile].durability);
-
-            if (dataFromTiles[clickedTile].durability <= 0)
-            {
-                map.SetTile(gridPosition, null);
-            }*/
-        }
+        //    if (remainingDuration <= 0) {
+        //        overlayMap.SetTile(gridPosition, null);
+        //    }
+        //    else if (remainingDuration < 2)
+        //    {
+        //        overlayMap.SetTile(gridPosition, overlayTile3);
+        //    }else if(remainingDuration < 3)
+        //    {
+        //        overlayMap.SetTile(gridPosition, overlayTile2);
+        //    }else if (remainingDuration < 4)
+        //    {
+        //        overlayMap.SetTile(gridPosition, overlayTile);
+        //    }
+        //}
     }
 }

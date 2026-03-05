@@ -24,12 +24,12 @@ public class TileData
         switch (type)
         {
             case TileType.DIRT:
-                durability = 3;
+                durability = 4;
                 break;
         }
     }
 
-    public void Damage(float damage)
+    public float Damage(float damage)
     {
         durability += -damage;
         if (durability <= 0)
@@ -37,6 +37,7 @@ public class TileData
             map.SetTile(gridPosition, null);
         }
 
+        return durability;
         // TODO: jakoze spravnejsi by bylo ho jeste vymazat z MapManager.tileDatas,
         // aby tam jen tak nesmrdel :)
     }
