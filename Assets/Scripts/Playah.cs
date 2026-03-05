@@ -74,12 +74,12 @@ public class Playah : MonoBehaviour
         direction.Normalize();
 
         RaycastHit2D hit = Physics2D.Raycast(FirePoint.transform.position, direction, LASER_DISTANCE);
-        MapManager.GetComponent<MapManager>().HitTile(hit.point, DAMAGE_PER_SECOND);
 
         Vector3 laserEndPosition;
         if (hit.collider != null)
         {
             laserEndPosition = new Vector3(hit.point.x, hit.point.y, 0);
+            MapManager.GetComponent<MapManager>().HitTile(hit.point, DAMAGE_PER_SECOND);
         }
         else
         {
