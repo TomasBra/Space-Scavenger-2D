@@ -45,6 +45,7 @@ public class MapManager : MonoBehaviour
     public void HitTile(Vector2 position, float damage)
     {
         Vector3Int gridPosition = map.WorldToCell(position);
+        Debug.Log(gridPosition);
 
         float remainingDuration = tileDatas[gridPosition].Damage(damage);
 

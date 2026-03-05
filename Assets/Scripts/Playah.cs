@@ -69,22 +69,27 @@ public class Playah : MonoBehaviour
 
     void Laser2D()
     {
+        Vector3 laserEndPosition;
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = mousePosition - (Vector2)FirePoint.transform.position;
         direction.Normalize();
 
-        RaycastHit2D hit = Physics2D.Raycast(FirePoint.transform.position, direction, LASER_DISTANCE);
+        StartVFX.transform.rotation = Quaternion.LookRotation(direction);
 
-        Vector3 laserEndPosition;
+        laserEndPosition = shorterVector(FirePoint.transform.position + new Vector3(direction.x, direction.y, 0) * LASER_DISTANCE, mousePosition, FirePoint.transform.position);
+        float distance = (laserEndPosition - FirePoint.transform.position).magnitude;
+        Debug.Log(distance);
+
+        RaycastHit2D hit = Physics2D.Raycast(FirePoint.transform.position, direction, distance);
+
+        
         if (hit.collider != null)
         {
-            laserEndPosition = new Vector3(hit.point.x, hit.point.y, 0);
-            MapManager.GetComponent<MapManager>().HitTile(hit.point, DAMAGE_PER_SECOND);
+            Vector3 hitPoint = new Vector3(hit.point.x+direction.x*.25f, hit.point.y+direction.y*.25f, 0);
+            laserEndPosition = hit.point;
+            MapManager.GetComponent<MapManager>().HitTile(hitPoint, DAMAGE_PER_SECOND);
         }
-        else
-        {
-            laserEndPosition = shorterVector(FirePoint.transform.position + new Vector3(direction.x, direction.y, 0) * LASER_DISTANCE, mousePosition, FirePoint.transform.position);
-        }
+
         EndVFX.transform.position = laserEndPosition;
         DrawLaser(FirePoint.transform.position, laserEndPosition);
     }
