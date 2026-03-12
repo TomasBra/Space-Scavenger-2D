@@ -6,27 +6,42 @@ public class TileData
 {
     public enum TileType
     {
-        DIRT
+        DIRT,
+        BEDROCK,
+        IRON,
+        COPPER,
+        GOLD,
+        NEST_BORDER
     }
 
     private TileType type;
     private float durability;
-    private Vector3Int gridPosition;
+    private int row, col;
 
-    private Tilemap map;
+    private MapManager mapManager;
 
-    public TileData(Tilemap map, Vector3Int gridPosition, TileType type)
+    public TileData(MapManager mapManager, int row, int col, TileType type)
     {
-        this.map = map;
-        this.gridPosition = gridPosition;
+        this.mapManager = mapManager;
+        this.row = row;
+        this.col = col;
         this.type = type;
 
+        /*smazat*/
+        durability = 4;
+
+        /*
         switch (type)
         {
             case TileType.DIRT:
                 durability = 4;
                 break;
-        }
+            default:
+                throw new System.Exception("PEPA UTOCI!!!");
+                break;
+        }*/
+
+
     }
 
     public float Damage(float damage)
@@ -34,7 +49,7 @@ public class TileData
         durability += -damage*Time.deltaTime;
         if (durability <= 0)
         {
-            map.SetTile(gridPosition, null);
+            mapManager.RemoveTile(row, col);
         }
 
         return durability;
