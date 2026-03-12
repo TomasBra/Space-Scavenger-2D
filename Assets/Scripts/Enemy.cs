@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -14,7 +15,10 @@ public class Enemy : MonoBehaviour
     private float SPEED;
 
     [SerializeField]
-    private float DAMAGE_PER_SECOND;
+    private float DAMAGE;
+
+    [SerializeField]
+    private float ATACK_COOL_DOWN; //v sekundach
 
     [SerializeField]
     private float MIN_ATTACK_DISTANCE;
@@ -25,20 +29,27 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject Player;
 
+    [SerializeField]
+    private GameObject Projectile;
+
 
 
     private Rigidbody2D rigidbody;
     private Playah playah;
+
+    private DateTime lastAttack;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         playah = Player.GetComponent<Playah>();
+        lastAttack = DateTime.Now;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         Vector2 direction = Player.transform.position - this.transform.position;
         if (direction.magnitude > STOP_MOVE_DISTANCE && direction.magnitude < TRIGGER_DISTANCE)
@@ -50,8 +61,9 @@ public class Enemy : MonoBehaviour
             Move(Vector2.zero, 0);
         }
 
-        if (direction.magnitude < MIN_ATTACK_DISTANCE)
+        if (direction.magnitude < MIN_ATTACK_DISTANCE && (DateTime.Now - lastAttack).TotalSeconds > ATACK_COOL_DOWN)
         {
+            lastAttack = DateTime.Now;
             Attack();
         }
        
@@ -61,12 +73,18 @@ public class Enemy : MonoBehaviour
     {
         direction.Normalize();
         Vector3 vec = new Vector3(direction.x, direction.y, 0);
-        this.transform.position = this.transform.position + Time.deltaTime * speed * vec;
+        //this.transform.position = this.transform.position + Time.deltaTime * speed * vec;
+        rigidbody.linearVelocity = speed * vec;
     }
 
     void Attack()
     {
-        playah.TakeDamage(DAMAGE_PER_SECOND* Time.deltaTime);
+        if (Projectile != null)
+        {
+            Instantiate(Projectile, position: transform.position, rotation: Quaternion.identity);
+        }
+
+        playah.TakeDamage(DAMAGE);
     }
 
     public void TakeDamage(float damage, Vector2? knockbackDirection = null)
@@ -74,7 +92,8 @@ public class Enemy : MonoBehaviour
         HP -= damage;
         if (knockbackDirection != null)
         {
-            this.Move(knockbackDirection.Value, 1);
+            knockbackDirection.Value.Normalize();
+            rigidbody.AddForce(knockbackDirection.Value*5f);
         }
 
         if (HP < 0)

@@ -5238,7 +5238,7 @@ GameObject:
   - component: {fileID: 584870993}
   m_Layer: 0
   m_Name: Tilemap
-  m_TagString: Untagged
+  m_TagString: TileMap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10489,7 +10489,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 10
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -10592,9 +10592,12 @@ MonoBehaviour:
   TRIGGER_DISTANCE: 7
   STOP_MOVE_DISTANCE: 3
   SPEED: 2
-  DAMAGE_PER_SECOND: 2
+  DAMAGE: 10
+  ATACK_COOL_DOWN: 3
   MIN_ATTACK_DISTANCE: 5
+  HP: 10
   Player: {fileID: 2102012267}
+  Projectile: {fileID: 8470639361405265912, guid: 78a367a46cb3fab4baa629a11da391c5, type: 3}
 --- !u!1 &1793730848
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ public class Playah : MonoBehaviour
     private const float LASER_DISTANCE = 5;
     private const float MINING_DAMAGE_PER_SECOND = 5;
     private const float ENEMY_DAMAGE_PER_SECOND = 5;
+    
 
     private int ironOre = 0; 
     private int copperOre = 0;
@@ -46,8 +47,11 @@ public class Playah : MonoBehaviour
     private List<ParticleSystem> laserStartParticleSystems = new List<ParticleSystem>();
     private List<ParticleSystem> laserEndParticleSystems = new List<ParticleSystem>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
+
+        
         rigidbody = GetComponent<Rigidbody2D>();
         InitParticleSystems();
     }
@@ -106,20 +110,21 @@ public class Playah : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.Raycast(FirePoint.transform.position, direction, distance);
 
+        if (hit.collider != null)
+        {
+            laserEndPosition = hit.point;
+        }
+
         EndVFX.transform.position = laserEndPosition;
         DrawLaser(FirePoint.transform.position, laserEndPosition);
 
         if (hit.collider == null)
             return;
-        
-        Vector3 hitPoint = new Vector3(hit.point.x+direction.x*.25f, hit.point.y+direction.y*.25f, 0);
-        laserEndPosition = hit.point;
-
-        Debug.Log(hit.transform.gameObject.tag);
 
         switch (hit.transform.gameObject.tag)
         {
             case TILEMAP_TAG:
+                Vector3 hitPoint = new Vector3(hit.point.x + direction.x * .25f, hit.point.y + direction.y * .25f, 0);
                 MapManager.GetComponent<MapManager>().HitTile(hitPoint, MINING_DAMAGE_PER_SECOND);
                 break;
 
