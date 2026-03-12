@@ -9,7 +9,7 @@ using UnityEngine.Tilemaps;
 public class Playah : MonoBehaviour
 {
 
-
+    public HealthBar healthBar; //ukazatel zivota hrace
 
     private const string TILEMAP_TAG = "TileMap";
     private const string ENEMY_TAG = "Enemy";
@@ -29,6 +29,7 @@ public class Playah : MonoBehaviour
     private float SPEED;
 
     [SerializeField]
+    private float maxHP;
     private float HP;
 
     [SerializeField]
@@ -48,6 +49,10 @@ public class Playah : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        HP = maxHP; //na zacatku ma hrac plne zivoty jo?
+        healthBar.SetMaxHealth(maxHP);
+
+
         rigidbody = GetComponent<Rigidbody2D>();
         InitParticleSystems();
     }
@@ -55,11 +60,15 @@ public class Playah : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        DebugUI(); // testovaci funkce, potom smazat
+
+
         Vector2 direction = new Vector2(0.0f, 0.0f);
         if (Input.GetKey(KeyCode.D)) direction.x += 1.0f;
         if (Input.GetKey(KeyCode.A)) direction.x += -1.0f;
         if (Input.GetKey(KeyCode.W)) direction.y += 1.0f;
         if (Input.GetKey(KeyCode.S)) direction.y += -1.0f;
+
         direction.Normalize();
 
         rigidbody.linearVelocity = direction * SPEED;
@@ -194,6 +203,25 @@ public class Playah : MonoBehaviour
         foreach (ParticleSystem partSys in laserEndParticleSystems)
         {
             partSys.Stop();
+        }
+    }
+
+
+
+    void DebugUI()
+    {
+
+        ///Test ze dostavam dmg 
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            TakeDamage(10);
+            healthBar.SetHealth(HP);
+        }
+        ///Test ze se doplnuji hp 
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            HP += 10.0f;
+            healthBar.SetHealth(HP);
         }
     }
 }
