@@ -9,7 +9,7 @@ using UnityEngine.Tilemaps;
 public class Playah : MonoBehaviour
 {
 
-    public HealthBar healthBar; //ukazatel zivota hrace
+
 
     private const string TILEMAP_TAG = "TileMap";
     private const string ENEMY_TAG = "Enemy";
@@ -45,6 +45,9 @@ public class Playah : MonoBehaviour
     [SerializeField]
     private GameObject EndVFX;
 
+    [SerializeField]
+    private HealthBar healthBar; //ukazatel zivota hrace
+
     private List<ParticleSystem> laserStartParticleSystems = new List<ParticleSystem>();
     private List<ParticleSystem> laserEndParticleSystems = new List<ParticleSystem>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -62,7 +65,7 @@ public class Playah : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DebugUI(); // testovaci funkce, potom smazat
+        //DebugUI(); // testovaci funkce, potom smazat
 
 
         Vector2 direction = new Vector2(0.0f, 0.0f);
@@ -97,7 +100,8 @@ public class Playah : MonoBehaviour
     public void TakeDamage(float damage)
     {
         HP -= damage;
-        if (HP < 0)
+        healthBar.SetHealth(HP);
+        if (HP <= 0)
         {
             Debug.Log("Umřel si ⚰️");
         }

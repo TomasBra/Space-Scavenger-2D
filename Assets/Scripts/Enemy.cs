@@ -93,7 +93,7 @@ public class Enemy : MonoBehaviour
         if (knockbackDirection != null)
         {
             knockbackDirection.Value.Normalize();
-            rigidbody.AddForce(knockbackDirection.Value*5f);
+            rigidbody.AddForce(knockbackDirection.Value*10f);
         }
 
         if (HP < 0)
