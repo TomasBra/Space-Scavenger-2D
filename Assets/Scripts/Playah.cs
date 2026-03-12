@@ -47,6 +47,9 @@ public class Playah : MonoBehaviour
     [SerializeField]
     private HealthBar healthBar; //ukazatel zivota hrace
 
+    [SerializeField]
+    private ItemCounter itemCounter;
+
     private List<ParticleSystem> laserStartParticleSystems = new List<ParticleSystem>();
     private List<ParticleSystem> laserEndParticleSystems = new List<ParticleSystem>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -159,15 +162,18 @@ public class Playah : MonoBehaviour
                 break;
 
             case TileType.IRON:
-                ironOre+= tile.materialAmount;
+                ironOre += tile.materialAmount;
+                itemCounter.SetIron(ironOre);
                 break;
 
             case TileType.COPPER:
-                copperOre+= tile.materialAmount; 
+                copperOre+= tile.materialAmount;
+                itemCounter.SetCopper(copperOre);
                 break;
 
             case TileType.GOLD:
                 goldOre+= tile.materialAmount;
+                itemCounter.SetGold(goldOre);
                 break;
         }
     }

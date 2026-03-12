@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 674111196482826402}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,11 +180,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   TRIGGER_DISTANCE: 8
-  STOP_MOVE_DISTANCE: 3
+  STOP_MOVE_DISTANCE: 1
   SPEED: 2
   DAMAGE: 10
   ATACK_COOL_DOWN: 3
   MIN_ATTACK_DISTANCE: 5
   HP: 10
-  Player: {fileID: 7311767345676473403, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
   Projectile: {fileID: 8470639361405265912, guid: 78a367a46cb3fab4baa629a11da391c5, type: 3}

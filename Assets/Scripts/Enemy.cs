@@ -27,13 +27,10 @@ public class Enemy : MonoBehaviour
     private float HP;
 
     [SerializeField]
-    private GameObject Player;
-
-    [SerializeField]
     private GameObject Projectile;
 
 
-
+    private GameObject player;
     private Rigidbody2D rigidbody;
     private Playah playah;
 
@@ -43,15 +40,16 @@ public class Enemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         rigidbody = GetComponent<Rigidbody2D>();
-        playah = Player.GetComponent<Playah>();
+        playah = player.GetComponent<Playah>();
         lastAttack = DateTime.Now;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 direction = Player.transform.position - this.transform.position;
+        Vector2 direction = player.transform.position - this.transform.position;
         if (direction.magnitude > STOP_MOVE_DISTANCE && direction.magnitude < TRIGGER_DISTANCE)
         {
             Move(direction, SPEED);
@@ -81,7 +79,11 @@ public class Enemy : MonoBehaviour
     {
         if (Projectile != null)
         {
-            Instantiate(Projectile, position: transform.position, rotation: Quaternion.identity);
+            Vector3 direction = player.transform.position - this.transform.position;
+            direction.z = 0;
+            direction.Normalize();
+
+            Instantiate(Projectile, position: transform.position, rotation: Quaternion.LookRotation(direction));
         }
 
         playah.TakeDamage(DAMAGE);

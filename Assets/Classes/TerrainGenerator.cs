@@ -50,12 +50,15 @@ public class TerrainGenerator
     readonly int WIDTH;
     readonly int HEIGHT;
 
-    const int MIN_NEST_SIZE = 10; //50
-    const int MAX_NEST_SIZE = 20; // 100
-    const int MIN_QUEEN_NEST_SIZE = 40;
-    const int MAX_QUEEN_NEST_SIZE = 80;
+    const int NEST_COUNT = 15;
+    const int QUEEN_NEST_COUNT = 5; 
 
-    const float MIN_NEST_DEPTH = 0.14f;
+    const int MIN_NEST_SIZE = 120; //50
+    const int MAX_NEST_SIZE = 200; // 100
+    const int MIN_QUEEN_NEST_SIZE = 230;
+    const int MAX_QUEEN_NEST_SIZE = 350;
+
+    const float MIN_NEST_DEPTH = 0.08f;
     const float MIN_QUEEN_NEST_DEPTH = 0.24f;
 
     char[] representations = { ' ', 'o', '#', '@', '$', '%', '*' };
@@ -499,8 +502,9 @@ public class TerrainGenerator
     {
         Init();
 
-        GenerateNests(5, true);
-        GenerateNests(10, false);
+        //Nemìnit poøadí!!!!!
+        GenerateNests(QUEEN_NEST_COUNT, true);
+        GenerateNests(NEST_COUNT, false);
         //PolishBorders();
 
         GenerateOre(TempTile.TileType.IRON, 300, 2, 6, IronDepthFunc);

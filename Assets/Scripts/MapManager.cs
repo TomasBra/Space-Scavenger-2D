@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,10 +40,19 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private TileBase crackTile3;
 
+    [SerializeField]
+    private GameObject EnemyPrefab;
+
+    [SerializeField]
+    private GameObject QueenPrefab;
+
     private Dictionary<Vector3Int, TileData> tileDatas;
 
-    const int MAP_WIDTH = 50;
-    const int MAP_HEIGHT = 100;
+
+
+    const int MAP_WIDTH = 100;
+    const int MAP_HEIGHT = 150;
+
 
 
 
@@ -96,7 +106,7 @@ public class MapManager : MonoBehaviour
     }
 
     Vector3Int RowCol2GridPosition(int row, int col)
-    { 
+    {
         return new Vector3Int(col, -row, 0);
     }
 
@@ -108,7 +118,7 @@ public class MapManager : MonoBehaviour
         dirtMap.SetTile(gridPosition, dirtTile);
 
         // kazdej tile ma svoje TileData
-        tileDatas[gridPosition] = new TileData(this, row, col, tileType, Random.Range(1,5));
+        tileDatas[gridPosition] = new TileData(this, row, col, tileType, Random.Range(1, 5));
 
         // materialovej overlay
         switch (tileType)
@@ -145,14 +155,34 @@ public class MapManager : MonoBehaviour
         crackMap.SetTile(gridPosition, null);
     }
 
+    public void RemoveTile(Vector3Int gridPosition)
+    {
+        dirtMap.SetTile(gridPosition, null);
+        tileTypeMap.SetTile(gridPosition, null);
+        crackMap.SetTile(gridPosition, null);
+        tileDatas.Remove(gridPosition);
+    }
+
     public void SpawnNestEnemies(int row, int col)
-    { 
-        
+    {
+        if (EnemyPrefab == null)
+            return;
+
+        int enemiesCount = Random.Range(5, 20);
+        for (int i = 0; i < enemiesCount; i++)
+        {
+            Vector3 GridPositon = RowCol2GridPosition(row, col);
+            Vector3 position = new Vector3(GridPositon.x + Random.value*2, GridPositon.y + Random.value*2, GridPositon.z);    
+            Instantiate(EnemyPrefab, position: position, rotation: Quaternion.identity);
+        }
     }
 
     public void SpawnQueenNestEnemies(int row, int col)
-    { 
-        
+    {
+        if (QueenPrefab == null)
+            return;
+
+        Instantiate(QueenPrefab, position: RowCol2GridPosition(row, col), rotation: Quaternion.identity);
     }
 
     //vraci typ tilu, ktery byl vytezen, jestlize nebyl vytezen, tak vraci null
@@ -165,8 +195,9 @@ public class MapManager : MonoBehaviour
 
         if (remainingDuration <= 0)
         {
-            crackMap.SetTile(gridPosition, null);
-            return tileDatas[gridPosition];
+            TileData tile = tileDatas[gridPosition];
+            RemoveTile(gridPosition);
+            return tile;
         }
         else if (remainingDuration < 2)
         {
