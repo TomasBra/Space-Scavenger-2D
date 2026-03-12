@@ -1,16 +1,15 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.Tilemaps;
+using static TileData;
 
 public class Playah : MonoBehaviour
 {
-
-
-
     private const string TILEMAP_TAG = "TileMap";
     private const string ENEMY_TAG = "Enemy";
 
@@ -19,9 +18,9 @@ public class Playah : MonoBehaviour
     private const float ENEMY_DAMAGE_PER_SECOND = 5;
     
 
-    private int ironOre = 0; 
-    private int copperOre = 0;
-    private int goldOre = 0;
+    public int ironOre = 0; 
+    public int copperOre = 0;
+    public int goldOre = 0;
 
 
     new Rigidbody2D rigidbody;
@@ -136,7 +135,8 @@ public class Playah : MonoBehaviour
         {
             case TILEMAP_TAG:
                 Vector3 hitPoint = new Vector3(hit.point.x + direction.x * .25f, hit.point.y + direction.y * .25f, 0);
-                MapManager.GetComponent<MapManager>().HitTile(hitPoint, MINING_DAMAGE_PER_SECOND);
+                TileData tile = MapManager.GetComponent<MapManager>().HitTile(hitPoint, MINING_DAMAGE_PER_SECOND);
+                ProcessTile(tile);
                 break;
 
             case ENEMY_TAG:
@@ -144,8 +144,32 @@ public class Playah : MonoBehaviour
                 break;
 
         }
-    
         
+
+
+        
+    }
+
+    private void ProcessTile(TileData? tile)
+    {
+        if (tile == null) return;
+        switch (tile.type)
+        {
+            case TileType.DIRT:
+                break;
+
+            case TileType.IRON:
+                ironOre+= tile.materialAmount;
+                break;
+
+            case TileType.COPPER:
+                copperOre+= tile.materialAmount; 
+                break;
+
+            case TileType.GOLD:
+                goldOre+= tile.materialAmount;
+                break;
+        }
     }
 
     void DrawLaser(Vector3 startPostion, Vector3 endPosition) {

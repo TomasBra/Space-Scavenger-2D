@@ -14,19 +14,20 @@ public class TileData
         NEST_BORDER
     }
 
-    private TileType type;
+    public TileType type;
+    public int materialAmount = 1;
     private float durability;
     private int row, col;
 
     private MapManager mapManager;
 
-    public TileData(MapManager mapManager, int row, int col, TileType type)
+    public TileData(MapManager mapManager, int row, int col, TileType type, int materialAmount = 1)
     {
         this.mapManager = mapManager;
         this.row = row;
         this.col = col;
         this.type = type;
-
+        this.materialAmount = materialAmount;
         /*smazat*/
         durability = 4;
 

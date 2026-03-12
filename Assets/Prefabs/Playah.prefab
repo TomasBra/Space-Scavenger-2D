@@ -14765,7 +14765,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &6120789004674577071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14778,6 +14778,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 107a6fa38efa8b74da373f2e9f0e93cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Playah
+  ironOre: 0
+  copperOre: 0
+  goldOre: 0
   SPEED: 2
   maxHP: 50
   MapManager: {fileID: 0}

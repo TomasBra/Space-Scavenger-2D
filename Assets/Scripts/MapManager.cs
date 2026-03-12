@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static TileData;
 
 public class MapManager : MonoBehaviour
 {
@@ -42,6 +43,8 @@ public class MapManager : MonoBehaviour
 
     const int MAP_WIDTH = 50;
     const int MAP_HEIGHT = 100;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -99,13 +102,13 @@ public class MapManager : MonoBehaviour
 
     public void AddTile(int row, int col, TileData.TileType tileType)
     {
-        Debug.Log("adding tile: " + tileType + "to: " + row +"," + col );
+        Debug.Log("adding tile: " + tileType + "to: " + row + "," + col);
         // hlina tam je vzdycky
         Vector3Int gridPosition = RowCol2GridPosition(row, col);
         dirtMap.SetTile(gridPosition, dirtTile);
 
         // kazdej tile ma svoje TileData
-        tileDatas[gridPosition] = new TileData(this, row, col, tileType);
+        tileDatas[gridPosition] = new TileData(this, row, col, tileType, Random.Range(1,5));
 
         // materialovej overlay
         switch (tileType)
@@ -152,7 +155,8 @@ public class MapManager : MonoBehaviour
         
     }
 
-    public void HitTile(Vector2 position, float damage)
+    //vraci typ tilu, ktery byl vytezen, jestlize nebyl vytezen, tak vraci null
+    public TileData? HitTile(Vector2 position, float damage)
     {
         Vector3Int gridPosition = dirtMap.WorldToCell(position);
         Debug.Log(gridPosition);
@@ -162,6 +166,7 @@ public class MapManager : MonoBehaviour
         if (remainingDuration <= 0)
         {
             crackMap.SetTile(gridPosition, null);
+            return tileDatas[gridPosition];
         }
         else if (remainingDuration < 2)
         {
@@ -175,31 +180,13 @@ public class MapManager : MonoBehaviour
         {
             crackMap.SetTile(gridPosition, crackTile1);
         }
+
+        return null;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //    Vector3Int gridPosition = map.WorldToCell(mousePosition);
 
-        //    float remainingDuration = tileDatas[gridPosition].Damage(1);
-
-        //    if (remainingDuration <= 0) {
-        //        overlayMap.SetTile(gridPosition, null);
-        //    }
-        //    else if (remainingDuration < 2)
-        //    {
-        //        overlayMap.SetTile(gridPosition, overlayTile3);
-        //    }else if(remainingDuration < 3)
-        //    {
-        //        overlayMap.SetTile(gridPosition, overlayTile2);
-        //    }else if (remainingDuration < 4)
-        //    {
-        //        overlayMap.SetTile(gridPosition, overlayTile);
-        //    }
-        //}
     }
 }
