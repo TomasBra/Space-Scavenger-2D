@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: df596a0b673dbe047996157b129ed3e6
+guid: d7f02d17b7096644d96cff4e12da9ab2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3840576089349580469
-    second: Overlay2_0
+      213: 6398492527668056779
+    second: Copper_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Overlay2_0
+      name: Copper_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 58
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b49957d156883bac0800000000000000
-      internalID: -3840576089349580469
+      spriteID: bc255a1ad030cc850800000000000000
+      internalID: 6398492527668056779
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Overlay2_0: -3840576089349580469
+      Copper_0: 6398492527668056779
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
