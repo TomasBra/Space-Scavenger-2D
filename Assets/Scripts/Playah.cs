@@ -1,4 +1,4 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
@@ -8,11 +8,28 @@ using UnityEngine.Tilemaps;
 
 public class Playah : MonoBehaviour
 {
-    private const float SPEED = 1.69f;
+
+
+
+    private const string TILEMAP_TAG = "TileMap";
+    private const string ENEMY_TAG = "Enemy";
+
     private const float LASER_DISTANCE = 5;
-    private const float DAMAGE_PER_SECOND = 5;
+    private const float MINING_DAMAGE_PER_SECOND = 5;
+    private const float ENEMY_DAMAGE_PER_SECOND = 5;
+
+    private int ironOre = 0; 
+    private int copperOre = 0;
+    private int goldOre = 0;
+
 
     new Rigidbody2D rigidbody;
+
+    [SerializeField]
+    private float SPEED;
+
+    [SerializeField]
+    private float HP;
 
     [SerializeField]
     private GameObject MapManager;
@@ -66,6 +83,14 @@ public class Playah : MonoBehaviour
         }
     }
 
+    public void TakeDamage(float damage)
+    {
+        HP -= damage;
+        if (HP < 0)
+        {
+            Debug.Log("Umřel si ⚰️");
+        }
+    }
 
     void Laser2D()
     {
@@ -78,20 +103,33 @@ public class Playah : MonoBehaviour
 
         laserEndPosition = shorterVector(FirePoint.transform.position + new Vector3(direction.x, direction.y, 0) * LASER_DISTANCE, mousePosition, FirePoint.transform.position);
         float distance = (laserEndPosition - FirePoint.transform.position).magnitude;
-        Debug.Log(distance);
 
         RaycastHit2D hit = Physics2D.Raycast(FirePoint.transform.position, direction, distance);
 
-        
-        if (hit.collider != null)
-        {
-            Vector3 hitPoint = new Vector3(hit.point.x+direction.x*.25f, hit.point.y+direction.y*.25f, 0);
-            laserEndPosition = hit.point;
-            MapManager.GetComponent<MapManager>().HitTile(hitPoint, DAMAGE_PER_SECOND);
-        }
-
         EndVFX.transform.position = laserEndPosition;
         DrawLaser(FirePoint.transform.position, laserEndPosition);
+
+        if (hit.collider == null)
+            return;
+        
+        Vector3 hitPoint = new Vector3(hit.point.x+direction.x*.25f, hit.point.y+direction.y*.25f, 0);
+        laserEndPosition = hit.point;
+
+        Debug.Log(hit.transform.gameObject.tag);
+
+        switch (hit.transform.gameObject.tag)
+        {
+            case TILEMAP_TAG:
+                MapManager.GetComponent<MapManager>().HitTile(hitPoint, MINING_DAMAGE_PER_SECOND);
+                break;
+
+            case ENEMY_TAG:
+                hit.transform.GetComponent<Enemy>().TakeDamage(ENEMY_DAMAGE_PER_SECOND * Time.deltaTime, laserEndPosition - FirePoint.transform.position);
+                break;
+
+        }
+    
+        
     }
 
     void DrawLaser(Vector3 startPostion, Vector3 endPosition) {
