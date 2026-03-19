@@ -14778,16 +14778,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 107a6fa38efa8b74da373f2e9f0e93cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Playah
+  rigidbody: {fileID: 0}
+  player: {fileID: 0}
+  maxHP: 50
+  HP: 0
   ironOre: 0
   copperOre: 0
   goldOre: 0
-  SPEED: 2
-  maxHP: 50
+  SPEED: 3.5
   MapManager: {fileID: 0}
   FirePoint: {fileID: 6875613860000558312}
   StartVFX: {fileID: 4902656185812622813}
   EndVFX: {fileID: 3582155200848299871}
   healthBar: {fileID: 0}
+  itemCounter: {fileID: 0}
 --- !u!120 &651376700773142379
 LineRenderer:
   serializedVersion: 3

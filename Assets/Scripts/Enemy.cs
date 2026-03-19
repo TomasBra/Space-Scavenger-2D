@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Health
 {
 
     [SerializeField]
@@ -24,31 +24,23 @@ public class Enemy : MonoBehaviour
     private float MIN_ATTACK_DISTANCE;
 
     [SerializeField]
-    private float HP;
-
-    [SerializeField]
     private GameObject Projectile;
-
-
-    private GameObject player;
-    private Rigidbody2D rigidbody;
-    private Playah playah;
 
     private DateTime lastAttack;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        rigidbody = GetComponent<Rigidbody2D>();
-        playah = player.GetComponent<Playah>();
+        base.Start();
         lastAttack = DateTime.Now;
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
+        base.Update();
+
         Vector2 direction = player.transform.position - this.transform.position;
         if (direction.magnitude > STOP_MOVE_DISTANCE && direction.magnitude < TRIGGER_DISTANCE)
         {
@@ -64,7 +56,7 @@ public class Enemy : MonoBehaviour
             lastAttack = DateTime.Now;
             Attack();
         }
-       
+
     }
 
     void Move(Vector2 direction, float speed = 1)
@@ -83,10 +75,10 @@ public class Enemy : MonoBehaviour
             direction.z = 0;
             direction.Normalize();
 
-            Instantiate(Projectile, position: transform.position, rotation: Quaternion.LookRotation(direction));
-        }
+            //vystøelení a natoèení projektilu správným smìrem
+            Instantiate(Projectile, position: transform.position, rotation: Quaternion.identity);
 
-        playah.TakeDamage(DAMAGE);
+        }
     }
 
     public void TakeDamage(float damage, Vector2? knockbackDirection = null)
@@ -95,7 +87,7 @@ public class Enemy : MonoBehaviour
         if (knockbackDirection != null)
         {
             knockbackDirection.Value.Normalize();
-            rigidbody.AddForce(knockbackDirection.Value*10f);
+            rigidbody.AddForce(knockbackDirection.Value * 10f);
         }
 
         if (HP < 0)

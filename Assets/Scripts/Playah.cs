@@ -8,10 +8,11 @@ using UnityEngine.Analytics;
 using UnityEngine.Tilemaps;
 using static TileData;
 
-public class Playah : MonoBehaviour
+public class Playah : Health
 {
     private const string TILEMAP_TAG = "TileMap";
     private const string ENEMY_TAG = "Enemy";
+    private const string PROJECTILE_TAG = "Projectile";
 
     private const float LASER_DISTANCE = 5;
     private const float MINING_DAMAGE_PER_SECOND = 5;
@@ -23,14 +24,8 @@ public class Playah : MonoBehaviour
     public int goldOre = 0;
 
 
-    new Rigidbody2D rigidbody;
-
     [SerializeField]
     private float SPEED;
-
-    [SerializeField]
-    private float maxHP;
-    private float HP;
 
     [SerializeField]
     private GameObject MapManager;
@@ -54,19 +49,18 @@ public class Playah : MonoBehaviour
     private List<ParticleSystem> laserEndParticleSystems = new List<ParticleSystem>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
-    void Start()
+    public void Start()
     {
-        HP = maxHP; //na zacatku ma hrac plne zivoty jo?
+        base.Start();
         healthBar.SetMaxHealth(maxHP);
 
-
-        rigidbody = GetComponent<Rigidbody2D>();
         InitParticleSystems();
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
+        base.Update();  
         //DebugUI(); // testovaci funkce, potom smazat
 
 
@@ -78,7 +72,10 @@ public class Playah : MonoBehaviour
 
         direction.Normalize();
 
-        rigidbody.linearVelocity = direction * SPEED;
+        if (rigidbody != null)
+        {
+            rigidbody.linearVelocity = direction * SPEED;
+        }
 
         if (Input.GetMouseButton(0))
         {
@@ -99,14 +96,12 @@ public class Playah : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+
+    public override bool TakeDamage(float damage, Vector2? knockbackDirection = null, bool destroyable = true)
     {
-        HP -= damage;
+        bool shouldDie = base.TakeDamage(damage, knockbackDirection, false);
         healthBar.SetHealth(HP);
-        if (HP <= 0)
-        {
-            Debug.Log("Umřel si ⚰️");
-        }
+        return shouldDie;
     }
 
     void Laser2D()
@@ -134,6 +129,8 @@ public class Playah : MonoBehaviour
         if (hit.collider == null)
             return;
 
+        Health health;
+
         switch (hit.transform.gameObject.tag)
         {
             case TILEMAP_TAG:
@@ -143,8 +140,17 @@ public class Playah : MonoBehaviour
                 break;
 
             case ENEMY_TAG:
-                hit.transform.GetComponent<Enemy>().TakeDamage(ENEMY_DAMAGE_PER_SECOND * Time.deltaTime, laserEndPosition - FirePoint.transform.position);
+                health = hit.transform.GetComponent<Health>();
+                if(health != null)
+                    health.TakeDamage(ENEMY_DAMAGE_PER_SECOND * Time.deltaTime, laserEndPosition - FirePoint.transform.position);
                 break;
+
+            case PROJECTILE_TAG:
+                health = hit.transform.GetComponent<Health>();
+                if (health != null)
+                    health.TakeDamage(ENEMY_DAMAGE_PER_SECOND * Time.deltaTime, laserEndPosition - FirePoint.transform.position);
+                break;
+
 
         }
         

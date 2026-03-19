@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 4710291440761711084}
   - component: {fileID: 3263594133322044793}
   - component: {fileID: 674111196482826402}
-  m_Layer: 0
+  - component: {fileID: 2518397964730516416}
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -109,7 +110,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -179,11 +180,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd2e456b3590f14987c067fd2744a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  rigidbody: {fileID: 0}
+  player: {fileID: 0}
+  maxHP: 3
+  HP: 10
   TRIGGER_DISTANCE: 8
-  STOP_MOVE_DISTANCE: 1
+  STOP_MOVE_DISTANCE: 3
   SPEED: 2
   DAMAGE: 10
   ATACK_COOL_DOWN: 3
   MIN_ATTACK_DISTANCE: 5
-  HP: 10
   Projectile: {fileID: 8470639361405265912, guid: 78a367a46cb3fab4baa629a11da391c5, type: 3}
+--- !u!95 &2518397964730516416
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7011711083779050010}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d6f68e9d419e99f4191a5799c4d54980, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

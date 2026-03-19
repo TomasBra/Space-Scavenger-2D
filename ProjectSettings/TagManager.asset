@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Enemy
   - TileMap
+  - Projectile
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Projectiles Ignore
   - Water
   - UI
   - 
