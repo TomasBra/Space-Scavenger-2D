@@ -112,7 +112,7 @@ public class MapManager : MonoBehaviour
 
     public void AddTile(int row, int col, TileData.TileType tileType)
     {
-        Debug.Log("adding tile: " + tileType + "to: " + row + "," + col);
+        // Debug.Log("adding tile: " + tileType + "to: " + row + "," + col);
         // hlina tam je vzdycky
         Vector3Int gridPosition = RowCol2GridPosition(row, col);
         dirtMap.SetTile(gridPosition, dirtTile);
@@ -189,7 +189,7 @@ public class MapManager : MonoBehaviour
     public TileData? HitTile(Vector2 position, float damage)
     {
         Vector3Int gridPosition = dirtMap.WorldToCell(position);
-        Debug.Log(gridPosition);
+        // Debug.Log(gridPosition);
 
         float remainingDuration = tileDatas[gridPosition].Damage(damage);
 

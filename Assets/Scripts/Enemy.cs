@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Enemy : Health
 {
@@ -9,7 +11,6 @@ public class Enemy : Health
 
     [SerializeField]
     private float STOP_MOVE_DISTANCE;
-
 
     [SerializeField]
     private float SPEED;
@@ -28,30 +29,63 @@ public class Enemy : Health
 
     private DateTime lastAttack;
 
+    private Tilemap tilemap;
+    private Stack<Vector3> pathToPlayer = new Stack<Vector3>();
+    private Vector3Int prevPlayerGridPos;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
         base.Start();
         lastAttack = DateTime.Now;
+
+        tilemap = GameObject.Find("DirtTilemap").GetComponent<Tilemap>();
+
+        prevPlayerGridPos = tilemap.WorldToCell(player.transform.position);
     }
+
+    const float MAGIC = 0.08f;
 
     // Update is called once per frame
     public void Update()
     {
         base.Update();
 
-        Vector2 direction = player.transform.position - this.transform.position;
-        if (direction.magnitude > STOP_MOVE_DISTANCE && direction.magnitude < TRIGGER_DISTANCE)
+        Vector2 toPlayer = player.transform.position - this.transform.position;
+
+        if (toPlayer.magnitude > STOP_MOVE_DISTANCE
+            && toPlayer.magnitude < TRIGGER_DISTANCE)
         {
-            Move(direction, SPEED);
+            Vector3Int currPlayerGridPos = tilemap.WorldToCell(player.transform.position);
+            
+            if (currPlayerGridPos != prevPlayerGridPos)
+            {
+                pathToPlayer = EnemyPathFinder.FindPath(tilemap, transform.position, player.transform.position);
+                prevPlayerGridPos = currPlayerGridPos;
+            }
+
+            if (pathToPlayer.Count > 0)
+            {
+                Vector2 toNextPathPoint = pathToPlayer.Peek() - transform.position;
+                if (toNextPathPoint.magnitude < MAGIC)
+                {
+                    pathToPlayer.Pop();
+                }
+
+                Move(toNextPathPoint, SPEED);
+            }
+            else
+            {
+                Move(Vector2.zero, 0);
+            }
         }
         else
         {
             Move(Vector2.zero, 0);
         }
 
-        if (direction.magnitude < MIN_ATTACK_DISTANCE && (DateTime.Now - lastAttack).TotalSeconds > ATACK_COOL_DOWN)
+        if (toPlayer.magnitude < MIN_ATTACK_DISTANCE && (DateTime.Now - lastAttack).TotalSeconds > ATACK_COOL_DOWN)
         {
             lastAttack = DateTime.Now;
             Attack();

@@ -57,7 +57,7 @@ public class Projectile : Health
         }
 
 
-        Debug.Log(col.gameObject.tag);
+        // Debug.Log(col.gameObject.tag);
         Health health = col.gameObject.GetComponent<Health>();
         if (health != null)
         {
