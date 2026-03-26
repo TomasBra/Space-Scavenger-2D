@@ -3,9 +3,10 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 using static TileData;
 
-public class MapManager : MonoBehaviour
+public class MapManager : GameObject2D
 {
     private static readonly Vector2Int[] directions4 = new Vector2Int[4]
         {
@@ -218,13 +219,16 @@ public class MapManager : MonoBehaviour
         if (EnemyPrefab == null)
             return;
 
+        Vector3 GridPositon = RowCol2GridPosition(row, col);
         int enemiesCount = Random.Range(5, 20);
+
         for (int i = 0; i < enemiesCount; i++)
         {
-            Vector3 GridPositon = RowCol2GridPosition(row, col);
-            Vector3 position = new Vector3(GridPositon.x + Random.value*2, GridPositon.y + Random.value*2, GridPositon.z);    
+            Vector2 position = randomOffsettedPosition(GridPositon, 5);
             Instantiate(EnemyPrefab, position: position, rotation: Quaternion.identity);
         }
+
+        Instantiate(QueenPrefab, position: GridPositon, rotation: Quaternion.identity);
     }
 
     public void SpawnQueenNestEnemies(int row, int col)
@@ -235,11 +239,25 @@ public class MapManager : MonoBehaviour
         Instantiate(QueenPrefab, position: RowCol2GridPosition(row, col), rotation: Quaternion.identity);
     }
 
+    public TileData? GetTile(Vector2 wordPosition)
+    {
+        Vector3Int gridPosition = dirtMap.WorldToCell(wordPosition);
+        // Debug.Log(gridPosition);
+
+        if(!tileDatas.ContainsKey(gridPosition))
+            return null;
+
+        return tileDatas[gridPosition];
+    }
+
     //vraci typ tilu, ktery byl vytezen, jestlize nebyl vytezen, tak vraci null
     public TileData? HitTile(Vector2 position, float damage)
     {
         Vector3Int gridPosition = dirtMap.WorldToCell(position);
         // Debug.Log(gridPosition);
+
+        if (!tileDatas.ContainsKey(gridPosition))
+            return null;
 
         float remainingDuration = tileDatas[gridPosition].Damage(damage);
 

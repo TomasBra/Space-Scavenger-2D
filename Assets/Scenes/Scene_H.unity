@@ -148,6 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e2e0e8a3d803a47b181b8dc2d5b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapManager
+  rigidbody: {fileID: 0}
+  player: {fileID: 0}
+  PLAYER_TAG: 
   dirtMap: {fileID: 584870995}
   dirtTile: {fileID: 11400000, guid: c4348671b5ad75d458cf72dafa48fd83, type: 2}
   tileTypeMap: {fileID: 89541849}
@@ -163,7 +166,7 @@ MonoBehaviour:
   lightMap: {fileID: 694180242}
   lightTile: {fileID: 11400000, guid: 134beb7944e131a4b90f75e49221c312, type: 2}
   EnemyPrefab: {fileID: 7011711083779050010, guid: 63cdbfd51ddaca34690526a24f2939b8, type: 3}
-  QueenPrefab: {fileID: 0}
+  QueenPrefab: {fileID: 4666222353431026531, guid: 37086ce76a7db79479c835418f95f4d2, type: 3}
 --- !u!4 &67817727
 Transform:
   m_ObjectHideFlags: 0
@@ -1011,7 +1014,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &707698612
 Transform:
   m_ObjectHideFlags: 0
@@ -1021,7 +1024,7 @@ Transform:
   m_GameObject: {fileID: 707698611}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.85704, y: -16.56192, z: 0}
+  m_LocalPosition: {x: 9.85704, y: -16.56192, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -1,31 +1,58 @@
 fileFormatVersion: 2
-guid: eeaa3e84d4d358f46ba38d049d29fa8d
+guid: 7f9bbee1a2f40ad4194eb0052c7cf78b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -252343562717082310
-    second: ATTACK_0
+      213: -2792402802363126846
+    second: Eyeball_0
   - first:
-      213: -210908623516531236
-    second: ATTACK_1
+      213: 112571745976006824
+    second: Eyeball_1
   - first:
-      213: -1884070897103218386
-    second: ATTACK_2
+      213: 4696390048660997592
+    second: Eyeball_2
   - first:
-      213: -5421470884539877244
-    second: ATTACK_3
+      213: -7149191858110582771
+    second: Eyeball_3
   - first:
-      213: -637045071952103482
-    second: ATTACK_4
+      213: -4539880026570852370
+    second: Eyeball_4
   - first:
-      213: -8222471432525534737
-    second: ATTACK_5
+      213: -8802191901591396175
+    second: Eyeball_5
   - first:
-      213: -5060464365741366859
-    second: ATTACK_6
+      213: -7401047152809302156
+    second: Eyeball_6
   - first:
-      213: 2732036489171911614
-    second: ATTACK_7
+      213: -3755351595799010515
+    second: Eyeball_7
+  - first:
+      213: -6532215143079718499
+    second: Eyeball_8
+  - first:
+      213: -4898622871031195346
+    second: Eyeball_9
+  - first:
+      213: -5118414881637855136
+    second: Eyeball_10
+  - first:
+      213: 1343987463295443880
+    second: Eyeball_11
+  - first:
+      213: -5459812569046549345
+    second: Eyeball_12
+  - first:
+      213: 3192425259646650665
+    second: Eyeball_13
+  - first:
+      213: -1505946986294218185
+    second: Eyeball_14
+  - first:
+      213: 8094998680276224429
+    second: Eyeball_15
+  - first:
+      213: 8691396837579471808
+    second: Eyeball_16
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +99,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 48
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,177 +148,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ATTACK_0
+      name: Eyeball_DIE_6
       rect:
         serializedVersion: 2
-        x: 7
-        y: 1
-        width: 64
-        height: 66
+        x: 0
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a3d44eeddde7f7cf0800000000000000
-      internalID: -252343562717082310
+      spriteID: 982b681e8e4a06541b1ba766f3ceb100
+      internalID: 1773884951
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ATTACK_1
+      name: Eyeball_DIE_7
       rect:
         serializedVersion: 2
-        x: 85
-        y: 1
-        width: 63
-        height: 68
+        x: 48
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: cd50b3f69b3b21df0800000000000000
-      internalID: -210908623516531236
+      spriteID: 5bed8abdda227134fbffe5907b22e4cc
+      internalID: 1241124224
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ATTACK_2
+      name: Eyeball_DIE_8
       rect:
         serializedVersion: 2
-        x: 164
-        y: 2
-        width: 62
-        height: 67
+        x: 96
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e29d286508f6ad5e0800000000000000
-      internalID: -1884070897103218386
+      spriteID: 3dbf005081c60e24699826714a69065b
+      internalID: 1532816085
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ATTACK_3
+      name: Eyeball_DIE_9
       rect:
         serializedVersion: 2
-        x: 237
-        y: 1
-        width: 78
-        height: 63
+        x: 144
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 488b0e664f013c4b0800000000000000
-      internalID: -5421470884539877244
+      spriteID: 36ba23dcaec94f441adfb9a0fe989f0c
+      internalID: -1702994585
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ATTACK_4
+      name: Eyeball_DIE_10
       rect:
         serializedVersion: 2
-        x: 323
-        y: 2
-        width: 64
-        height: 65
+        x: 192
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6c7b16cd1e2c827f0800000000000000
-      internalID: -637045071952103482
+      spriteID: 0014d61a6b64dd740a9fe69ef0b294c8
+      internalID: -794677751
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ATTACK_5
+      name: Eyeball_DIE_11
       rect:
         serializedVersion: 2
-        x: 401
-        y: 4
-        width: 68
-        height: 62
+        x: 240
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: fe9a480fbc9e3ed80800000000000000
-      internalID: -8222471432525534737
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ATTACK_6
-      rect:
-        serializedVersion: 2
-        x: 480
-        y: 3
-        width: 67
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5b1a679887e95c9b0800000000000000
-      internalID: -5060464365741366859
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ATTACK_7
-      rect:
-        serializedVersion: 2
-        x: 553
-        y: 2
-        width: 78
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: eb34f7246b42ae520800000000000000
-      internalID: 2732036489171911614
+      spriteID: ad03a32a0dd5b6d4b82080353913ea0b
+      internalID: -1175410930
       vertices: []
       indices: 
       edges: []
@@ -300,7 +283,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5c327bfdfecdad14b8bd455810a501c9
     internalID: 0
     vertices: []
     indices: 
@@ -308,16 +291,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":48.0,"y":48.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      ATTACK_0: -252343562717082310
-      ATTACK_1: -210908623516531236
-      ATTACK_2: -1884070897103218386
-      ATTACK_3: -5421470884539877244
-      ATTACK_4: -637045071952103482
-      ATTACK_5: -8222471432525534737
-      ATTACK_6: -5060464365741366859
-      ATTACK_7: 2732036489171911614
+      Eyeball_DIE_0: -211943064
+      Eyeball_DIE_1: -595759687
+      Eyeball_DIE_10: -794677751
+      Eyeball_DIE_11: -1175410930
+      Eyeball_DIE_2: -977348863
+      Eyeball_DIE_3: 677147030
+      Eyeball_DIE_4: -1317535992
+      Eyeball_DIE_5: -1907706541
+      Eyeball_DIE_6: 1773884951
+      Eyeball_DIE_7: 1241124224
+      Eyeball_DIE_8: 1532816085
+      Eyeball_DIE_9: -1702994585
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -2,10 +2,11 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class Projectile : Health
+public class Projectile : GameObject2D
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -31,8 +32,8 @@ public class Projectile : Health
 
     void Start()
     {
+        base.Start();
         spawnTime = DateTime.Now;
-        rigidbody = GetComponent<Rigidbody2D>();
 
         target = GameObject.FindGameObjectWithTag(targetTag);
 
@@ -42,6 +43,7 @@ public class Projectile : Health
     // Update is called once per frame
     void Update()
     {
+        base.Update();
         if ((DateTime.Now - spawnTime).TotalSeconds > lifeTime)
             Destroy(this.gameObject);
 

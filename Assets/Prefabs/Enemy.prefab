@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 815424164945274260, guid: e946ae6b78a59144ba236432df381d16, type: 3}
+  m_Sprite: {fileID: -2792402802363126846, guid: 96a626e035aa82d4a941990912c48758, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -172,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   rigidbody: {fileID: 0}
   player: {fileID: 0}
+  PLAYER_TAG: 
   maxHP: 3
   HP: 10
   TRIGGER_DISTANCE: 8
@@ -191,7 +192,7 @@ Animator:
   m_GameObject: {fileID: 7011711083779050010}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d6f68e9d419e99f4191a5799c4d54980, type: 2}
+  m_Controller: {fileID: 9100000, guid: a48e02bb97696d94295b80d9afd8fafc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

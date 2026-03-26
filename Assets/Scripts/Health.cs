@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class Health : GameObject2D
@@ -10,9 +12,11 @@ public class Health : GameObject2D
     [SerializeField]
     public float maxHP = 3f;
 
-    //[HideInInspector]
+    [HideInInspector]
     public float HP;
 
+    [HideInInspector]
+    public bool dead;
 
     public void Start()
     {
@@ -37,10 +41,14 @@ public class Health : GameObject2D
             rigidbody.AddForce(knockbackDirection.Value * 10f);
         }
 
-        if (HP <= 0)
+        if (HP <= 0 && !dead)
         {
-            if(destroyable)
-                Destroy(this.gameObject);
+            if (destroyable)
+            {
+                dead = true;
+                SetAnimatorTrigger("Dead");
+                this.Invoke(() => Destroy(transform.gameObject), 0.3f);
+            }
             return true;
         }
 

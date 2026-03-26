@@ -1,4 +1,7 @@
+using System;
+using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameObject2D : MonoBehaviour
 {
@@ -6,25 +9,50 @@ public class GameObject2D : MonoBehaviour
     Slouží jako tøída k dìdìní všemi herními objekty a obsahuje všeobecnì potøebné vìci. 
      */
 
-
     [HideInInspector]
     public Rigidbody2D rigidbody; //public nutný kvùli dìdìní
 
     [HideInInspector]
     public GameObject player; //public nutný kvùli dìdìní
 
+    [HideInInspector]
+    public string PLAYER_TAG; //public nutný kvùli dìdìní
+
+    [HideInInspector]
+    public Animator animator;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
+        this.PLAYER_TAG = "Player";
+
         rigidbody = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag(PLAYER_TAG);
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     public void Update()
     {
-        
+
     }
+
+    public void Move(Vector2 direction, float speed = 1)
+    {
+        direction.Normalize();
+        Vector3 vec = new Vector3(direction.x, direction.y, 0);
+        rigidbody.linearVelocity = speed * vec;
+    }
+
+    public Vector2 randomOffsettedPosition(Vector2 position, float maxOffset)
+    {
+        int x = (int)(2*Random.value*maxOffset - maxOffset);
+        int y = (int)(2*Random.value*maxOffset - maxOffset);
+
+
+        return new Vector2(position.x + x, position.y + y);
+    }
+
 
     //vrací úhel v stupních v ose z
     public float LookAt2D(Vector2 sourcePosition, Vector2 targetPosition)
@@ -35,7 +63,7 @@ public class GameObject2D : MonoBehaviour
         return angle;
     }
 
-    Vector3 shorterVector(Vector3 a, Vector3 b, Vector3 start)
+    public Vector3 shorterVector(Vector3 a, Vector3 b, Vector3 start)
     {
         Vector3 StartA = a - start;
         Vector3 StartB = b - start;
@@ -51,5 +79,37 @@ public class GameObject2D : MonoBehaviour
         {
             return b;
         }
+    }
+
+    public void SetAnimatorInt(string name, int value)
+    {
+        if (animator == null)
+            return;
+
+        animator.SetInteger(name, value);
+    }
+
+    public void SetAnimatorFloat(string name, float value)
+    {
+        if (animator == null)
+            return;
+
+        animator.SetFloat(name, value);
+    }
+
+    public void SetAnimatorBool(string name, bool value)
+    {
+        if (animator == null)
+            return;
+
+        animator.SetBool(name, value);
+    }
+
+    public void SetAnimatorTrigger(string name)
+    {
+        if (animator == null)
+            return;
+
+        animator.SetTrigger(name);
     }
 }

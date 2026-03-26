@@ -134,7 +134,12 @@ public class Playah : Health
         switch (hit.transform.gameObject.tag)
         {
             case TILEMAP_TAG:
-                Vector3 hitPoint = new Vector3(hit.point.x + direction.x * .25f, hit.point.y + direction.y * .25f, 0);
+                Vector3 hitPoint = new Vector3(hit.point.x, hit.point.y, 0);
+                if (MapManager.GetComponent<MapManager>().GetTile(hitPoint) == null)
+                {
+                    hitPoint = new Vector3(hit.point.x + direction.x * .25f, hit.point.y + direction.y * .25f, 0);
+                }
+
                 TileData tile = MapManager.GetComponent<MapManager>().HitTile(hitPoint, MINING_DAMAGE_PER_SECOND);
                 ProcessTile(tile);
                 break;
@@ -203,24 +208,6 @@ public class Playah : Health
         }
     }
 
-    Vector3 shorterVector(Vector3 a, Vector3 b, Vector3 start)
-    {
-        Vector3 StartA = a - start;
-        Vector3 StartB = b - start;
-
-        float distA = StartA.sqrMagnitude;
-        float distB = StartB.sqrMagnitude;
-
-        if (distA < distB)
-        {
-            return a;
-        }
-        else
-        {
-            return b;
-        }
-    }
-
     void StartLaserParticles()
     {
 
@@ -246,25 +233,6 @@ public class Playah : Health
         foreach (ParticleSystem partSys in laserEndParticleSystems)
         {
             partSys.Stop();
-        }
-    }
-
-
-
-    void DebugUI()
-    {
-
-        ///Test ze dostavam dmg 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            TakeDamage(10);
-            healthBar.SetHealth(HP);
-        }
-        ///Test ze se doplnuji hp 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            HP += 10.0f;
-            healthBar.SetHealth(HP);
         }
     }
 }

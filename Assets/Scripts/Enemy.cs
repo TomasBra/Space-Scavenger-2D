@@ -102,14 +102,6 @@ public class Enemy : Health
 
     }
 
-    void Move(Vector2 direction, float speed = 1)
-    {
-        direction.Normalize();
-        Vector3 vec = new Vector3(direction.x, direction.y, 0);
-        //this.transform.position = this.transform.position + Time.deltaTime * speed * vec;
-        rigidbody.linearVelocity = speed * vec;
-    }
-
     void Attack()
     {
         if (Projectile != null)
