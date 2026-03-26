@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -57,8 +58,15 @@ public class Enemy : Health
         if (toPlayer.magnitude > STOP_MOVE_DISTANCE
             && toPlayer.magnitude < TRIGGER_DISTANCE)
         {
-            Vector3Int currPlayerGridPos = tilemap.WorldToCell(player.transform.position);
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + toPlayer.normalized * GetComponent<CircleCollider2D>().radius * 1.05f, toPlayer);
+            // if (hit.collider == null)
+            // {
+            //     Move(toPlayer, SPEED);
+            // }
+            // else
             
+            Vector3Int currPlayerGridPos = tilemap.WorldToCell(player.transform.position);
+
             if (currPlayerGridPos != prevPlayerGridPos)
             {
                 pathToPlayer = EnemyPathFinder.FindPath(tilemap, transform.position, player.transform.position);
@@ -79,6 +87,7 @@ public class Enemy : Health
             {
                 Move(Vector2.zero, 0);
             }
+            
         }
         else
         {

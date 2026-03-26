@@ -7,6 +7,14 @@ using static TileData;
 
 public class MapManager : MonoBehaviour
 {
+    private static readonly Vector2Int[] directions4 = new Vector2Int[4]
+        {
+            new Vector2Int(1, 0),
+            new Vector2Int(0, 1),
+            new Vector2Int(-1, 0),
+            new Vector2Int(0, -1)
+        };
+
     // dirt
     [SerializeField]
     private Tilemap dirtMap;
@@ -39,6 +47,13 @@ public class MapManager : MonoBehaviour
     private TileBase crackTile2;
     [SerializeField]
     private TileBase crackTile3;
+
+    // light
+    [SerializeField]
+    private Tilemap lightMap;
+
+    [SerializeField]
+    private TileBase lightTile;
 
     [SerializeField]
     private GameObject EnemyPrefab;
@@ -103,6 +118,40 @@ public class MapManager : MonoBehaviour
                 // tileDatas[gridPosition] = new TileData(dirtMap, gridPosition, tileType);
             }
         }
+
+        InitLightTiles();
+    }
+
+    void InitLightTiles()
+    {
+        for (int i = -1; i < MAP_HEIGHT + 1; i++)
+        {
+            for (int j = -1; j < MAP_WIDTH + 1; j++)
+            {
+                if (GetTileEmptyNighborsCount(i, j) == 0)
+                {
+                    //Debug.Log("placing lighttile on " + RowCol2GridPosition(i, j));
+                    lightMap.SetTile(RowCol2GridPosition(i, j), lightTile);
+                }
+            }
+        }
+    }
+
+    int GetTileEmptyNighborsCount(int row, int col)
+    {
+        int count = 0;
+        foreach (Vector2Int direction in directions4)
+        {
+            int neighborRow = row + direction.y;
+            int neighborCol = col + direction.x;
+
+            if (dirtMap.GetTile(RowCol2GridPosition(neighborRow, neighborCol)) == null)
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     Vector3Int RowCol2GridPosition(int row, int col)
@@ -153,6 +202,7 @@ public class MapManager : MonoBehaviour
         dirtMap.SetTile(gridPosition, null);
         tileTypeMap.SetTile(gridPosition, null);
         crackMap.SetTile(gridPosition, null);
+        lightMap.SetTile(gridPosition, null);
     }
 
     public void RemoveTile(Vector3Int gridPosition)
