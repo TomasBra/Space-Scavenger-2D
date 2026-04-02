@@ -14733,6 +14733,7 @@ GameObject:
   - component: {fileID: 4791121972882413268}
   - component: {fileID: 6120789004674577071}
   - component: {fileID: 651376700773142379}
+  - component: {fileID: 3706114154328357824}
   m_Layer: 2
   m_Name: Playah
   m_TagString: Player
@@ -14806,7 +14807,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -5115618752126089108, guid: 72b49d48beaa2ff499d598a11b8fe979, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -14900,6 +14901,7 @@ MonoBehaviour:
   HP: 0
   dead: 0
   material: {fileID: 0}
+  FLASH_TIME: 0.5
   ironOre: 0
   copperOre: 0
   goldOre: 0
@@ -15038,6 +15040,28 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!95 &3706114154328357824
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7311767345676473403}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cc0564b9fe4bf3342a5b99d5c5d4d7a5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7643897530062155055
 GameObject:
   m_ObjectHideFlags: 0

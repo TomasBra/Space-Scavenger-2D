@@ -6,6 +6,8 @@ public class Health : GameObject2D
 {
     [SerializeField]
     public float maxHP = 3f;
+    [SerializeField]
+    public float DEATH_ANIM_TIME = 0.3f;
 
     [HideInInspector]
     public float HP;
@@ -58,7 +60,7 @@ public class Health : GameObject2D
             {
                 dead = true;
                 SetAnimatorTrigger("Dead");
-                this.Invoke(() => Destroy(transform.gameObject), 0.3f);
+                this.Invoke(() => Destroy(transform.gameObject), DEATH_ANIM_TIME);
             }
             return true;
         }

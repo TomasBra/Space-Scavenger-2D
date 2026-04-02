@@ -57,7 +57,10 @@ public class MapManager : GameObject2D
     private TileBase lightTile;
 
     [SerializeField]
-    private GameObject EnemyPrefab;
+    private GameObject RangeEnemyPrefab;
+
+    [SerializeField]
+    private GameObject MeleeEnemyPrefab;
 
     [SerializeField]
     private GameObject QueenPrefab;
@@ -216,7 +219,7 @@ public class MapManager : GameObject2D
 
     public void SpawnNestEnemies(int row, int col)
     {
-        if (EnemyPrefab == null)
+        if (RangeEnemyPrefab == null)
             return;
 
         Vector3 GridPositon = RowCol2GridPosition(row, col);
@@ -224,8 +227,8 @@ public class MapManager : GameObject2D
 
         for (int i = 0; i < enemiesCount; i++)
         {
-            Vector2 position = randomOffsettedPosition(GridPositon, 5);
-            Instantiate(EnemyPrefab, position: position, rotation: Quaternion.identity);
+            Instantiate(RangeEnemyPrefab, position: randomOffsettedPosition(GridPositon, 5), rotation: Quaternion.identity);
+            Instantiate(MeleeEnemyPrefab, position: randomOffsettedPosition(GridPositon, 5), rotation: Quaternion.identity);
         }
 
         Instantiate(QueenPrefab, position: GridPositon, rotation: Quaternion.identity);
