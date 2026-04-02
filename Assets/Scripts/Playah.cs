@@ -25,7 +25,7 @@ public class Playah : Health
 
 
     [SerializeField]
-    private float SPEED;
+    public float SPEED;
 
     [SerializeField]
     private GameObject MapManager;
@@ -67,8 +67,16 @@ public class Playah : Health
 
 
         Vector2 direction = new Vector2(0.0f, 0.0f);
-        if (Input.GetKey(KeyCode.D)) direction.x += 1.0f;
-        if (Input.GetKey(KeyCode.A)) direction.x += -1.0f;
+        if (Input.GetKey(KeyCode.D))
+        {
+            direction.x += 1.0f;
+            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            direction.x += -1.0f;
+            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+        }
         if (Input.GetKey(KeyCode.W)) direction.y += 1.0f;
         if (Input.GetKey(KeyCode.S)) direction.y += -1.0f;
 
