@@ -28,7 +28,7 @@ public class Playah : Health
     public float SPEED;
 
     [SerializeField]
-    private GameObject MapManager;
+    private GameObject mapManager;
 
     [SerializeField]
     private GameObject FirePoint;
@@ -55,8 +55,9 @@ public class Playah : Health
         base.Start();
         healthBar.SetMaxHealth(maxHP);
 
-
         InitParticleSystems();
+
+        transform.position = new Vector3(MapManager.MAP_WIDTH / 2.0f, 2.0f, 0.0f);
     }
 
     // Update is called once per frame
@@ -209,7 +210,7 @@ public class Playah : Health
                     }
                 }
 
-                MapManager mm = MapManager.GetComponent<MapManager>();
+                MapManager mm = mapManager.GetComponent<MapManager>();
                 TileData? tile = mm.HitTile(primaryHitPoint, MINING_DAMAGE_PER_SECOND);
                 if (tile == null)
                 {

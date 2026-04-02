@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using static TileData;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class MapManager : GameObject2D
 {
@@ -67,10 +68,19 @@ public class MapManager : GameObject2D
 
     private Dictionary<Vector3Int, TileData> tileDatas;
 
+    // BG
+    [SerializeField]
+    private Tilemap bgMap;
+
+    [SerializeField]
+    private TileBase dirtBgTile;
+
+    [SerializeField]
+    private TileBase[] spaceBGTiles;
 
 
-    const int MAP_WIDTH = 100;
-    const int MAP_HEIGHT = 150;
+    public const int MAP_WIDTH = 100;
+    public const int MAP_HEIGHT = 150;
 
 
 
@@ -82,10 +92,24 @@ public class MapManager : GameObject2D
 
         TempTile[,] typeGrid = new TerrainGenerator(MAP_WIDTH, MAP_HEIGHT).GenerateTerrain();
 
+        for (int i = -10; i < 0; i++)
+        {
+            for (int j = 0; j < MAP_WIDTH; j++)
+            {
+                int roll = Random.Range(0, spaceBGTiles.Length);
+                TileBase tile = spaceBGTiles[roll];
+                bgMap.SetTile(RowCol2GridPosition(i, j), tile);
+            }
+        }
+
         for (int i = 0; i < MAP_HEIGHT; i++)
         {
             for (int j = 0; j < MAP_WIDTH; j++)
             {
+                // background
+                bgMap.SetTile(RowCol2GridPosition(i, j), dirtBgTile);
+
+                // tiles
                 switch (typeGrid[i, j].type)
                 {
                     case TempTile.TileType.EMPTY:
