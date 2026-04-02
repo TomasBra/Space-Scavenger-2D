@@ -134,13 +134,86 @@ public class Playah : Health
         switch (hit.transform.gameObject.tag)
         {
             case TILEMAP_TAG:
+                /*
                 Vector3 hitPoint = new Vector3(hit.point.x, hit.point.y, 0);
                 if (MapManager.GetComponent<MapManager>().GetTile(hitPoint) == null)
                 {
+
                     hitPoint = new Vector3(hit.point.x + direction.x * .25f, hit.point.y + direction.y * .25f, 0);
+                }*/
+
+                const float MAGIC = 0.02f;
+
+                Vector3 tempHitPoint = new Vector3(hit.point.x - Math.Sign(hit.point.x) * MAGIC / 2.0f, hit.point.y - Math.Sign(hit.point.y) * MAGIC / 2.0f, 0.0f);
+                Vector3 primaryHitPoint;
+                Vector3 secondaryHitPoint;
+
+                if (direction.x > 0)
+                {
+                    if (direction.y > 0)
+                    {
+                        if (Math.Abs(direction.x) > Math.Abs(direction.y))
+                        {
+                            primaryHitPoint = new Vector3(tempHitPoint.x + MAGIC, tempHitPoint.y, 0);
+                            secondaryHitPoint = new Vector3(tempHitPoint.x, tempHitPoint.y + MAGIC, 0);
+                        }
+                        else
+                        {
+                            primaryHitPoint = new Vector3(tempHitPoint.x, tempHitPoint.y + MAGIC, 0);
+                            secondaryHitPoint = new Vector3(tempHitPoint.x + MAGIC, tempHitPoint.y, 0);
+                        }
+                    }
+                    else
+                    {
+                        if (Math.Abs(direction.x) > Math.Abs(direction.y))
+                        {
+                            primaryHitPoint = new Vector3(tempHitPoint.x + MAGIC, tempHitPoint.y, 0);
+                            secondaryHitPoint = new Vector3(tempHitPoint.x, tempHitPoint.y - MAGIC, 0);
+                        }
+                        else
+                        {
+                            primaryHitPoint = new Vector3(tempHitPoint.x, tempHitPoint.y - MAGIC, 0);
+                            secondaryHitPoint = new Vector3(tempHitPoint.x + MAGIC, tempHitPoint.y, 0);
+                        }
+                    }
+                }
+                else
+                {
+                    if (direction.y > 0)
+                    {
+                        if (Math.Abs(direction.x) > Math.Abs(direction.y))
+                        {
+                            primaryHitPoint = new Vector3(tempHitPoint.x - MAGIC, tempHitPoint.y, 0);
+                            secondaryHitPoint = new Vector3(tempHitPoint.x, tempHitPoint.y + MAGIC, 0);
+                        }
+                        else
+                        {
+                            primaryHitPoint = new Vector3(tempHitPoint.x, tempHitPoint.y + MAGIC, 0);
+                            secondaryHitPoint = new Vector3(tempHitPoint.x - MAGIC, tempHitPoint.y, 0);
+                        }
+                    }
+                    else
+                    {
+                        if (Math.Abs(direction.x) > Math.Abs(direction.y))
+                        {
+                            primaryHitPoint = new Vector3(tempHitPoint.x - MAGIC, tempHitPoint.y, 0);
+                            secondaryHitPoint = new Vector3(tempHitPoint.x, tempHitPoint.y - MAGIC, 0);
+                        }
+                        else
+                        {
+                            primaryHitPoint = new Vector3(tempHitPoint.x, tempHitPoint.y - MAGIC, 0);
+                            secondaryHitPoint = new Vector3(tempHitPoint.x - MAGIC, tempHitPoint.y, 0);
+                        }
+                    }
                 }
 
-                TileData tile = MapManager.GetComponent<MapManager>().HitTile(hitPoint, MINING_DAMAGE_PER_SECOND);
+                MapManager mm = MapManager.GetComponent<MapManager>();
+                TileData? tile = mm.HitTile(primaryHitPoint, MINING_DAMAGE_PER_SECOND);
+                if (tile == null)
+                {
+                    tile = mm.HitTile(secondaryHitPoint, MINING_DAMAGE_PER_SECOND);
+                }
+
                 ProcessTile(tile);
                 break;
 
