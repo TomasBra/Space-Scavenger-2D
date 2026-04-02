@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
@@ -17,9 +18,8 @@ public class Playah : Health
     private const float LASER_DISTANCE = 5;
     private const float MINING_DAMAGE_PER_SECOND = 5;
     private const float ENEMY_DAMAGE_PER_SECOND = 5;
-    
 
-    public int ironOre = 0; 
+    public int ironOre = 0;
     public int copperOre = 0;
     public int goldOre = 0;
 
@@ -48,11 +48,13 @@ public class Playah : Health
     private List<ParticleSystem> laserStartParticleSystems = new List<ParticleSystem>();
     private List<ParticleSystem> laserEndParticleSystems = new List<ParticleSystem>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
+
+
     public void Start()
     {
         base.Start();
         healthBar.SetMaxHealth(maxHP);
+
 
         InitParticleSystems();
     }
@@ -60,7 +62,7 @@ public class Playah : Health
     // Update is called once per frame
     public void Update()
     {
-        base.Update();  
+        base.Update();
         //DebugUI(); // testovaci funkce, potom smazat
 
 
@@ -134,14 +136,6 @@ public class Playah : Health
         switch (hit.transform.gameObject.tag)
         {
             case TILEMAP_TAG:
-                /*
-                Vector3 hitPoint = new Vector3(hit.point.x, hit.point.y, 0);
-                if (MapManager.GetComponent<MapManager>().GetTile(hitPoint) == null)
-                {
-
-                    hitPoint = new Vector3(hit.point.x + direction.x * .25f, hit.point.y + direction.y * .25f, 0);
-                }*/
-
                 const float MAGIC = 0.02f;
 
                 Vector3 tempHitPoint = new Vector3(hit.point.x - Math.Sign(hit.point.x) * MAGIC / 2.0f, hit.point.y - Math.Sign(hit.point.y) * MAGIC / 2.0f, 0.0f);
@@ -219,7 +213,7 @@ public class Playah : Health
 
             case ENEMY_TAG:
                 health = hit.transform.GetComponent<Health>();
-                if(health != null)
+                if (health != null)
                     health.TakeDamage(ENEMY_DAMAGE_PER_SECOND * Time.deltaTime, laserEndPosition - FirePoint.transform.position);
                 break;
 
@@ -231,10 +225,10 @@ public class Playah : Health
 
 
         }
-        
 
 
-        
+
+
     }
 
     private void ProcessTile(TileData? tile)
@@ -251,12 +245,12 @@ public class Playah : Health
                 break;
 
             case TileType.COPPER:
-                copperOre+= tile.materialAmount;
+                copperOre += tile.materialAmount;
                 itemCounter.SetCopper(copperOre);
                 break;
 
             case TileType.GOLD:
-                goldOre+= tile.materialAmount;
+                goldOre += tile.materialAmount;
                 itemCounter.SetGold(goldOre);
                 break;
         }

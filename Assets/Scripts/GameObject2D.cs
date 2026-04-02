@@ -16,6 +16,9 @@ public class GameObject2D : MonoBehaviour
     public GameObject player; //public nutný kvùli dìdìní
 
     [HideInInspector]
+    public Playah playah;
+
+    [HideInInspector]
     public string PLAYER_TAG; //public nutný kvùli dìdìní
 
     [HideInInspector]
@@ -28,6 +31,7 @@ public class GameObject2D : MonoBehaviour
 
         rigidbody = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag(PLAYER_TAG);
+        playah = player.GetComponent<Playah>();
         animator = GetComponent<Animator>();
     }
 

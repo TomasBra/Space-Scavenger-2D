@@ -14783,7 +14783,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: -876546973899608171, guid: 91b224e5bb0498048af3a431a56bbb00, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14893,8 +14893,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Playah
   rigidbody: {fileID: 0}
   player: {fileID: 0}
+  playah: {fileID: 0}
+  PLAYER_TAG: 
+  animator: {fileID: 0}
   maxHP: 50
   HP: 0
+  dead: 0
+  material: {fileID: 0}
   ironOre: 0
   copperOre: 0
   goldOre: 0

@@ -8,32 +8,38 @@ public class Enemy : Health
 {
 
     [SerializeField]
-    private float TRIGGER_DISTANCE;
+    protected float TRIGGER_DISTANCE;
 
     [SerializeField]
-    private float STOP_MOVE_DISTANCE;
+    protected float STOP_MOVE_DISTANCE;
 
     [SerializeField]
-    private float SPEED;
+    protected float SPEED;
 
     [SerializeField]
-    private float DAMAGE;
+    protected float DAMAGE;
 
     [SerializeField]
-    private float ATACK_COOL_DOWN; //v sekundach
+    protected float ATACK_COOL_DOWN; //v sekundach
 
     [SerializeField]
-    private float MIN_ATTACK_DISTANCE;
+    protected float MIN_ATTACK_DISTANCE;
 
     [SerializeField]
-    private GameObject Projectile;
+    protected GameObject Projectile;
 
-    private DateTime lastAttack;
+    [HideInInspector]
+    protected DateTime lastAttack;
 
-    private Tilemap tilemap;
-    private Stack<Vector3> pathToPlayer = new Stack<Vector3>();
-    private Vector3Int prevPlayerGridPos;
+    [HideInInspector]
+    protected Tilemap tilemap;
+    [HideInInspector]
+    protected Stack<Vector3> pathToPlayer = new Stack<Vector3>();
+    [HideInInspector]
+    protected Vector3Int prevPlayerGridPos;
 
+    protected string layersToIgnore = "Projectiles Ignore";
+    protected LayerMask raycastIgnoreMask;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
@@ -58,34 +64,37 @@ public class Enemy : Health
         if (toPlayer.magnitude > STOP_MOVE_DISTANCE
             && toPlayer.magnitude < TRIGGER_DISTANCE)
         {
-            RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + toPlayer.normalized * GetComponent<CircleCollider2D>().radius * 1.05f, toPlayer);
-            // if (hit.collider == null)
-            // {
-            //     Move(toPlayer, SPEED);
-            // }
-            // else
-            
-            Vector3Int currPlayerGridPos = tilemap.WorldToCell(player.transform.position);
-
-            if (currPlayerGridPos != prevPlayerGridPos)
+            raycastIgnoreMask = ~(1 << LayerMask.NameToLayer(layersToIgnore));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, toPlayer, Mathf.Infinity, raycastIgnoreMask);
+            if (hit.collider.transform.tag == PLAYER_TAG)
             {
-                pathToPlayer = EnemyPathFinder.FindPath(tilemap, transform.position, player.transform.position);
-                prevPlayerGridPos = currPlayerGridPos;
-            }
-
-            if (pathToPlayer.Count > 0)
-            {
-                Vector2 toNextPathPoint = pathToPlayer.Peek() - transform.position;
-                if (toNextPathPoint.magnitude < MAGIC)
-                {
-                    pathToPlayer.Pop();
-                }
-
-                Move(toNextPathPoint, SPEED);
+                Move(toPlayer, SPEED);
             }
             else
             {
-                Move(Vector2.zero, 0);
+
+                Vector3Int currPlayerGridPos = tilemap.WorldToCell(player.transform.position);
+
+                if (currPlayerGridPos != prevPlayerGridPos)
+                {
+                    pathToPlayer = EnemyPathFinder.FindPath(tilemap, transform.position, player.transform.position);
+                    prevPlayerGridPos = currPlayerGridPos;
+                }
+
+                if (pathToPlayer.Count > 0)
+                {
+                    Vector2 toNextPathPoint = pathToPlayer.Peek() - transform.position;
+                    if (toNextPathPoint.magnitude < MAGIC)
+                    {
+                        pathToPlayer.Pop();
+                    }
+
+                    Move(toNextPathPoint, SPEED);
+                }
+                else
+                {
+                    Move(Vector2.zero, 0);
+                }
             }
             
         }
@@ -102,7 +111,7 @@ public class Enemy : Health
 
     }
 
-    void Attack()
+    public virtual void Attack()
     {
         if (Projectile != null)
         {
@@ -114,18 +123,5 @@ public class Enemy : Health
             Instantiate(Projectile, position: transform.position, rotation: Quaternion.identity);
 
         }
-    }
-
-    public void TakeDamage(float damage, Vector2? knockbackDirection = null)
-    {
-        HP -= damage;
-        if (knockbackDirection != null)
-        {
-            knockbackDirection.Value.Normalize();
-            rigidbody.AddForce(knockbackDirection.Value * 10f);
-        }
-
-        if (HP < 0)
-            Destroy(this.gameObject);
     }
 }
