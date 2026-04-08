@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1979837079064137547}
   - component: {fileID: 4889760561983824155}
   - component: {fileID: 2356789523865781599}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Queen
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -198,8 +198,10 @@ MonoBehaviour:
   PLAYER_TAG: 
   animator: {fileID: 0}
   maxHP: 50
+  DEATH_ANIM_TIME: 0.3
   HP: 0
   dead: 0
   material: {fileID: 0}
+  FLASH_TIME: 0.5
   SPAWN_COOL_DOWN: 10
   SpawnableObject: {fileID: 7011711083779050010, guid: 63cdbfd51ddaca34690526a24f2939b8, type: 3}

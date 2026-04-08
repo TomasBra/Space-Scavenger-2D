@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : Health
 {
@@ -38,9 +39,10 @@ public class Enemy : Health
     [HideInInspector]
     protected Vector3Int prevPlayerGridPos;
 
-    protected string layersToIgnore = "Projectiles Ignore";
+    protected string[] layersToIgnore = new string[] { "Projectiles", "Enemies" };
     protected LayerMask raycastIgnoreMask;
 
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
@@ -58,13 +60,15 @@ public class Enemy : Health
     public void Update()
     {
         base.Update();
+        if (dead)
+            return;
 
         Vector2 toPlayer = player.transform.position - this.transform.position;
 
         if (toPlayer.magnitude > STOP_MOVE_DISTANCE
             && toPlayer.magnitude < TRIGGER_DISTANCE)
         {
-            raycastIgnoreMask = ~(1 << LayerMask.NameToLayer(layersToIgnore));
+            raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore));
             RaycastHit2D hit = Physics2D.Raycast(transform.position, toPlayer, Mathf.Infinity, raycastIgnoreMask);
             if (hit.collider.transform.tag == PLAYER_TAG)
             {
@@ -120,8 +124,8 @@ public class Enemy : Health
             direction.Normalize();
 
             //vystøelení a natoèení projektilu správným smìrem
-            Instantiate(Projectile, position: transform.position, rotation: Quaternion.identity);
-
+            GameObject projectile = Instantiate(Projectile, position: transform.position, rotation: Quaternion.identity);
+            projectile.transform.Rotate(0, 0, LookAt2D(projectile.transform.position, player.transform.position)); //natoèí projektil správným smìrem
         }
     }
 }

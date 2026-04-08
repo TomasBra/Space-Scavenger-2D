@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3093368364431400676}
   - component: {fileID: 6565245022499129483}
   - component: {fileID: 1265156095917652591}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: EnemyMelee
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -113,6 +113,7 @@ MonoBehaviour:
   PLAYER_TAG: 
   animator: {fileID: 0}
   maxHP: 3
+  DEATH_ANIM_TIME: 0.3
   HP: 0
   dead: 0
   material: {fileID: 0}

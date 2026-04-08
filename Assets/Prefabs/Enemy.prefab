@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1911380719107023154}
   - component: {fileID: 674111196482826402}
   - component: {fileID: 2518397964730516416}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -176,6 +176,7 @@ MonoBehaviour:
   PLAYER_TAG: 
   animator: {fileID: 0}
   maxHP: 3
+  DEATH_ANIM_TIME: 0.3
   HP: 10
   dead: 0
   material: {fileID: 0}

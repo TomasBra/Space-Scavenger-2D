@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9143872091962154195}
   - component: {fileID: 6176690850458448079}
   - component: {fileID: 4871568759424002851}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Projectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -108,9 +108,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   rigidbody: {fileID: 0}
   player: {fileID: 0}
+  playah: {fileID: 0}
   PLAYER_TAG: 
-  maxHP: 3
-  HP: 3
+  animator: {fileID: 0}
   lifeTime: 3
   speed: 6
   targetTag: Player

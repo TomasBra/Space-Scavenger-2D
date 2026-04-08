@@ -15,7 +15,7 @@ public class Playah : Health
     private const string ENEMY_TAG = "Enemy";
     private const string PROJECTILE_TAG = "Projectile";
 
-    private const float LASER_DISTANCE = 5;
+    private const float LASER_DISTANCE = 4.5f;
     private const float MINING_DAMAGE_PER_SECOND = 5;
     private const float ENEMY_DAMAGE_PER_SECOND = 5;
 
@@ -23,6 +23,8 @@ public class Playah : Health
     public int copperOre = 0;
     public int goldOre = 0;
 
+    public Weapons weapon = Weapons.Projectiles;
+    public List<ProjectileWeaponUpgrade> weaponUpgrades = new List<ProjectileWeaponUpgrade>();
 
     [SerializeField]
     public float SPEED;
@@ -49,6 +51,8 @@ public class Playah : Health
     private List<ParticleSystem> laserEndParticleSystems = new List<ParticleSystem>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
+    private string[] layersToIgnore = new string[] { "Projectiles", "Ignore Raycast" };
+    private LayerMask raycastIgnoreMask;
 
     public void Start()
     {
@@ -90,14 +94,17 @@ public class Playah : Health
 
         if (Input.GetMouseButton(0))
         {
-            Laser2D();
+            if (weapon == Weapons.Laser2D)
+                Laser2D();
+            else if (weapon == Weapons.Projectiles)
+                Projectiles2D();
         }
         else
         {
             GetComponent<LineRenderer>().positionCount = 0;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && weapon == Weapons.Laser2D)
         {
             StartLaserParticles();
         }
@@ -115,6 +122,26 @@ public class Playah : Health
         return shouldDie;
     }
 
+    void Projectiles2D()
+    {
+        List<GameObject> projectiles = new List<GameObject>();
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = mousePosition - (Vector2)this.transform.position;
+        direction.Normalize();
+
+        for (int i = 0; i < weaponUpgrades.Count; i++)
+        {
+            //naplni projektily
+            weaponUpgrades[i].Apply(projectiles, transform.position, FirePoint.transform.position, direction);
+        }
+
+        for(int i = 0; i < projectiles.Count; i++)
+        {
+            GameObject projectile = Instantiate(projectiles[i], position: transform.position, rotation: Quaternion.identity);
+            projectile.transform.Rotate(0, 0, LookAt2D(projectile.transform.position, player.transform.position)); //natočí projektil správným směrem
+        }
+    }
+
     void Laser2D()
     {
         Vector3 laserEndPosition;
@@ -127,7 +154,9 @@ public class Playah : Health
         laserEndPosition = shorterVector(FirePoint.transform.position + new Vector3(direction.x, direction.y, 0) * LASER_DISTANCE, mousePosition, FirePoint.transform.position);
         float distance = (laserEndPosition - FirePoint.transform.position).magnitude;
 
-        RaycastHit2D hit = Physics2D.Raycast(FirePoint.transform.position, direction, distance);
+        raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore));
+
+        RaycastHit2D hit = Physics2D.Raycast(FirePoint.transform.position, direction, distance, raycastIgnoreMask);
 
         if (hit.collider != null)
         {

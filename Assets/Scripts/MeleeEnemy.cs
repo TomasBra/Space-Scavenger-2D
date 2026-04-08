@@ -17,7 +17,8 @@ public class MeleeEnemy : Enemy
     void Update()
     {
         base.Update();
-
+        if (dead)
+            return;
     }
 
     public override void Attack()

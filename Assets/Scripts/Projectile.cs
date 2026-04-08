@@ -1,10 +1,7 @@
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class Projectile : GameObject2D
 {
@@ -25,7 +22,7 @@ public class Projectile : GameObject2D
     [SerializeField]
     private List<string> tagsToIgnore = new List<string>();
 
-    private GameObject target;
+    //private GameObject target;
 
     [SerializeField]
     private float damage = 5;
@@ -35,9 +32,9 @@ public class Projectile : GameObject2D
         base.Start();
         spawnTime = DateTime.Now;
 
-        target = GameObject.FindGameObjectWithTag(targetTag);
+        //target = GameObject.FindGameObjectWithTag(targetTag);
 
-        transform.Rotate(0, 0, LookAt2D(this.transform.position, target.transform.position));
+        //transform.Rotate(0, 0, LookAt2D(this.transform.position, target.transform.position));
     }
 
     // Update is called once per frame

@@ -12,9 +12,10 @@ public class Queen : Health
     [SerializeField]
     private GameObject SpawnableObject;
 
-    private DateTime lastSpawn;
+    [SerializeField]
+    public float lastSpawnTime;
 
-    private string layersToIgnore = "Projectiles Ignore";
+    protected string[] layersToIgnore = new string[] { "Projectiles", "Enemies" };
 
     private LayerMask raycastIgnoreMask;
 
@@ -22,21 +23,24 @@ public class Queen : Health
     public void Start()
     {
         base.Start();
-        lastSpawn = DateTime.Now;
+        lastSpawnTime = Time.time;
     }
 
     // Update is called once per frame
     public void Update()
     {
         base.Update();
+
+        if (dead)
+            return;
+
         Vector2 toPlayer = player.transform.position - this.transform.position;
-        raycastIgnoreMask = ~(1 << LayerMask.NameToLayer(layersToIgnore));
+        raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore));
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, toPlayer, Mathf.Infinity, raycastIgnoreMask);
-        if (hit.transform.tag == PLAYER_TAG && (DateTime.Now - lastSpawn).TotalSeconds > SPAWN_COOL_DOWN)
+        if (hit.transform.tag == PLAYER_TAG && (Time.time - lastSpawnTime) > SPAWN_COOL_DOWN)
         {
-            Debug.Log("Spawn");
-            lastSpawn = DateTime.Now;
+            lastSpawnTime = Time.time;
             Spawn(SpawnableObject);
         }
 
@@ -53,16 +57,16 @@ public class Queen : Health
         }
     }
 
-    public void TakeDamage(float damage, Vector2? knockbackDirection = null)
+    public override bool TakeDamage(float damage, Vector2? knockbackDirection = null, bool destroyable = true)
     {
-        HP -= damage;
-        if (knockbackDirection != null)
+        bool dead = base.TakeDamage(damage, knockbackDirection, destroyable);
+
+        //pokud neni mrtva a dostal jsem dammage, tak snizim zbyvajici cas do spawnuti
+        if (!dead)
         {
-            knockbackDirection.Value.Normalize();
-            rigidbody.AddForce(knockbackDirection.Value * 10f);
+            lastSpawnTime -= damage * Mathf.Min(maxHP/HP, 10); //koeficient od 1 do 10
         }
 
-        if (HP < 0)
-            Destroy(this.gameObject);
+        return dead;
     }
 }
