@@ -68,12 +68,16 @@ public class MapManager : GameObject2D
 
     private Dictionary<Vector3Int, TileData> tileDatas;
 
-    // BG
+    // dirt bg
     [SerializeField]
-    private Tilemap bgMap;
+    private Tilemap dirtBgMap;
 
     [SerializeField]
     private TileBase dirtBgTile;
+
+    // space bg
+    [SerializeField]
+    private Tilemap spaceBgMap;
 
     [SerializeField]
     private TileBase[] spaceBGTiles;
@@ -92,13 +96,13 @@ public class MapManager : GameObject2D
 
         TempTile[,] typeGrid = new TerrainGenerator(MAP_WIDTH, MAP_HEIGHT).GenerateTerrain();
 
-        for (int i = -10; i < 0; i++)
+        for (int i = -10; i < 10; i++)
         {
             for (int j = 0; j < MAP_WIDTH; j++)
             {
                 int roll = Random.Range(0, spaceBGTiles.Length);
                 TileBase tile = spaceBGTiles[roll];
-                bgMap.SetTile(RowCol2GridPosition(i, j), tile);
+                spaceBgMap.SetTile(RowCol2GridPosition(i, j), tile);
             }
         }
 
@@ -107,7 +111,7 @@ public class MapManager : GameObject2D
             for (int j = 0; j < MAP_WIDTH; j++)
             {
                 // background
-                bgMap.SetTile(RowCol2GridPosition(i, j), dirtBgTile);
+                dirtBgMap.SetTile(RowCol2GridPosition(i, j), dirtBgTile);
 
                 // tiles
                 switch (typeGrid[i, j].type)
