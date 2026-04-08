@@ -35,6 +35,13 @@ public class Health : GameObject2D
     public void Update()
     {
         base.Update();
+
+        if (dead)
+        {
+            Destroy(this.GetComponent<BoxCollider2D>());
+            Destroy(this.GetComponent<CircleCollider2D>());
+            this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        }
     }
 
     public virtual bool TakeDamage(float damage, Vector2? knockbackDirection = null, bool destroyable = true)

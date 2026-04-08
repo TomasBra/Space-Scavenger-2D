@@ -31,10 +31,16 @@ public class Projectile : GameObject2D
     {
         base.Start();
         spawnTime = DateTime.Now;
-
+        SetUpIngoreLayer();
         //target = GameObject.FindGameObjectWithTag(targetTag);
 
         //transform.Rotate(0, 0, LookAt2D(this.transform.position, target.transform.position));
+    }
+
+    void SetUpIngoreLayer()
+    {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemies"), LayerMask.NameToLayer("Projectiles"));
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemies"), LayerMask.NameToLayer("Projectiles"));
     }
 
     // Update is called once per frame

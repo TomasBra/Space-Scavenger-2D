@@ -116,7 +116,7 @@ MonoBehaviour:
   targetTag: Player
   tagsToIgnore:
   - Enemy
-  - Projectiles Ignore
+  - Projectile
   damage: 10
 --- !u!50 &6176690850458448079
 Rigidbody2D:

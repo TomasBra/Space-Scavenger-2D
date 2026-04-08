@@ -14784,7 +14784,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 91b224e5bb0498048af3a431a56bbb00, type: 3}
+  - {fileID: -876546973899608171, guid: 1158f1d2a0874b540989785703d89ebc, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14898,6 +14898,7 @@ MonoBehaviour:
   PLAYER_TAG: 
   animator: {fileID: 0}
   maxHP: 50
+  DEATH_ANIM_TIME: 0.3
   HP: 0
   dead: 0
   material: {fileID: 0}
@@ -14905,8 +14906,9 @@ MonoBehaviour:
   ironOre: 0
   copperOre: 0
   goldOre: 0
+  weapon: 0
   SPEED: 3.5
-  MapManager: {fileID: 0}
+  mapManager: {fileID: 0}
   FirePoint: {fileID: 6875613860000558312}
   StartVFX: {fileID: 4902656185812622813}
   EndVFX: {fileID: 3582155200848299871}

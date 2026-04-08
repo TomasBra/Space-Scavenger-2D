@@ -961,7 +961,7 @@ MonoBehaviour:
     rid: -2
   m_ShadowCastingSource: 0
   m_ShadowMesh:
-    m_Mesh: {fileID: 1848300618}
+    m_Mesh: {fileID: 2004065540}
     m_LocalBounds:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0, y: 0, z: 0}
@@ -1712,7 +1712,7 @@ PrefabInstance:
     - target: {fileID: 4765490469436817702, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: -876546973899608171, guid: 91b224e5bb0498048af3a431a56bbb00, type: 3}
+      objectReference: {fileID: -876546973899608171, guid: 1158f1d2a0874b540989785703d89ebc, type: 3}
     - target: {fileID: 6107281840003821224, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -1865,7 +1865,7 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1320469777}
   m_SourcePrefab: {fileID: 100100000, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
---- !u!43 &1848300618
+--- !u!43 &2004065540
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
