@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.Analytics;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using static TileData;
 
@@ -36,8 +37,6 @@ public class Playah : Health
     public int ironOre = 0;
     public int copperOre = 0;
     public int goldOre = 0;
-
-    public Weapons weapon = Weapons.Projectiles;
 
     [SerializeField]
     public GameObject ProjectilePrefab;
@@ -74,6 +73,7 @@ public class Playah : Health
     public void Start()
     {
         base.Start();
+        DEATH_ANIM_TIME = 0.8f;
         healthBar.SetMaxHealth(maxHP);
 
         InitParticleSystems();
@@ -111,20 +111,23 @@ public class Playah : Health
 
         if (Input.GetMouseButton(0))
         {
-            if (weapon == Weapons.Laser2D)
-                Laser2D();
-            else if (weapon == Weapons.Projectiles && (Time.time - lastShoot) > PROJECTILE_SPAWN_COOL_DOWN)
-            {
-                lastShoot = Time.time;
-                Projectiles2D();
-            }
+            Laser2D();
         }
         else
         {
             GetComponent<LineRenderer>().positionCount = 0;
         }
 
-        if (Input.GetMouseButtonDown(0) && weapon == Weapons.Laser2D)
+        if (Input.GetMouseButtonDown(1))
+        {
+            if ((Time.time - lastShoot) > PROJECTILE_SPAWN_COOL_DOWN)
+            {
+                lastShoot = Time.time;
+                Projectiles2D();
+            }
+        }
+
+        if (Input.GetMouseButtonDown(0))
         {
             StartLaserParticles();
         }
@@ -137,8 +140,14 @@ public class Playah : Health
 
     public override bool TakeDamage(float damage, Vector2? knockbackDirection = null, bool destroyable = true)
     {
-        bool shouldDie = base.TakeDamage(damage, knockbackDirection, false);
+        bool shouldDie = base.TakeDamage(damage, knockbackDirection, true);
         healthBar.SetHealth(HP);
+        if (shouldDie)
+        {
+
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            this.Invoke(() => SceneManager.LoadScene(currentSceneName), DEATH_ANIM_TIME);
+        }
         return shouldDie;
     }
 

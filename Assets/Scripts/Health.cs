@@ -63,6 +63,7 @@ public class Health : GameObject2D
 
         if (HP <= 0 && !dead)
         {
+            StopAllCoroutines();
             if (destroyable)
             {
                 dead = true;
