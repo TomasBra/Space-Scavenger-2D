@@ -14,7 +14,6 @@ public class ItemCounter : MonoBehaviour
 
     void Start()
     {
-        SetSamples(0, 0);
         SetIron(0);
         SetCopper(0);
         SetGold(0);
