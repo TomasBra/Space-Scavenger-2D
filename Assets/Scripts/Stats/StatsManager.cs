@@ -3,17 +3,17 @@ using UnityEngine;
 public class StatsManager : MonoBehaviour
 {
 
-    public static StatsManager Instance;
+    //public static StatsManager Instance;
     [Header("Tool Stats")]
-    public int LASER_DISTANCE;
-    public int MINING_DAMAGE_PER_SECOND;
+    public int LASER_DISTANCE = 10;
+    public int MINING_DAMAGE_PER_SECOND = 10;
 
     [Header("Weapon Stats")]
-    public int ENEMY_DAMAGE_PER_SECOND;
+    public int ENEMY_DAMAGE_PER_SECOND = 10;
 
 
     [Header("Movement Stats")]
-    public int SPEED;
+    public int SPEED = 10;
 
     /// <summary>
     /// dostupnost itemCounteru
@@ -27,18 +27,21 @@ public class StatsManager : MonoBehaviour
     [Header("Health Stats")]
     public HealthBar healthBar; //ukazatel zivota hrace
 
-    private void Awake()
+    public static StatsManager Instance { get; private set; }
+
+    void Awake()
     {
-        if(Instance == null)
+        if (Instance != null && Instance != this)
         {
-            Instance = this; 
+            Destroy(gameObject);
+            return;
         }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
