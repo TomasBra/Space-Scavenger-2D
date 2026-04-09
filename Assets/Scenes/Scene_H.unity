@@ -1007,7 +1007,7 @@ MonoBehaviour:
     rid: -2
   m_ShadowCastingSource: 0
   m_ShadowMesh:
-    m_Mesh: {fileID: 1900708748}
+    m_Mesh: {fileID: 1789202111}
     m_LocalBounds:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0, y: 0, z: 0}
@@ -1586,7 +1586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1097708218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2347,7 +2347,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4574510472673209580, guid: b736978da2b1e064293c31ce8bef8a46, type: 3}
   m_PrefabInstance: {fileID: 2130859772}
   m_PrefabAsset: {fileID: 0}
---- !u!43 &1900708748
+--- !u!43 &1789202111
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
