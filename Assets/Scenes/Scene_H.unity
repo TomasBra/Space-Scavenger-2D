@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 67817726}
   m_Layer: 0
   m_Name: MapManager
-  m_TagString: Untagged
+  m_TagString: MapManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,7 +151,6 @@ MonoBehaviour:
   rigidbody: {fileID: 0}
   player: {fileID: 0}
   playah: {fileID: 0}
-  PLAYER_TAG: 
   animator: {fileID: 0}
   dirtMap: {fileID: 584870995}
   dirtTile: {fileID: 11400000, guid: c4348671b5ad75d458cf72dafa48fd83, type: 2}
@@ -1007,7 +1006,7 @@ MonoBehaviour:
     rid: -2
   m_ShadowCastingSource: 0
   m_ShadowMesh:
-    m_Mesh: {fileID: 1408187798}
+    m_Mesh: {fileID: 1434603117}
     m_LocalBounds:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0, y: 0, z: 0}
@@ -1730,7 +1729,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!43 &1408187798
+--- !u!43 &1434603117
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2062,7 +2061,6 @@ MonoBehaviour:
   rigidbody: {fileID: 0}
   player: {fileID: 0}
   playah: {fileID: 0}
-  PLAYER_TAG: 
   animator: {fileID: 0}
   SPEED: 2
 --- !u!1001 &1508198779

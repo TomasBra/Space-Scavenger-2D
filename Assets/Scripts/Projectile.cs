@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyProjectile : GameObject2D
+public class Projectile : GameObject2D
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -36,8 +36,8 @@ public class EnemyProjectile : GameObject2D
     {
         for (int i = 0; i < layersToIgnore.Count; i++)
         {
-            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(this.tag), LayerMask.NameToLayer(tagsToIgnore[i]));
-            Physics.IgnoreLayerCollision(LayerMask.NameToLayer(this.tag), LayerMask.NameToLayer(tagsToIgnore[i]));
+            Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer(layersToIgnore[i]));
+            Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer(layersToIgnore[i]));
         }
     }
 

@@ -17,6 +17,12 @@ public class MapManager : GameObject2D
             new Vector2Int(0, -1)
         };
 
+    public int maxQueenCount = 0;
+    public int killedQueenCount = 0;
+
+    [SerializeField]
+    private ItemCounter itemCounter;
+
     // dirt
     [SerializeField]
     private Tilemap dirtMap;
@@ -140,6 +146,7 @@ public class MapManager : GameObject2D
                         SpawnNestEnemies(i, j);
                         break;
                     case TempTile.TileType.QUEEN:
+                        maxQueenCount++;
                         SpawnQueenNestEnemies(i, j);
                         break;
                     default:
@@ -151,10 +158,11 @@ public class MapManager : GameObject2D
             }
         }
 
-        InitLightTiles();
+        itemCounter.SetSamples(killedQueenCount, maxQueenCount);
+        //InitLightTiles();
     }
 
-    void InitLightTiles()
+    /*void InitLightTiles()
     {
         for (int i = -1; i < MAP_HEIGHT + 1; i++)
         {
@@ -167,7 +175,7 @@ public class MapManager : GameObject2D
                 }
             }
         }
-    }
+    } TODO: smazat */
 
     int GetTileEmptyNighborsCount(int row, int col)
     {
@@ -311,6 +319,23 @@ public class MapManager : GameObject2D
         }
 
         return null;
+    }
+
+    public void QueenKilled()
+    { 
+        killedQueenCount++;
+
+        itemCounter.SetSamples(killedQueenCount, maxQueenCount);
+
+        if (killedQueenCount >= maxQueenCount)
+        {
+            Win();
+        }
+    }
+
+    private void Win()
+    {
+
     }
 
     // Update is called once per frame
