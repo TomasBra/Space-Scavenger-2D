@@ -152,8 +152,6 @@ MonoBehaviour:
   player: {fileID: 0}
   playah: {fileID: 0}
   animator: {fileID: 0}
-  maxQueenCount: 0
-  killedQueenCount: 0
   itemCounter: {fileID: 1308016772}
   dirtMap: {fileID: 584870995}
   dirtTile: {fileID: 11400000, guid: c4348671b5ad75d458cf72dafa48fd83, type: 2}
@@ -1009,7 +1007,7 @@ MonoBehaviour:
     rid: -2
   m_ShadowCastingSource: 0
   m_ShadowMesh:
-    m_Mesh: {fileID: 1933512716}
+    m_Mesh: {fileID: 1900708748}
     m_LocalBounds:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0, y: 0, z: 0}
@@ -2349,7 +2347,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4574510472673209580, guid: b736978da2b1e064293c31ce8bef8a46, type: 3}
   m_PrefabInstance: {fileID: 2130859772}
   m_PrefabAsset: {fileID: 0}
---- !u!43 &1933512716
+--- !u!43 &1900708748
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

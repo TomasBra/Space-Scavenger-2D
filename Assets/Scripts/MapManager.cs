@@ -17,8 +17,8 @@ public class MapManager : GameObject2D
             new Vector2Int(0, -1)
         };
 
-    public int maxQueenCount = 0;
-    public int killedQueenCount = 0;
+    private int maxQueenCount = 0;
+    private int killedQueenCount = 0;
 
     [SerializeField]
     private ItemCounter itemCounter;
@@ -293,7 +293,6 @@ public class MapManager : GameObject2D
     public TileData? HitTile(Vector2 position, float damage)
     {
         Vector3Int gridPosition = dirtMap.WorldToCell(position);
-
 
         if (!tileDatas.ContainsKey(gridPosition))
             return null;
