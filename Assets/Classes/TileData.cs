@@ -47,7 +47,7 @@ public class TileData
 
     public float Damage(float damage)
     {
-        durability += -damage*Time.deltaTime;
+        durability += -damage;
         if (durability <= 0)
         {
             mapManager.RemoveTile(row, col);

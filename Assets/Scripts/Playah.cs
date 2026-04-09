@@ -12,18 +12,36 @@ using static TileData;
 public class Playah : Health
 {
     private const float LASER_DISTANCE = 4.5f;
-    private const float MINING_DAMAGE_PER_SECOND = 5;
-    private const float ENEMY_DAMAGE_PER_SECOND = 5;
+
+    //upgradovatelný věci
+    private const float LASER_MINING_DAMAGE_PER_SECOND = 5;
+    private const float LASER_DAMAGE_PER_SECOND = 1;
+
+
+    private const int PROJECTILE_COUNT = 1;
+    private const float PROJECTILE_SPAWN_COOL_DOWN = 2; //počet sekund mezi vystrely
+    private const float PROJECTILE_DAMAGE = 5;
+    private const float PROJECTILE_MINING_DAMAGE = 1;
+    private const float PROJECTILE_SPEED = 6;
+    private const float PROJECTILE_LIFETIME = 3; //sekundach
+
+    [SerializeField]
+    public float SPEED;
+
+    //HP...ve skriptu Health, taky upgrade
+    //maxHP...viz vyse
+
+    //konec upgradu
 
     public int ironOre = 0;
     public int copperOre = 0;
     public int goldOre = 0;
 
     public Weapons weapon = Weapons.Projectiles;
-    public List<ProjectileWeaponUpgrade> weaponUpgrades = new List<ProjectileWeaponUpgrade>();
 
     [SerializeField]
-    public float SPEED;
+    public GameObject ProjectilePrefab;
+
 
     [SerializeField]
     private GameObject mapManager;
@@ -49,6 +67,9 @@ public class Playah : Health
 
     private string[] layersToIgnore = new string[] { "Projectiles", "Ignore Raycast" };
     private LayerMask raycastIgnoreMask;
+
+
+    private float lastShoot = Mathf.NegativeInfinity;
 
     public void Start()
     {
@@ -92,8 +113,11 @@ public class Playah : Health
         {
             if (weapon == Weapons.Laser2D)
                 Laser2D();
-            else if (weapon == Weapons.Projectiles)
+            else if (weapon == Weapons.Projectiles && (Time.time - lastShoot) > PROJECTILE_SPAWN_COOL_DOWN)
+            {
+                lastShoot = Time.time;
                 Projectiles2D();
+            }
         }
         else
         {
@@ -120,22 +144,17 @@ public class Playah : Health
 
     void Projectiles2D()
     {
-        List<GameObject> projectiles = new List<GameObject>();
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = mousePosition - (Vector2)this.transform.position;
-        direction.Normalize();
+        Vector2 direction = (mousePosition - (Vector2)FirePoint.transform.position).normalized;
 
-        for (int i = 0; i < weaponUpgrades.Count; i++)
-        {
-            //naplni projektily
-            weaponUpgrades[i].Apply(projectiles, transform.position, FirePoint.transform.position, direction);
-        }
+        GameObject projectile = Instantiate(ProjectilePrefab, player.transform.position, Quaternion.identity);
 
-        for(int i = 0; i < projectiles.Count; i++)
-        {
-            GameObject projectile = Instantiate(projectiles[i], position: transform.position, rotation: Quaternion.identity);
-            projectile.transform.Rotate(0, 0, LookAt2D(projectile.transform.position, player.transform.position)); //natočí projektil správným směrem
-        }
+        projectile.transform.right = -direction;
+
+        projectile.GetComponent<Projectile>().mining_damage = PROJECTILE_MINING_DAMAGE;
+        projectile.GetComponent<Projectile>().damage = PROJECTILE_DAMAGE;
+        projectile.GetComponent<Projectile>().speed = PROJECTILE_SPEED;
+        projectile.GetComponent<Projectile>().lifeTime = PROJECTILE_LIFETIME;
     }
 
     void Laser2D()
@@ -236,10 +255,10 @@ public class Playah : Health
                 }
 
                 MapManager mm = mapManager.GetComponent<MapManager>();
-                TileData? tile = mm.HitTile(primaryHitPoint, MINING_DAMAGE_PER_SECOND);
+                TileData? tile = mm.HitTile(primaryHitPoint, LASER_MINING_DAMAGE_PER_SECOND * Time.deltaTime);
                 if (tile == null)
                 {
-                    tile = mm.HitTile(secondaryHitPoint, MINING_DAMAGE_PER_SECOND);
+                    tile = mm.HitTile(secondaryHitPoint, LASER_MINING_DAMAGE_PER_SECOND*Time.deltaTime);
                 }
 
                 ProcessTile(tile);
@@ -248,13 +267,13 @@ public class Playah : Health
             case ENEMY_TAG:
                 health = hit.transform.GetComponent<Health>();
                 if (health != null)
-                    health.TakeDamage(ENEMY_DAMAGE_PER_SECOND * Time.deltaTime, laserEndPosition - FirePoint.transform.position);
+                    health.TakeDamage(LASER_DAMAGE_PER_SECOND * Time.deltaTime, laserEndPosition - FirePoint.transform.position);
                 break;
 
             case PROJECTILE_TAG:
                 health = hit.transform.GetComponent<Health>();
                 if (health != null)
-                    health.TakeDamage(ENEMY_DAMAGE_PER_SECOND * Time.deltaTime, laserEndPosition - FirePoint.transform.position);
+                    health.TakeDamage(LASER_DAMAGE_PER_SECOND * Time.deltaTime, laserEndPosition - FirePoint.transform.position);
                 break;
 
 

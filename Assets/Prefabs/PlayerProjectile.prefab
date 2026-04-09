@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 9143872091962154195}
   - component: {fileID: 6176690850458448079}
   - component: {fileID: 4871568759424002851}
-  m_Layer: 8
-  m_Name: Projectile
+  m_Layer: 9
+  m_Name: PlayerProjectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.9782, y: 1.9782, z: 1.9782}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -113,13 +113,14 @@ MonoBehaviour:
   lifeTime: 3
   speed: 6
   tagsToIgnore:
-  - Enemy
+  - Player
   - Projectile
   layersToIgnore:
-  - Enemies
+  - Ignore Raycast
   - EnemyProjectiles
   - PlayerProjectiles
   damage: 10
+  mining_damage: 10
 --- !u!50 &6176690850458448079
 Rigidbody2D:
   serializedVersion: 5

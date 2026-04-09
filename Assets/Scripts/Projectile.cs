@@ -8,10 +8,10 @@ public class Projectile : GameObject2D
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     [SerializeField]
-    private float lifeTime = 3;
+    public float lifeTime = 3;
 
     [SerializeField]
-    private float speed = 3;
+    public float speed = 3;
 
     private DateTime spawnTime;
 
@@ -23,7 +23,10 @@ public class Projectile : GameObject2D
     //private GameObject target;
 
     [SerializeField]
-    private float damage = 5;
+    public float damage = 5;
+
+    [SerializeField]
+    public float mining_damage = 10;
 
     void Start()
     {
@@ -55,8 +58,17 @@ public class Projectile : GameObject2D
     void OnCollisionEnter2D(Collision2D col)
     {
         if (tagsToIgnore.Any(entry => entry == col.gameObject.tag))
-        {
             return;
+
+        if (col.gameObject.CompareTag(TILEMAP_TAG))
+        {
+            ContactPoint2D contact = col.contacts[0];
+
+            // posun lehce dovnitø zasaženého tile
+            Vector2 hitPoint = contact.point - contact.normal * 0.05f;
+
+            MapManager mm = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
+            TileData? tile = mm.HitTile(hitPoint, mining_damage);
         }
 
         Health health = col.gameObject.GetComponent<Health>();
@@ -65,14 +77,7 @@ public class Projectile : GameObject2D
             health.TakeDamage(damage);
         }
 
-        //if (col.gameObject.tag == TILEMAP_TAG)
-        //{
-        //    Vector2 hitPoint = col.contacts[0].point;
-        //    MapManager mm = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
-        //    TileData? tile = mm.HitTile(hitPoint, damage);
-        //}
-
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }
 
