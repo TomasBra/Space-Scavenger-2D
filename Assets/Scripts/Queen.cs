@@ -19,11 +19,14 @@ public class Queen : Health
 
     private LayerMask raycastIgnoreMask;
 
+    private MapManager mapManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
         base.Start();
         lastSpawnTime = Time.time;
+        mapManager = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
     }
 
     // Update is called once per frame
@@ -61,10 +64,14 @@ public class Queen : Health
     {
         bool dead = base.TakeDamage(damage, knockbackDirection, destroyable);
 
-        //pokud neni mrtva a dostal jsem dammage, tak snizim zbyvajici cas do spawnuti
+        //pokud neni mrtva a dostal jsem damage, tak snizim zbyvajici cas do spawnuti
         if (!dead)
         {
-            lastSpawnTime -= damage * Mathf.Min(maxHP/HP, 10); //koeficient od 1 do 10
+            lastSpawnTime -= damage * Mathf.Min(maxHP / HP, 10); //koeficient od 1 do 10
+        }
+        else
+        {
+            mapManager.QueenKilled();
         }
 
         return dead;

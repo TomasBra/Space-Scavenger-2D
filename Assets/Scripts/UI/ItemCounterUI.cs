@@ -2,7 +2,8 @@ using UnityEngine;
 using TMPro;
 public class ItemCounter : MonoBehaviour
 {
-
+    [SerializeField]
+    public TextMeshProUGUI sampleText;
     [SerializeField]
     private TextMeshProUGUI ironText;
     [SerializeField]
@@ -13,11 +14,16 @@ public class ItemCounter : MonoBehaviour
 
     void Start()
     {
+        SetSamples(0, 0);
         SetIron(0);
         SetCopper(0);
         SetGold(0);
     }
 
+    public void SetSamples(int amount, int maxAmount)
+    { 
+        sampleText.text = amount.ToString() + "/" + maxAmount.ToString();
+    }
 
     public void SetIron(int amount)
     {
