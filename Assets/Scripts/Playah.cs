@@ -65,7 +65,7 @@ public class Playah : Health
     private List<ParticleSystem> laserEndParticleSystems = new List<ParticleSystem>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    private string[] layersToIgnore = new string[] { "Projectiles", "Ignore Raycast" };
+    private string[] layersToIgnore = new string[] { "EnemyProjectiles", "PlayerProjectiles", "Ignore Raycast" };
     private LayerMask raycastIgnoreMask;
 
 
