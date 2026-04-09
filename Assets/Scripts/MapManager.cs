@@ -285,7 +285,6 @@ public class MapManager : GameObject2D
     public TileData? HitTile(Vector2 position, float damage)
     {
         Vector3Int gridPosition = dirtMap.WorldToCell(position);
-        // Debug.Log(gridPosition);
 
         if (!tileDatas.ContainsKey(gridPosition))
             return null;

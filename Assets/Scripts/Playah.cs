@@ -11,10 +11,6 @@ using static TileData;
 
 public class Playah : Health
 {
-    private const string TILEMAP_TAG = "TileMap";
-    private const string ENEMY_TAG = "Enemy";
-    private const string PROJECTILE_TAG = "Projectile";
-
     private const float LASER_DISTANCE = 4.5f;
     private const float MINING_DAMAGE_PER_SECOND = 5;
     private const float ENEMY_DAMAGE_PER_SECOND = 5;

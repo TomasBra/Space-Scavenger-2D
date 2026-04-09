@@ -8,6 +8,16 @@ public class GameObject2D : MonoBehaviour
     /*
     Slouží jako tøída k dìdìní všemi herními objekty a obsahuje všeobecnì potøebné vìci. 
      */
+    [HideInInspector]
+    public const string MAP_MANAGER_TAG = "MapManager";
+    [HideInInspector]
+    public const string TILEMAP_TAG = "TileMap";
+    [HideInInspector]
+    public const string ENEMY_TAG = "Enemy";
+    [HideInInspector]
+    public const string PROJECTILE_TAG = "Projectile";
+    [HideInInspector]
+    public const string PLAYER_TAG = "Player"; //public nutný kvùli dìdìní
 
     [HideInInspector]
     public Rigidbody2D rigidbody; //public nutný kvùli dìdìní
@@ -19,16 +29,11 @@ public class GameObject2D : MonoBehaviour
     public Playah playah;
 
     [HideInInspector]
-    public string PLAYER_TAG; //public nutný kvùli dìdìní
-
-    [HideInInspector]
     public Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
-        this.PLAYER_TAG = "Player";
-
         rigidbody = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag(PLAYER_TAG);
         playah = player.GetComponent<Playah>();

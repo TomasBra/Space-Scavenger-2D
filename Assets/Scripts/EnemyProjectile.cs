@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Projectile : GameObject2D
+public class EnemyProjectile : GameObject2D
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-
 
     [SerializeField]
     private float lifeTime = 3;
@@ -17,10 +16,9 @@ public class Projectile : GameObject2D
     private DateTime spawnTime;
 
     [SerializeField]
-    private string targetTag = "Player";
-
-    [SerializeField]
     private List<string> tagsToIgnore = new List<string>();
+    [SerializeField]
+    private List<string> layersToIgnore= new List<string>();
 
     //private GameObject target;
 
@@ -32,15 +30,15 @@ public class Projectile : GameObject2D
         base.Start();
         spawnTime = DateTime.Now;
         SetUpIngoreLayer();
-        //target = GameObject.FindGameObjectWithTag(targetTag);
-
-        //transform.Rotate(0, 0, LookAt2D(this.transform.position, target.transform.position));
     }
 
     void SetUpIngoreLayer()
     {
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemies"), LayerMask.NameToLayer("Projectiles"));
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemies"), LayerMask.NameToLayer("Projectiles"));
+        for (int i = 0; i < layersToIgnore.Count; i++)
+        {
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(this.tag), LayerMask.NameToLayer(tagsToIgnore[i]));
+            Physics.IgnoreLayerCollision(LayerMask.NameToLayer(this.tag), LayerMask.NameToLayer(tagsToIgnore[i]));
+        }
     }
 
     // Update is called once per frame
@@ -61,13 +59,18 @@ public class Projectile : GameObject2D
             return;
         }
 
-
-        // Debug.Log(col.gameObject.tag);
         Health health = col.gameObject.GetComponent<Health>();
         if (health != null)
         {
             health.TakeDamage(damage);
         }
+
+        //if (col.gameObject.tag == TILEMAP_TAG)
+        //{
+        //    Vector2 hitPoint = col.contacts[0].point;
+        //    MapManager mm = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
+        //    TileData? tile = mm.HitTile(hitPoint, damage);
+        //}
 
         Destroy(this.gameObject);
     }

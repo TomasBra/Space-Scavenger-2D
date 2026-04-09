@@ -109,14 +109,15 @@ MonoBehaviour:
   rigidbody: {fileID: 0}
   player: {fileID: 0}
   playah: {fileID: 0}
-  PLAYER_TAG: 
   animator: {fileID: 0}
   lifeTime: 3
   speed: 6
-  targetTag: Player
   tagsToIgnore:
   - Enemy
   - Projectile
+  layersToIgnore:
+  - Enemies
+  - Projectiles
   damage: 10
 --- !u!50 &6176690850458448079
 Rigidbody2D:
