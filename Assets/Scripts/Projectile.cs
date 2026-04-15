@@ -67,7 +67,7 @@ public class Projectile : GameObject2D
         {
             ContactPoint2D contact = col.contacts[0];
 
-            // posun lehce dovnitø zasaženého tile
+            // posun lehce dovnitï¿½ zasaï¿½enï¿½ho tile
             Vector2 hitPoint = contact.point - contact.normal * 0.05f;
 
             MapManager mm = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();

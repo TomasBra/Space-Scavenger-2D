@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : Health
@@ -19,6 +20,14 @@ public class Enemy : Health
 
     [SerializeField]
     protected float DAMAGE;
+
+    [SerializeField]
+    protected float MINING_DAMAGE;
+
+    [SerializeField]
+    private float PROJECTILE_SPEED;
+    [SerializeField]
+    private float PROJECTILE_LIFETIME;
 
     [SerializeField]
     protected float ATACK_COOL_DOWN; //v sekundach
@@ -124,7 +133,12 @@ public class Enemy : Health
 
             //vystøelení a natoèení projektilu správným smìrem
             GameObject projectile = Instantiate(Projectile, position: transform.position, rotation: Quaternion.identity);
-            projectile.transform.Rotate(0, 0, LookAt2D(projectile.transform.position, player.transform.position)); //natoèí projektil správným smìrem
+            projectile.GetComponent<Projectile>().direction = direction;
+            projectile.GetComponent<Projectile>().mining_damage = MINING_DAMAGE;
+            projectile.GetComponent<Projectile>().damage = DAMAGE;
+            projectile.GetComponent<Projectile>().speed = PROJECTILE_SPEED;
+            projectile.GetComponent<Projectile>().lifeTime = PROJECTILE_LIFETIME;
+
         }
     }
 }

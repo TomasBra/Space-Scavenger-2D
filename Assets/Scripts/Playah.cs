@@ -18,10 +18,9 @@ public class Playah : Health
     private const float LASER_MINING_DAMAGE_PER_SECOND = 5;
     private const float LASER_DAMAGE_PER_SECOND = 1;
 
-
-    private const int PROJECTILE_COUNT = 1;
-
-    private const float PROJECTILE_SPAWN_COOL_DOWN = 0.4f; //počet sekund mezi vystrely
+    [SerializeField]
+    private const int PROJECTILE_COUNT = 3;
+    private const float PROJECTILE_SPAWN_COOL_DOWN = 1; //počet sekund mezi vystrely
     private const float PROJECTILE_DAMAGE = 5;
     private const float PROJECTILE_MINING_DAMAGE = 1;
     private const float PROJECTILE_SPEED = 6;
@@ -154,17 +153,27 @@ public class Playah : Health
 
     void Projectiles2D()
     {
+        const int angleBetweenProjectiles = 30;
+
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (mousePosition - (Vector2)FirePoint.transform.position).normalized;
 
-        GameObject projectile = Instantiate(ProjectilePrefab, player.transform.position, Quaternion.identity);
 
-        projectile.transform.right = -direction;
 
-        projectile.GetComponent<Projectile>().mining_damage = PROJECTILE_MINING_DAMAGE;
-        projectile.GetComponent<Projectile>().damage = PROJECTILE_DAMAGE;
-        projectile.GetComponent<Projectile>().speed = PROJECTILE_SPEED;
-        projectile.GetComponent<Projectile>().lifeTime = PROJECTILE_LIFETIME;
+        int angle = -(PROJECTILE_COUNT - 1)* angleBetweenProjectiles/2;
+
+        for (int i = 0; i < PROJECTILE_COUNT; i++)
+        {
+            GameObject projectile = Instantiate(ProjectilePrefab, player.transform.position, Quaternion.identity);
+
+            projectile.GetComponent<Projectile>().direction = direction.RotateZ(angle);
+            projectile.GetComponent<Projectile>().mining_damage = PROJECTILE_MINING_DAMAGE;
+            projectile.GetComponent<Projectile>().damage = PROJECTILE_DAMAGE;
+            projectile.GetComponent<Projectile>().speed = PROJECTILE_SPEED;
+            projectile.GetComponent<Projectile>().lifeTime = PROJECTILE_LIFETIME;
+
+            angle += angleBetweenProjectiles;
+        }
     }
 
     void Laser2D()
