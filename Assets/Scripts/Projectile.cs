@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Projectile : GameObject2D
@@ -28,6 +29,8 @@ public class Projectile : GameObject2D
     [SerializeField]
     public float mining_damage = 10;
 
+    public Vector2 direction;
+
     void Start()
     {
         base.Start();
@@ -51,7 +54,7 @@ public class Projectile : GameObject2D
         if ((DateTime.Now - spawnTime).TotalSeconds > lifeTime)
             Destroy(this.gameObject);
 
-        rigidbody.linearVelocity = - transform.right.normalized * speed;
+        rigidbody.linearVelocity = direction.normalized * speed;
 
     }
 
