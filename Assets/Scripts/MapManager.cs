@@ -253,6 +253,9 @@ public class MapManager : GameObject2D
         tileDatas.Remove(gridPosition);
     }
 
+    // TODO: opravit aby to davalo spetku smyslu
+    // spawnovat podle hloubky
+
     public void SpawnNestEnemies(int row, int col)
     {
         if (RangeEnemyPrefab == null)

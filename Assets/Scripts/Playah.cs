@@ -20,7 +20,8 @@ public class Playah : Health
 
 
     private const int PROJECTILE_COUNT = 1;
-    private const float PROJECTILE_SPAWN_COOL_DOWN = 2; //počet sekund mezi vystrely
+
+    private const float PROJECTILE_SPAWN_COOL_DOWN = 0.4f; //počet sekund mezi vystrely
     private const float PROJECTILE_DAMAGE = 5;
     private const float PROJECTILE_MINING_DAMAGE = 1;
     private const float PROJECTILE_SPEED = 6;
@@ -118,7 +119,7 @@ public class Playah : Health
             GetComponent<LineRenderer>().positionCount = 0;
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
             if ((Time.time - lastShoot) > PROJECTILE_SPAWN_COOL_DOWN)
             {
