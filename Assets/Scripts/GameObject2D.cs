@@ -121,4 +121,27 @@ public class GameObject2D : MonoBehaviour
 
         animator.SetTrigger(name);
     }
+
+}
+
+
+public static class Extensions {
+    //radiány no more
+    public static Vector2 RotateZ(this Vector2 v, float angle)
+    {
+        angle *= Mathf.Deg2Rad;
+
+        Vector2 vec = new Vector2(v.x, v.y);
+
+        float sin = Mathf.Sin(angle);
+        float cos = Mathf.Cos(angle);
+
+        float tx = v.x;
+        float ty = v.y;
+        vec.x = (cos * tx) - (sin * ty);
+        vec.y = (cos * ty) + (sin * tx);
+
+        return vec;
+    }
+
 }
