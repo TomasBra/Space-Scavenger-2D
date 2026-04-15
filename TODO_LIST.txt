@@ -1,0 +1,19 @@
+TODO:
+- nepratelsky strely nici bloky na jednu ranu
+- nepratelsky strely nici hnizdo
+- nepratele utoci, jeste nez vidi hrace
+- nepratele jsou hloupi hlupaci
+- nepratele se spawnujou v terenu A TAKY UPLNE MIMO MAPU
+- upgrady
+- postupny stupnovani obtiznosti
+- hrac tezi 2x rychlejs ve smeru vlevo a nahoru
+- animace smrti jsou pochybny
+	X u nepratel
+	- u hrace
+- asi kdyz umru, tak to vyhodi spoustu erroru o reference not set to an instance of an object Enemy.Update, Queen.Update
+- praskliny
+- hnizda jsou absolutne masivni a PUSTY
+- na prvni vrstve maj bejt jiny tily
+- ruzny tvrdosti
+	-podle hloubky
+	-ruzny bloky

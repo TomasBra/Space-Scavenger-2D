@@ -100,7 +100,6 @@ public class Enemy : Health
                     Move(Vector2.zero, 0);
                 }
             }
-            
         }
         else
         {

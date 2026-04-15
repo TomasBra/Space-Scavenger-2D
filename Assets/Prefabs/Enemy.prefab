@@ -173,14 +173,13 @@ MonoBehaviour:
   rigidbody: {fileID: 0}
   player: {fileID: 0}
   playah: {fileID: 0}
-  PLAYER_TAG: 
   animator: {fileID: 0}
   maxHP: 3
   DEATH_ANIM_TIME: 0.3
   HP: 10
   dead: 0
   material: {fileID: 0}
-  FLASH_TIME: 0.5
+  FLASH_TIME: 0.4
   TRIGGER_DISTANCE: 8
   STOP_MOVE_DISTANCE: 3
   SPEED: 2
