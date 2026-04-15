@@ -63,6 +63,7 @@ public class Health : GameObject2D
 
         if (HP <= 0 && !dead)
         {
+            SetFlashAmount(0); // WARN: tohle jsem pripsal
             StopAllCoroutines();
             if (destroyable)
             {

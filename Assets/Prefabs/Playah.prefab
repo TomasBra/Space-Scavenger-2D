@@ -14895,19 +14895,18 @@ MonoBehaviour:
   rigidbody: {fileID: 0}
   player: {fileID: 0}
   playah: {fileID: 0}
-  PLAYER_TAG: 
   animator: {fileID: 0}
   maxHP: 50
   DEATH_ANIM_TIME: 0.3
   HP: 0
   dead: 0
   material: {fileID: 0}
-  FLASH_TIME: 0.5
+  FLASH_TIME: 0.4
+  SPEED: 3.5
   ironOre: 0
   copperOre: 0
   goldOre: 0
-  weapon: 0
-  SPEED: 3.5
+  ProjectilePrefab: {fileID: 0}
   mapManager: {fileID: 0}
   FirePoint: {fileID: 6875613860000558312}
   StartVFX: {fileID: 4902656185812622813}

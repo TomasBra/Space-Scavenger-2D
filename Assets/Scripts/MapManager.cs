@@ -91,7 +91,7 @@ public class MapManager : GameObject2D
 
     public const int MAP_WIDTH = 100;
     public const int MAP_HEIGHT = 150;
-
+    public const int SKY_HEIGHT = 10;
 
 
 

@@ -179,7 +179,7 @@ MonoBehaviour:
   HP: 10
   dead: 0
   material: {fileID: 0}
-  FLASH_TIME: 0.5
+  FLASH_TIME: 0.4
   TRIGGER_DISTANCE: 8
   STOP_MOVE_DISTANCE: 3
   SPEED: 2
