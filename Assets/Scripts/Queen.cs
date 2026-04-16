@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 public class Queen : Health
@@ -15,11 +16,14 @@ public class Queen : Health
     [SerializeField]
     public float lastSpawnTime;
 
-    protected string[] layersToIgnore = new string[] { "Projectiles", "Enemies" };
+    protected string[] layersToIgnore = new string[] { "Enemies", "PlayerProjectiles", "EnemyProjectiles" };
 
     private LayerMask raycastIgnoreMask;
 
     private MapManager mapManager;
+
+    protected const float MAX_TRIGGER_DISTANCE = 11;
+    public bool isTriggered = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
@@ -27,6 +31,8 @@ public class Queen : Health
         base.Start();
         lastSpawnTime = Time.time;
         mapManager = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
+
+        raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore));
     }
 
     // Update is called once per frame
@@ -38,16 +44,31 @@ public class Queen : Health
             return;
 
         Vector2 toPlayer = player.transform.position - this.transform.position;
-        raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore));
+        float playerDistance = toPlayer.magnitude;
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, toPlayer, Mathf.Infinity, raycastIgnoreMask);
-        if (hit.transform.tag == PLAYER_TAG && (Time.time - lastSpawnTime) > SPAWN_COOL_DOWN)
+
+        if (!isTriggered)
         {
-            lastSpawnTime = Time.time;
-            Spawn(SpawnableObject);
+            // trigger if player is in sight
+            if (hit.collider.transform.tag == PLAYER_TAG)
+            {
+                isTriggered = true;
+            }
         }
-
-
+        else
+        {
+            // untrigger
+            if (playerDistance > MAX_TRIGGER_DISTANCE && hit.collider.transform.tag != PLAYER_TAG)
+            {
+                isTriggered = false;
+            }
+            else if ((Time.time - lastSpawnTime) >= SPAWN_COOL_DOWN)
+            {
+                lastSpawnTime = Time.time;
+                Spawn(SpawnableObject);
+            }
+        }
     }
 
     void Spawn(GameObject objectToSpawn)
@@ -55,8 +76,8 @@ public class Queen : Health
         if (objectToSpawn != null)
         {
             //vystøelení a natoèení projektilu správným smìrem
-            Instantiate(objectToSpawn, position: transform.position, rotation: Quaternion.identity);
-
+            GameObject enemy = Instantiate(objectToSpawn, position: transform.position, rotation: Quaternion.identity);
+            enemy.GetComponent<Enemy>().isTriggered = true;
         }
     }
 

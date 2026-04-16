@@ -148,7 +148,6 @@ public class Playah : Health
         healthBar.SetHealth(HP);
         if (shouldDie)
         {
-
             string currentSceneName = SceneManager.GetActiveScene().name;
             this.Invoke(() => SceneManager.LoadScene(currentSceneName), DEATH_ANIM_TIME);
         }
@@ -278,10 +277,14 @@ public class Playah : Health
                 }
 
                 MapManager mm = mapManager.GetComponent<MapManager>();
-                TileData? tile = mm.HitTile(primaryHitPoint, LASER_MINING_DAMAGE_PER_SECOND * Time.deltaTime);
-                if (tile == null)
+                TileData? tile = null;
+                if (mm.GetTile(primaryHitPoint) != null)
                 {
-                    tile = mm.HitTile(secondaryHitPoint, LASER_MINING_DAMAGE_PER_SECOND*Time.deltaTime);
+                    tile = mm.HitTile(primaryHitPoint, LASER_MINING_DAMAGE_PER_SECOND * Time.deltaTime);
+                }
+                else if (mm.GetTile(secondaryHitPoint) != null)
+                {
+                    tile = mm.HitTile(secondaryHitPoint, LASER_MINING_DAMAGE_PER_SECOND * Time.deltaTime);
                 }
 
                 break;
@@ -297,13 +300,7 @@ public class Playah : Health
                 if (health != null)
                     health.TakeDamage(LASER_DAMAGE_PER_SECOND * Time.deltaTime, laserEndPosition - FirePoint.transform.position);
                 break;
-
-
         }
-
-
-
-
     }
 
     //vyuziva se hlavne ke sbirani predmetu, ktere spadly

@@ -60,12 +60,12 @@ public class Projectile : GameObject2D
 
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionStay2D(Collision2D col)
     {
         
         if (col.gameObject.CompareTag(TILEMAP_TAG))
         {
-            ContactPoint2D contact = col.contacts[0];
+            ContactPoint2D contact = col.GetContact(0);
 
             // posun lehce dovnit� zasa�en�ho tile
             Vector2 hitPoint = contact.point - contact.normal * 0.05f;

@@ -6,10 +6,6 @@ using UnityEngine.Tilemaps;
 
 public class Enemy : Health
 {
-
-    [SerializeField]
-    protected float TRIGGER_DISTANCE;
-
     [SerializeField]
     protected float STOP_MOVE_DISTANCE;
 
@@ -46,7 +42,12 @@ public class Enemy : Health
     [HideInInspector]
     protected Vector3Int prevPlayerGridPos;
 
-    protected string[] layersToIgnore = new string[] { "Projectiles", "Enemies" };
+    protected const float MAX_TRIGGER_DISTANCE = 11;
+    public bool isTriggered = false;
+    protected Vector2 wanderDirection;
+    protected const float WANDER_SPEED_COEF = 0.25f;
+
+    protected string[] layersToIgnore = new string[] { "Enemies", "EnemyProjectiles", "PlayerProjectiles" };
     protected LayerMask raycastIgnoreMask;
 
     [SerializeField]
@@ -61,6 +62,10 @@ public class Enemy : Health
         tilemap = GameObject.Find("DirtTilemap").GetComponent<Tilemap>();
 
         prevPlayerGridPos = tilemap.WorldToCell(player.transform.position);
+
+        raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore));
+
+        SetRandomWanderDirection();
     }
 
     const float MAGIC = 0.08f;
@@ -73,54 +78,78 @@ public class Enemy : Health
             return;
 
         Vector2 toPlayer = player.transform.position - this.transform.position;
+        float playerDistance = toPlayer.magnitude;
+        Vector2 moveDirection = Vector2.zero;
+        float currentSpeed = SPEED;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, toPlayer, Mathf.Infinity, raycastIgnoreMask);
 
-        if (toPlayer.magnitude > STOP_MOVE_DISTANCE
-            && toPlayer.magnitude < TRIGGER_DISTANCE)
+        if (!isTriggered)
         {
-            raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore));
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, toPlayer, Mathf.Infinity, raycastIgnoreMask);
+            // trigger if player is in sight
             if (hit.collider.transform.tag == PLAYER_TAG)
             {
-                Move(toPlayer, SPEED);
+                isTriggered = true;
             }
             else
             {
-
-                Vector3Int currPlayerGridPos = tilemap.WorldToCell(player.transform.position);
-
-                if (currPlayerGridPos != prevPlayerGridPos)
-                {
-                    pathToPlayer = EnemyPathFinder.FindPath(tilemap, transform.position, player.transform.position);
-                    prevPlayerGridPos = currPlayerGridPos;
-                }
-
-                if (pathToPlayer.Count > 0)
-                {
-                    Vector2 toNextPathPoint = pathToPlayer.Peek() - transform.position;
-                    if (toNextPathPoint.magnitude < MAGIC)
-                    {
-                        pathToPlayer.Pop();
-                    }
-
-                    Move(toNextPathPoint, SPEED);
-                }
-                else
-                {
-                    Move(Vector2.zero, 0);
-                }
+                // wander around
+                currentSpeed = WANDER_SPEED_COEF * SPEED;
+                moveDirection = wanderDirection;
             }
         }
         else
         {
-            Move(Vector2.zero, 0);
+            // untrigger
+            if (playerDistance > MAX_TRIGGER_DISTANCE && hit.collider.transform.tag != PLAYER_TAG)
+            {
+                isTriggered = false;
+            }
+            else
+            {
+                // go after player
+                // go straight
+                if (hit.collider.transform.tag == PLAYER_TAG)
+                {
+                    moveDirection = toPlayer;
+                    if (playerDistance < STOP_MOVE_DISTANCE)
+                    {
+                        currentSpeed = 0.0f;
+                    }
+                }
+                // use pathfinding
+                else
+                {
+                    Vector3Int currPlayerGridPos = tilemap.WorldToCell(player.transform.position);
+
+                    // player moved to different tile and the path must be recalculated
+                    if (currPlayerGridPos != prevPlayerGridPos)
+                    {
+                        pathToPlayer = EnemyPathFinder.FindPath(tilemap, transform.position, player.transform.position);
+                        prevPlayerGridPos = currPlayerGridPos;
+                    }
+
+                    // is player reachable
+                    if (pathToPlayer.Count > 0)
+                    {
+                        Vector2 toNextPathPoint = pathToPlayer.Peek() - transform.position;
+                        if (toNextPathPoint.magnitude < MAGIC)
+                        {
+                            pathToPlayer.Pop();
+                        }
+
+                        moveDirection = toNextPathPoint;
+                    }
+                }
+            }
+        
+            if (toPlayer.magnitude < MIN_ATTACK_DISTANCE && (DateTime.Now - lastAttack).TotalSeconds > ATACK_COOL_DOWN)
+            {
+                lastAttack = DateTime.Now;
+                Attack();
+            }
         }
 
-        if (toPlayer.magnitude < MIN_ATTACK_DISTANCE && (DateTime.Now - lastAttack).TotalSeconds > ATACK_COOL_DOWN)
-        {
-            lastAttack = DateTime.Now;
-            Attack();
-        }
-
+        Move(moveDirection, currentSpeed);
     }
 
     public virtual void Attack()
@@ -131,7 +160,7 @@ public class Enemy : Health
             direction.z = 0;
             direction.Normalize();
 
-            //vystøelení a natoèení projektilu správným smìrem
+            //vystï¿½elenï¿½ a natoï¿½enï¿½ projektilu sprï¿½vnï¿½m smï¿½rem
             GameObject projectile = Instantiate(Projectile, position: transform.position, rotation: Quaternion.identity);
             projectile.GetComponent<Projectile>().direction = direction;
             projectile.GetComponent<Projectile>().mining_damage = MINING_DAMAGE;

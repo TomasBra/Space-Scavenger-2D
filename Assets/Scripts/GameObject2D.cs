@@ -60,6 +60,13 @@ public class GameObject2D : MonoBehaviour
 
     public void Move(Vector2 direction, float speed = 1)
     {
+        if (direction.magnitude == 0.0f || speed == 0.0f)
+        {
+            rigidbody.linearVelocity = Vector2.zero;
+
+            return;
+        }
+
         direction.Normalize();
         Vector3 vec = new Vector3(direction.x, direction.y, 0);
         rigidbody.linearVelocity = speed * vec;
