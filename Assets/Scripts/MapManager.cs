@@ -1,9 +1,7 @@
-using JetBrains.Annotations;
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.GameCenter;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 using static TempTile;
 using static TileData;
 using static UnityEngine.Rendering.DebugUI.Table;
@@ -332,6 +330,39 @@ public class MapManager : GameObject2D
         return tileDatas[gridPosition];
     }
 
+    public List<TileData> GetTilesNear(Vector2 wordPosition, float radius)
+    {
+        List<TileData> tilesInRadius = new List<TileData>();
+        Vector3Int gridPosition = dirtMap.WorldToCell(wordPosition);
+
+        
+        if (tileDatas.ContainsKey(gridPosition)) {
+            TileData center = tileDatas[gridPosition];
+            tilesInRadius.Add(center);
+            wordPosition = dirtMap.CellToWorld(new Vector3Int(center.col, -center.row));
+        }
+
+
+        for (int y = gridPosition.y - (int)System.Math.Ceiling(radius); y <= gridPosition.y + (int)System.Math.Ceiling(radius); y++)
+        {
+            for (int x = gridPosition.x - (int)System.Math.Ceiling(radius); x <= gridPosition.x + (int)System.Math.Ceiling(radius); x++)
+            {
+                Vector3Int gridNearPosition = new Vector3Int(x, y, gridPosition.z);
+                if (!tileDatas.ContainsKey(gridNearPosition))
+                    continue;
+
+                TileData nearTile = tileDatas[gridNearPosition];
+                if(Vector2.Distance(dirtMap.CellToWorld(gridNearPosition), wordPosition) <= radius)
+                {
+                    tilesInRadius.Add(nearTile);
+                }
+            }
+        }
+
+
+        return tilesInRadius;
+    }
+
     //vraci typ tilu, ktery byl vytezen, jestlize nebyl vytezen, tak vraci null
     public TileData? HitTile(Vector2 position, float damage)
     {
@@ -340,13 +371,25 @@ public class MapManager : GameObject2D
         if (!tileDatas.ContainsKey(gridPosition))
             return null;
 
-        float remainingDurability = tileDatas[gridPosition].Damage(damage);
-        float maxDurability = tileDatas[gridPosition].maxDurability;
+        TileData tile = tileDatas[gridPosition];
+
+        return HitTile(tile, damage);
+    }
+
+
+    public TileData? HitTile(TileData tileData, float damage)
+    { 
+
+        float remainingDurability = tileData.Damage(damage);
+        float maxDurability = tileData.maxDurability;
         float relativeDurability = remainingDurability / maxDurability;
+
+        Vector3Int gridPosition = new Vector3Int(tileData.col, -tileData.row);
+        Vector2 position = dirtMap.CellToWorld(gridPosition);
 
         if (relativeDurability <= 0.0f)
         {
-            TileData tile = tileDatas[gridPosition];
+            TileData tile = tileData;
             RemoveTile(gridPosition);
 
             //spawne prefaby

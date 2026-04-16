@@ -48,7 +48,7 @@ public class Health : GameObject2D
         {
             Destroy(this.GetComponent<BoxCollider2D>());
             Destroy(this.GetComponent<CircleCollider2D>());
-            this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         }
     }
 

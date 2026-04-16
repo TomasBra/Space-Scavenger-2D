@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 9143872091962154195}
   - component: {fileID: 6176690850458448079}
   - component: {fileID: 5395206630304822124}
+  - component: {fileID: -533044455817630760}
   m_Layer: 9
   m_Name: PlayerProjectile
   m_TagString: Projectile
@@ -195,9 +196,12 @@ MonoBehaviour:
   player: {fileID: 0}
   playah: {fileID: 0}
   animator: {fileID: 0}
-  EXPLOSION_ANIM_TIME: 0
+  ExplosionAnimationClip: {fileID: 7400000, guid: f3fbc91f82ab49f429968a2c929657e1, type: 2}
   lifeTime: 3
   speed: 6
+  tagsExplosionDealDamage:
+  - Enemy
+  - TileMap
   tagsToIgnore:
   - Player
   - Projectile
@@ -206,9 +210,9 @@ MonoBehaviour:
   - EnemyProjectiles
   - PlayerProjectiles
   damage: 10
-  mining_damage: 10
+  mining_damage: 100
   direction: {x: 0, y: 0}
-  bounces: 0
+  bounces: 3
   explosion_radius: 3
 --- !u!50 &6176690850458448079
 Rigidbody2D:
@@ -273,3 +277,25 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.2
+--- !u!95 &-533044455817630760
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8470639361405265912}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 35487859d5097294084c746c881da892, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

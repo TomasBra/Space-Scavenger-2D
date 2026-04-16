@@ -13,10 +13,10 @@ public class Playah : Health
     private const float LASER_DAMAGE_PER_SECOND = 1;
 
     [SerializeField]
-    private const int PROJECTILE_COUNT = 3;
+    public int PROJECTILE_COUNT = 3;
     private const float PROJECTILE_SPAWN_COOL_DOWN = 1; //počet sekund mezi vystrely
     private const float PROJECTILE_DAMAGE = 5;
-    private const float PROJECTILE_MINING_DAMAGE = 1;
+    private const float PROJECTILE_MINING_DAMAGE = 5;
     private const float PROJECTILE_SPEED = 6;
     private const float PROJECTILE_LIFETIME = 3; //sekundach
 

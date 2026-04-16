@@ -20,6 +20,9 @@ public class Projectile : GameObject2D
 
     private DateTime spawnTime;
 
+
+    [SerializeField]
+    private List<string> tagsExplosionDealDamage = new List<string>(); //zde jsou vsechny tagy, kterym dealujeme damage pri explozi
     [SerializeField]
     private List<string> tagsToIgnore = new List<string>();
     [SerializeField]
@@ -37,7 +40,7 @@ public class Projectile : GameObject2D
 
     public int bounces = 0;
 
-    public float explosion_radius = 0;
+    public float explosion_radius = 10;
 
     private float explosion_offset;
 
@@ -70,6 +73,7 @@ public class Projectile : GameObject2D
         base.Update();
         if ((DateTime.Now - spawnTime).TotalSeconds > lifeTime)
         {
+            Explode(this.transform.position);
             this.Invoke(() => Destroy(this.gameObject), explosion_offset);
             dead = true;
         }
@@ -90,15 +94,22 @@ public class Projectile : GameObject2D
         if (tagsToIgnore.Any(entry => entry == col.gameObject.tag))
             return;
 
-        if (col.gameObject.CompareTag(TILEMAP_TAG))
+        switch (col.gameObject.tag)
         {
-            ContactPoint2D contact = col.GetContact(0);
+            case TILEMAP_TAG:
+                ContactPoint2D contact = col.GetContact(0);
 
-            // posun lehce dovnit� zasa�en�ho tile
-            Vector2 hitPoint = contact.point - contact.normal * 0.05f;
+                // posun lehce dovnit� zasa�en�ho tile
+                Vector2 hitPoint = contact.point - contact.normal * 0.05f;
 
-            MapManager mm = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
-            TileData? tile = mm.HitTile(hitPoint, mining_damage);
+                MapManager mm = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
+                TileData? tile = mm.HitTile(hitPoint, mining_damage);
+                break;
+
+            case ENEMY_TAG:
+                //zajisti, ze se znici pri prvnim narazu s nepritelem
+                bounces = 0;
+                break;
         }
 
         Health health = col.gameObject.GetComponent<Health>();
@@ -110,6 +121,11 @@ public class Projectile : GameObject2D
         if (bounces == 0)
         {
             direction = new Vector2(0, 0);
+            ContactPoint2D contact = col.GetContact(0);
+            // posun lehce dovnit� zasa�en�ho tile
+            Vector2 hitPoint = contact.point - contact.normal * 0.05f;
+            Explode(hitPoint);
+            rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             this.Invoke(() => Destroy(this.gameObject), explosion_offset);
             dead = true;
         }
@@ -119,9 +135,35 @@ public class Projectile : GameObject2D
         bounces--;
     }
 
-    private void Explode()
+    private void Explode(Vector2 position)
     {
-        explosion_radius = 2;
+        for (int i = 0; i < tagsExplosionDealDamage.Count; i++)
+        {
+            switch (tagsExplosionDealDamage[i])
+            {
+                case TILEMAP_TAG:
+                    MapManager mapManager = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
+                    List<TileData> tiles = mapManager.GetTilesNear(position, explosion_radius);
+
+                    foreach (TileData tile in tiles)
+                        mapManager.HitTile(tile, mining_damage);
+                    break;
+
+                default:
+                    GameObject[] objects = GameObject.FindGameObjectsWithTag(tagsExplosionDealDamage[i]);
+                    foreach (GameObject obj in objects)
+                    {
+                        if (Vector2.Distance(obj.transform.position, this.transform.position) > explosion_radius)
+                            continue;
+                        Health health = obj.gameObject.GetComponent<Health>();
+                        if (health != null)
+                        {
+                            health.TakeDamage(damage);
+                        }
+                    }
+                    break;
+            }
+        }
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(ENEMY_TAG);
 

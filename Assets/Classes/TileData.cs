@@ -19,7 +19,7 @@ public class TileData
     public int materialAmount = 1;
     public readonly float maxDurability;
     private float durability;
-    private int row, col;
+    public int row, col;
 
     private MapManager mapManager;
 
