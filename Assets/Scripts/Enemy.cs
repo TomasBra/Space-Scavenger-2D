@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : Health
 {
@@ -51,7 +49,9 @@ public class Enemy : Health
     protected string[] layersToIgnore = new string[] { "Projectiles", "Enemies" };
     protected LayerMask raycastIgnoreMask;
 
-    
+    [SerializeField]
+    protected GameObject MeatPrefab;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
@@ -140,5 +140,23 @@ public class Enemy : Health
             projectile.GetComponent<Projectile>().lifeTime = PROJECTILE_LIFETIME;
 
         }
+    }
+
+    public override bool TakeDamage(float damage, Vector2? knockbackDirection = null, bool destroyable = true)
+    {
+        System.Random random = new System.Random();
+        bool died = base.TakeDamage(damage, knockbackDirection, false);
+
+
+        if (died)
+        {
+            if (random.Next(0,10) < 2)
+            {
+                Instantiate(MeatPrefab, this.transform.position, quaternion.identity);
+            }
+            Destroy(this.gameObject);
+        }
+
+        return died;
     }
 }

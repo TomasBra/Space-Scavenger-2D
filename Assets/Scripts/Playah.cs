@@ -1,13 +1,7 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
-using UnityEngine.Tilemaps;
 using static TileData;
 
 public class Playah : Health
@@ -37,6 +31,7 @@ public class Playah : Health
     public int ironOre = 0;
     public int copperOre = 0;
     public int goldOre = 0;
+    public int meat = 0;
 
     [SerializeField]
     public GameObject ProjectilePrefab;
@@ -87,6 +82,15 @@ public class Playah : Health
         base.Update();
         //DebugUI(); // testovaci funkce, potom smazat
 
+        if (Input.GetKeyDown(KeyCode.E) && meat > 0 && HP < maxHP)
+        {
+            HP += 10;
+            HP = Mathf.Min(HP, maxHP);
+            healthBar.SetHealth(HP);
+
+            meat--;
+            itemCounter.SetMeat(meat);
+        }
 
         Vector2 direction = new Vector2(0.0f, 0.0f);
         if (Input.GetKey(KeyCode.D))
@@ -280,7 +284,6 @@ public class Playah : Health
                     tile = mm.HitTile(secondaryHitPoint, LASER_MINING_DAMAGE_PER_SECOND*Time.deltaTime);
                 }
 
-                ProcessTile(tile);
                 break;
 
             case ENEMY_TAG:
@@ -303,28 +306,35 @@ public class Playah : Health
 
     }
 
-    private void ProcessTile(TileData? tile)
+    //vyuziva se hlavne ke sbirani predmetu, ktere spadly
+    void OnCollisionEnter2D(Collision2D col)
     {
-        if (tile == null) return;
-        switch (tile.type)
+        switch (col.gameObject.tag)
         {
-            case TileType.DIRT:
-                break;
-
-            case TileType.IRON:
-                ironOre += tile.materialAmount;
+            case IRON_TAG:
+                ironOre += 1;
                 itemCounter.SetIron(ironOre);
+                Destroy(col.gameObject);
                 break;
 
-            case TileType.COPPER:
-                copperOre += tile.materialAmount;
+            case COPPER_TAG:
+                copperOre += 1;
                 itemCounter.SetCopper(copperOre);
+                Destroy(col.gameObject);
                 break;
 
-            case TileType.GOLD:
-                goldOre += tile.materialAmount;
+            case GOLD_TAG:
+                goldOre += 1;
                 itemCounter.SetGold(goldOre);
+                Destroy(col.gameObject);
                 break;
+
+            case MEAT_TAG:
+                meat++;
+                itemCounter.SetMeat(meat);
+                Destroy(col.gameObject);
+                break;
+
         }
     }
 

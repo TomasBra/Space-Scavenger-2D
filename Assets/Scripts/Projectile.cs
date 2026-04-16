@@ -31,6 +31,8 @@ public class Projectile : GameObject2D
 
     public Vector2 direction;
 
+    public int bounces = 0;
+
     void Start()
     {
         base.Start();
@@ -60,9 +62,7 @@ public class Projectile : GameObject2D
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (tagsToIgnore.Any(entry => entry == col.gameObject.tag))
-            return;
-
+        
         if (col.gameObject.CompareTag(TILEMAP_TAG))
         {
             ContactPoint2D contact = col.contacts[0];
@@ -80,7 +80,11 @@ public class Projectile : GameObject2D
             health.TakeDamage(damage);
         }
 
-        Destroy(gameObject);
+
+        if (tagsToIgnore.Any(entry => entry == col.gameObject.tag))
+            Destroy(gameObject);
+
+        direction = Vector2.Reflect(direction, col.contacts[0].normal);
     }
 }
 

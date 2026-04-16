@@ -8,6 +8,10 @@ TagManager:
   - TileMap
   - Projectile
   - MapManager
+  - Copper
+  - Iron
+  - Gold
+  - Meat
   layers:
   - Default
   - TransparentFX

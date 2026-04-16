@@ -10,13 +10,15 @@ public class ItemCounter : MonoBehaviour
     private TextMeshProUGUI copperText;
     [SerializeField]
     public TextMeshProUGUI goldText;
-
+    [SerializeField]
+    public TextMeshProUGUI meatText;
 
     void Start()
     {
         SetIron(0);
         SetCopper(0);
         SetGold(0);
+        SetMeat(0);
     }
 
     public void SetSamples(int amount, int maxAmount)
@@ -37,5 +39,10 @@ public class ItemCounter : MonoBehaviour
     public void SetGold(int amount)
     {
         goldText.text = amount.ToString();
+    }
+
+    public void SetMeat(int amount)
+    {
+        meatText.text = amount.ToString();
     }
 }

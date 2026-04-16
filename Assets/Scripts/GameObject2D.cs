@@ -20,6 +20,18 @@ public class GameObject2D : MonoBehaviour
     public const string PLAYER_TAG = "Player"; //public nutný kvùli dìdìní
 
     [HideInInspector]
+    public const string COPPER_TAG = "Copper"; //public nutný kvùli dìdìní
+
+    [HideInInspector]
+    public const string IRON_TAG = "Iron"; //public nutný kvùli dìdìní
+
+    [HideInInspector]
+    public const string GOLD_TAG = "Gold"; //public nutný kvùli dìdìní
+
+    [HideInInspector]
+    public const string MEAT_TAG = "Meat"; //public nutný kvùli dìdìní
+
+    [HideInInspector]
     public Rigidbody2D rigidbody; //public nutný kvùli dìdìní
 
     [HideInInspector]

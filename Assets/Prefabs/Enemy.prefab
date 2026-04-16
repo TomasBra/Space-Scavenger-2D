@@ -190,6 +190,7 @@ MonoBehaviour:
   ATACK_COOL_DOWN: 3
   MIN_ATTACK_DISTANCE: 5
   Projectile: {fileID: 8470639361405265912, guid: 78a367a46cb3fab4baa629a11da391c5, type: 3}
+  MeatPrefab: {fileID: 2914244009387907540, guid: 8b10673779b8eb44e8a2c05f2ec23d57, type: 3}
 --- !u!95 &2518397964730516416
 Animator:
   serializedVersion: 7

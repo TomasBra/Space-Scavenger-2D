@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
+using static TempTile;
 using static TileData;
 using static UnityEngine.Rendering.DebugUI.Table;
 
@@ -87,6 +88,16 @@ public class MapManager : GameObject2D
 
     [SerializeField]
     private TileBase[] spaceBGTiles;
+
+
+    [SerializeField]
+    private GameObject IronPrefab;
+
+    [SerializeField]
+    private GameObject CopperPrefab;
+
+    [SerializeField]
+    private GameObject GoldPrefab;
 
 
     public const int MAP_WIDTH = 100;
@@ -303,9 +314,24 @@ public class MapManager : GameObject2D
         float remainingDuration = tileDatas[gridPosition].Damage(damage);
 
         if (remainingDuration <= 0)
-        {
+        { 
             TileData tile = tileDatas[gridPosition];
             RemoveTile(gridPosition);
+
+            //spawne prefaby
+            switch (tile.type)
+            {
+                case TileData.TileType.IRON:
+                    Instantiate(IronPrefab, position, Quaternion.identity);
+                    break;
+                case TileData.TileType.COPPER:
+                    Instantiate(CopperPrefab, position, Quaternion.identity);
+                    break;
+                case TileData.TileType.GOLD:
+                    Instantiate(GoldPrefab, position, Quaternion.identity);
+                    break;
+            }
+
             return tile;
         }
         else if (remainingDuration < 2)

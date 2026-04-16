@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fb561fbad19e7bb49b411f61e7ab1845
+guid: f5d72753462b6c240894001b3da1d75e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5313115858308588279
-    second: MinedIron_0
+      213: -3529769582009357782
+    second: ItemDisplay1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MinedIron_0
+      name: ItemDisplay1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7f26af819bafbb940800000000000000
-      internalID: 5313115858308588279
+      spriteID: a2a6a55444db30fc0800000000000000
+      internalID: -3529769582009357782
       vertices: []
       indices: 
       edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MinedIron_0: 5313115858308588279
+      ItemDisplay1_0: -3529769582009357782
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
