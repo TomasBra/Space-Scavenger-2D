@@ -157,7 +157,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.3
+  m_Radius: 0.33
 --- !u!114 &674111196482826402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +180,6 @@ MonoBehaviour:
   dead: 0
   material: {fileID: 0}
   FLASH_TIME: 0.4
-  TRIGGER_DISTANCE: 8
   STOP_MOVE_DISTANCE: 3
   SPEED: 2
   DAMAGE: 10
@@ -190,6 +189,7 @@ MonoBehaviour:
   ATACK_COOL_DOWN: 3
   MIN_ATTACK_DISTANCE: 5
   Projectile: {fileID: 8470639361405265912, guid: 78a367a46cb3fab4baa629a11da391c5, type: 3}
+  isTriggered: 0
 --- !u!95 &2518397964730516416
 Animator:
   serializedVersion: 7

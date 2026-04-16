@@ -28,7 +28,7 @@ public class MapManager : GameObject2D
     private Tilemap dirtMap;
 
     [SerializeField]
-    private TileBase dirtTile;
+    private TileBase[] dirtTiles;
 
     // materials
     [SerializeField]
@@ -44,6 +44,8 @@ public class MapManager : GameObject2D
     private TileBase nestBorderTile;
     [SerializeField]
     private TileBase bedrockTile;
+    [SerializeField]
+    private TileBase groundTile; // unused
 
     // cracks
     [SerializeField]
@@ -88,12 +90,22 @@ public class MapManager : GameObject2D
     [SerializeField]
     private TileBase[] spaceBGTiles;
 
-
     public const int MAP_WIDTH = 100;
     public const int MAP_HEIGHT = 150;
     public const int SKY_HEIGHT = 10;
+    public const int MIN_ENEMY_COUNT = 7;
+    public const int MAX_ENEMY_COUNT = 10;
+    public const int MIN_QUEEN_ENEMY_COUNT = 11;
+    public const int MAX_QUEEN_ENEMY_COUNT = 15;
+    public const float DEFAULT_DURABILITY = 4.0f;
 
+    public static float GetEnemyCountDepthCoef(int absoluteDepth)
+    {
+        float relativeDepth = absoluteDepth / (float)MAP_HEIGHT;
+        float bonus = relativeDepth * 1.25f;
 
+        return 1.0f + bonus;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -124,7 +136,7 @@ public class MapManager : GameObject2D
                 {
                     case TempTile.TileType.EMPTY:
                         break;
-                    case TempTile.TileType.DIRT:
+                    case TempTile.TileType.DIRT:                        
                         AddTile(i, j, TileData.TileType.DIRT);
                         break;
                     case TempTile.TileType.IRON:
@@ -137,6 +149,9 @@ public class MapManager : GameObject2D
                         AddTile(i, j, TileData.TileType.GOLD);
                         break;
                     case TempTile.TileType.BEDROCK:
+                        AddTile(i, j, TileData.TileType.BEDROCK);
+                        break;
+                    case TempTile.TileType.GROUND:
                         AddTile(i, j, TileData.TileType.BEDROCK);
                         break;
                     case TempTile.TileType.NEST_BORDER:
@@ -204,10 +219,15 @@ public class MapManager : GameObject2D
         // Debug.Log("adding tile: " + tileType + "to: " + row + "," + col);
         // hlina tam je vzdycky
         Vector3Int gridPosition = RowCol2GridPosition(row, col);
-        dirtMap.SetTile(gridPosition, dirtTile);
+
+        // choose dirt type
+        float relativeDepth = row / (float)MAP_HEIGHT;
+        int dirtIdx = (int)(Mathf.Clamp(relativeDepth * Random.Range(0.9f, 1.1f) * dirtTiles.Length, 0.1f, dirtTiles.Length - 0.1f));
+
+        dirtMap.SetTile(gridPosition, dirtTiles[dirtIdx]);
 
         // kazdej tile ma svoje TileData
-        tileDatas[gridPosition] = new TileData(this, row, col, tileType, Random.Range(1, 5));
+        tileDatas[gridPosition] = new TileData(this, row, col, tileType, Mathf.Pow(DEFAULT_DURABILITY, (float)(dirtIdx + 1)), Random.Range(1, 3));
 
         // materialovej overlay
         switch (tileType)
@@ -225,6 +245,9 @@ public class MapManager : GameObject2D
                 break;
             case TileData.TileType.BEDROCK:
                 tileTypeMap.SetTile(gridPosition, bedrockTile);
+                break;
+            case TileData.TileType.GROUND: // unused
+                tileTypeMap.SetTile(gridPosition, groundTile);
                 break;
             case TileData.TileType.NEST_BORDER:
                 tileTypeMap.SetTile(gridPosition, nestBorderTile);
@@ -253,32 +276,42 @@ public class MapManager : GameObject2D
         tileDatas.Remove(gridPosition);
     }
 
-    // TODO: opravit aby to davalo spetku smyslu
-    // spawnovat podle hloubky
+    public void SpawnEnemies(int row, int col, int count)
+    {
+        Vector3 GridPositon = RowCol2GridPosition(row, col);
+
+        for (int i = 0; i < count; i++)
+        {
+            float roll = Random.Range(0.0f, 1.0f);
+            if (roll < 0.5f)
+            {
+                Instantiate(RangeEnemyPrefab, position: randomOffsettedPosition(GridPositon, 0.05f), rotation: Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(MeleeEnemyPrefab, position: randomOffsettedPosition(GridPositon, 0.05f), rotation: Quaternion.identity);
+            }
+        }
+    }
 
     public void SpawnNestEnemies(int row, int col)
     {
-        if (RangeEnemyPrefab == null)
-            return;
+        float coef = GetEnemyCountDepthCoef(row);
 
-        Vector3 GridPositon = RowCol2GridPosition(row, col);
-        int enemiesCount = Random.Range(5, 20);
+        int enemyCount = (int)Random.Range(MIN_ENEMY_COUNT * coef, MAX_ENEMY_COUNT * coef);
 
-        for (int i = 0; i < enemiesCount; i++)
-        {
-            Instantiate(RangeEnemyPrefab, position: randomOffsettedPosition(GridPositon, 5), rotation: Quaternion.identity);
-            Instantiate(MeleeEnemyPrefab, position: randomOffsettedPosition(GridPositon, 5), rotation: Quaternion.identity);
-        }
-
-        Instantiate(QueenPrefab, position: GridPositon, rotation: Quaternion.identity);
+        SpawnEnemies(row, col, enemyCount);
     }
 
     public void SpawnQueenNestEnemies(int row, int col)
     {
-        if (QueenPrefab == null)
-            return;
-
         Instantiate(QueenPrefab, position: RowCol2GridPosition(row, col), rotation: Quaternion.identity);
+
+        float coef = GetEnemyCountDepthCoef(row);
+
+        int enemyCount = (int)Random.Range(MIN_QUEEN_ENEMY_COUNT * coef, MAX_QUEEN_ENEMY_COUNT * coef);
+
+        SpawnEnemies(row, col, enemyCount);
     }
 
     public TileData? GetTile(Vector2 wordPosition)
@@ -292,6 +325,14 @@ public class MapManager : GameObject2D
         return tileDatas[gridPosition];
     }
 
+    public TileData? GetTile(Vector3Int gridPosition)
+    {
+        if (!tileDatas.ContainsKey(gridPosition))
+            return null;
+
+        return tileDatas[gridPosition];
+    }
+
     //vraci typ tilu, ktery byl vytezen, jestlize nebyl vytezen, tak vraci null
     public TileData? HitTile(Vector2 position, float damage)
     {
@@ -300,23 +341,25 @@ public class MapManager : GameObject2D
         if (!tileDatas.ContainsKey(gridPosition))
             return null;
 
-        float remainingDuration = tileDatas[gridPosition].Damage(damage);
+        float remainingDurability = tileDatas[gridPosition].Damage(damage);
+        float maxDurability = tileDatas[gridPosition].maxDurability;
+        float relativeDurability = remainingDurability / maxDurability;
 
-        if (remainingDuration <= 0)
+        if (relativeDurability <= 0.0f)
         {
             TileData tile = tileDatas[gridPosition];
             RemoveTile(gridPosition);
             return tile;
         }
-        else if (remainingDuration < 2)
+        else if (relativeDurability < 0.25f)
         {
             crackMap.SetTile(gridPosition, crackTile3);
         }
-        else if (remainingDuration < 3)
+        else if (relativeDurability < 0.5f)
         {
             crackMap.SetTile(gridPosition, crackTile2);
         }
-        else if (remainingDuration < 4)
+        else if (relativeDurability < 0.75f)
         {
             crackMap.SetTile(gridPosition, crackTile1);
         }

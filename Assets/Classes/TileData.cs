@@ -8,6 +8,7 @@ public class TileData
     {
         DIRT,
         BEDROCK,
+        GROUND,
         IRON,
         COPPER,
         GOLD,
@@ -16,33 +17,21 @@ public class TileData
 
     public TileType type;
     public int materialAmount = 1;
+    public readonly float maxDurability;
     private float durability;
     private int row, col;
 
     private MapManager mapManager;
 
-    public TileData(MapManager mapManager, int row, int col, TileType type, int materialAmount = 1)
+    public TileData(MapManager mapManager, int row, int col, TileType type, float durability, int materialAmount)
     {
         this.mapManager = mapManager;
         this.row = row;
         this.col = col;
         this.type = type;
         this.materialAmount = materialAmount;
-        /*smazat*/
-        durability = 4;
-
-        /*
-        switch (type)
-        {
-            case TileType.DIRT:
-                durability = 4;
-                break;
-            default:
-                throw new System.Exception("PEPA UTOCI!!!");
-                break;
-        }*/
-
-
+        this.maxDurability = durability;
+        this.durability = durability;
     }
 
     public float Damage(float damage)

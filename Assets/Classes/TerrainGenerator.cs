@@ -11,6 +11,7 @@ public class TempTile
         EMPTY,
         DIRT,
         BEDROCK,
+        GROUND,
         IRON,
         COPPER,
         GOLD,
@@ -397,7 +398,7 @@ public class TerrainGenerator
     {
         for (int col = 0; col < WIDTH; col++)
         {
-            tiles[0, col] = new TempTile(0, col, TempTile.TileType.BEDROCK);
+            tiles[0, col] = new TempTile(0, col, TempTile.TileType.GROUND);
             tiles[HEIGHT - 1,col] = new TempTile(HEIGHT - 1, col, TempTile.TileType.BEDROCK);
         }
 
@@ -502,13 +503,13 @@ public class TerrainGenerator
     {
         Init();
 
-        //Nemìnit poøadí!!!!!
+        //Nemìnit poøadí
         GenerateNests(QUEEN_NEST_COUNT, true);
         GenerateNests(NEST_COUNT, false);
         //PolishBorders();
 
-        GenerateOre(TempTile.TileType.IRON, 300, 2, 6, IronDepthFunc);
-        GenerateOre(TempTile.TileType.COPPER, 250, 1, 5, CopperDepthFunc);
+        GenerateOre(TempTile.TileType.IRON, 250, 2, 3, IronDepthFunc);
+        GenerateOre(TempTile.TileType.COPPER, 225, 1, 4, CopperDepthFunc);
         GenerateOre(TempTile.TileType.GOLD, 200, 1, 3, GoldDepthFunc);
 
         GenerateBedrockBorders();

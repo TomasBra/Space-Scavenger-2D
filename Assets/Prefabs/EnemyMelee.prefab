@@ -117,13 +117,16 @@ MonoBehaviour:
   dead: 0
   material: {fileID: 0}
   FLASH_TIME: 0.5
-  TRIGGER_DISTANCE: 5
   STOP_MOVE_DISTANCE: 0.95
   SPEED: 4
   DAMAGE: 3
+  MINING_DAMAGE: 0
+  PROJECTILE_SPEED: 0
+  PROJECTILE_LIFETIME: 0
   ATACK_COOL_DOWN: 1
   MIN_ATTACK_DISTANCE: 1.2
   Projectile: {fileID: 0}
+  isTriggered: 0
 --- !u!50 &3093368364431400676
 Rigidbody2D:
   serializedVersion: 5
@@ -186,7 +189,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0.027959287, y: 0}
-  m_Radius: 0.2731374
+  m_Radius: 0.33
 --- !u!95 &1265156095917652591
 Animator:
   serializedVersion: 7
