@@ -236,6 +236,7 @@ MonoBehaviour:
   ironText: {fileID: 2732880228553529139}
   copperText: {fileID: 2852503876307517559}
   goldText: {fileID: 758633317014462860}
+  meatText: {fileID: 0}
 --- !u!1 &646239340512924594
 GameObject:
   m_ObjectHideFlags: 0
