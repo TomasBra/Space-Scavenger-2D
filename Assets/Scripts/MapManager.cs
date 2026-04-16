@@ -180,29 +180,11 @@ public class MapManager : GameObject2D
                         throw new System.Exception("PEPA UTOCI!!!");
                         break;
                 }
-
-                // tileDatas[gridPosition] = new TileData(dirtMap, gridPosition, tileType);
             }
         }
 
         itemCounter.SetSamples(killedQueenCount, maxQueenCount);
-        //InitLightTiles();
     }
-
-    /*void InitLightTiles()
-    {
-        for (int i = -1; i < MAP_HEIGHT + 1; i++)
-        {
-            for (int j = -1; j < MAP_WIDTH + 1; j++)
-            {
-                if (GetTileEmptyNighborsCount(i, j) == 0)
-                {
-                    //Debug.Log("placing lighttile on " + RowCol2GridPosition(i, j));
-                    lightMap.SetTile(RowCol2GridPosition(i, j), lightTile);
-                }
-            }
-        }
-    } TODO: smazat */
 
     int GetTileEmptyNighborsCount(int row, int col)
     {
@@ -234,12 +216,12 @@ public class MapManager : GameObject2D
 
         // choose dirt type
         float relativeDepth = row / (float)MAP_HEIGHT;
-        int dirtIdx = (int)(Mathf.Clamp(relativeDepth * Random.Range(0.9f, 1.1f) * dirtTiles.Length, 0.1f, dirtTiles.Length - 0.1f));
+        int dirtIdx = (int)(Mathf.Clamp(relativeDepth * Random.Range(0.92f, 1.08f) * dirtTiles.Length, 0.1f, dirtTiles.Length - 0.1f));
 
         dirtMap.SetTile(gridPosition, dirtTiles[dirtIdx]);
 
         // kazdej tile ma svoje TileData
-        tileDatas[gridPosition] = new TileData(this, row, col, tileType, Mathf.Pow(DEFAULT_DURABILITY, (float)(dirtIdx + 1)), Random.Range(1, 3));
+        float durability = Mathf.Pow(DEFAULT_DURABILITY, (float)(dirtIdx + 1));
 
         // materialovej overlay
         switch (tileType)
@@ -257,6 +239,7 @@ public class MapManager : GameObject2D
                 break;
             case TileData.TileType.BEDROCK:
                 tileTypeMap.SetTile(gridPosition, bedrockTile);
+                durability = float.PositiveInfinity;
                 break;
             case TileData.TileType.GROUND: // unused
                 tileTypeMap.SetTile(gridPosition, groundTile);
@@ -268,6 +251,9 @@ public class MapManager : GameObject2D
                 throw new System.Exception("PEPA UTOCI!!!");
                 break;
         }
+
+        int materialCount = Random.Range(1, 4);
+        tileDatas[gridPosition] = new TileData(this, row, col, tileType, durability, materialCount);
     }
 
     public void RemoveTile(int row, int col)
@@ -290,18 +276,20 @@ public class MapManager : GameObject2D
 
     public void SpawnEnemies(int row, int col, int count)
     {
-        Vector3 GridPositon = RowCol2GridPosition(row, col);
+        Vector3 GridPositon = RowCol2GridPosition(row, col) + dirtMap.cellSize / 2.0f;
 
         for (int i = 0; i < count; i++)
         {
             float roll = Random.Range(0.0f, 1.0f);
             if (roll < 0.5f)
             {
-                Instantiate(RangeEnemyPrefab, position: randomOffsettedPosition(GridPositon, 0.05f), rotation: Quaternion.identity);
+                GameObject enemy = Instantiate(RangeEnemyPrefab, position: randomOffsettedPosition(GridPositon, 0.05f), rotation: Quaternion.identity);
+                enemy.GetComponent<Enemy>().ScaleByDepth(row);
             }
             else
             {
-                Instantiate(MeleeEnemyPrefab, position: randomOffsettedPosition(GridPositon, 0.05f), rotation: Quaternion.identity);
+                GameObject enemy = Instantiate(MeleeEnemyPrefab, position: randomOffsettedPosition(GridPositon, 0.05f), rotation: Quaternion.identity);
+                enemy.GetComponent<Enemy>().ScaleByDepth(row);
             }
         }
     }
@@ -309,7 +297,6 @@ public class MapManager : GameObject2D
     public void SpawnNestEnemies(int row, int col)
     {
         float coef = GetEnemyCountDepthCoef(row);
-
         int enemyCount = (int)Random.Range(MIN_ENEMY_COUNT * coef, MAX_ENEMY_COUNT * coef);
 
         SpawnEnemies(row, col, enemyCount);
@@ -317,10 +304,10 @@ public class MapManager : GameObject2D
 
     public void SpawnQueenNestEnemies(int row, int col)
     {
-        Instantiate(QueenPrefab, position: RowCol2GridPosition(row, col), rotation: Quaternion.identity);
+        GameObject queen = Instantiate(QueenPrefab, position: RowCol2GridPosition(row, col) + dirtMap.cellSize / 2.0f, rotation: Quaternion.identity);
+        queen.GetComponent<Queen>().ScaleByDepth(row);
 
         float coef = GetEnemyCountDepthCoef(row);
-
         int enemyCount = (int)Random.Range(MIN_QUEEN_ENEMY_COUNT * coef, MAX_QUEEN_ENEMY_COUNT * coef);
 
         SpawnEnemies(row, col, enemyCount);

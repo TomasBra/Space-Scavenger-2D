@@ -25,6 +25,6 @@ public class MeleeEnemy : Enemy
     {
         Vector2 knockback_direction = player.transform.position - this.transform.position;
         knockback_direction.Normalize();
-        playah.TakeDamage(DAMAGE, knockback_direction);
+        playah.TakeDamage(damage, knockback_direction);
     }
 }

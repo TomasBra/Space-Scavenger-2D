@@ -1,22 +1,66 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Enemy : Health
 {
+    public static float GetSpeedDepthCoef(int absoluteDepth)
+    {
+        float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
+        float bonus = relativeDepth * 0.8f;
+
+        return 1.0f + bonus;
+    }
+
+    public static float GetHPDepthCoef(int absoluteDepth)
+    {
+        float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
+        float bonus = relativeDepth * 4.0f;
+
+        return 1.0f + bonus;
+    }
+
+    public static float GetDamageDepthCoef(int absoluteDepth)
+    {
+        float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
+        float bonus = relativeDepth * 2.0f;
+
+        return 1.0f + bonus;
+    }
+
+    public static float GetAttackCooldownDepthCoef(int absoluteDepth)
+    {
+        float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
+        float bonus = relativeDepth * 2.5f;
+
+        return 1 / (1.0f + bonus);
+    }
+
+    public static float GetMiningDamageDepthCoef(int absoluteDepth)
+    {
+        float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
+        float bonus = relativeDepth * 5.0f;
+
+        return 1.0f + bonus;
+    }
+
     [SerializeField]
     protected float STOP_MOVE_DISTANCE;
 
     [SerializeField]
-    protected float SPEED;
+    protected float DEFAULT_SPEED;
+    protected float speed;
 
     [SerializeField]
-    protected float DAMAGE;
+    protected float DEFAULT_DAMAGE;
+    protected float damage;
 
     [SerializeField]
-    protected float MINING_DAMAGE;
+    protected float DEFAULT_MINING_DAMAGE;
+    protected float miningDamage;
 
     [SerializeField]
     private float PROJECTILE_SPEED;
@@ -24,7 +68,11 @@ public class Enemy : Health
     private float PROJECTILE_LIFETIME;
 
     [SerializeField]
-    protected float ATACK_COOL_DOWN; //v sekundach
+    protected float DEFAULT_ATTACK_COOLDOWN;
+    protected float attackCooldown; //v sekundach
+
+    [SerializeField]
+    protected float DEFAULT_HP;
 
     [SerializeField]
     protected float MIN_ATTACK_DISTANCE;
@@ -75,8 +123,17 @@ public class Enemy : Health
         wanderDirection = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
     }
 
-    const float MAGIC = 0.08f;
+    public void ScaleByDepth(int absoluteDepth)
+    {
+        speed = DEFAULT_SPEED * GetSpeedDepthCoef(absoluteDepth);
+        damage = DEFAULT_DAMAGE * GetDamageDepthCoef(absoluteDepth);
+        miningDamage = DEFAULT_MINING_DAMAGE * GetMiningDamageDepthCoef(absoluteDepth);
+        attackCooldown = DEFAULT_ATTACK_COOLDOWN * GetAttackCooldownDepthCoef(absoluteDepth);
+        maxHP = DEFAULT_HP * GetHPDepthCoef(absoluteDepth);
+        HP = maxHP;
+    }
 
+    const float MAGIC = 0.08f;
     // Update is called once per frame
     public void Update()
     {
@@ -87,7 +144,7 @@ public class Enemy : Health
         Vector2 toPlayer = player.transform.position - this.transform.position;
         float playerDistance = toPlayer.magnitude;
         Vector2 moveDirection = Vector2.zero;
-        float currentSpeed = SPEED;
+        float currentSpeed = speed;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, toPlayer, Mathf.Infinity, raycastIgnoreMask);
 
         if (!isTriggered)
@@ -100,7 +157,7 @@ public class Enemy : Health
             else
             {
                 // wander around
-                currentSpeed = WANDER_SPEED_COEF * SPEED;
+                currentSpeed = WANDER_SPEED_COEF * speed;
                 moveDirection = wanderDirection;
             }
         }
@@ -149,7 +206,7 @@ public class Enemy : Health
                 }
             }
         
-            if (toPlayer.magnitude < MIN_ATTACK_DISTANCE && (DateTime.Now - lastAttack).TotalSeconds > ATACK_COOL_DOWN)
+            if (toPlayer.magnitude < MIN_ATTACK_DISTANCE && (DateTime.Now - lastAttack).TotalSeconds > attackCooldown)
             {
                 lastAttack = DateTime.Now;
                 Attack();
@@ -170,8 +227,8 @@ public class Enemy : Health
             //vyst�elen� a nato�en� projektilu spr�vn�m sm�rem
             GameObject projectile = Instantiate(Projectile, position: transform.position, rotation: Quaternion.identity);
             projectile.GetComponent<Projectile>().direction = direction;
-            projectile.GetComponent<Projectile>().mining_damage = MINING_DAMAGE;
-            projectile.GetComponent<Projectile>().damage = DAMAGE;
+            projectile.GetComponent<Projectile>().mining_damage = miningDamage;
+            projectile.GetComponent<Projectile>().damage = damage;
             projectile.GetComponent<Projectile>().speed = PROJECTILE_SPEED;
             projectile.GetComponent<Projectile>().lifeTime = PROJECTILE_LIFETIME;
 

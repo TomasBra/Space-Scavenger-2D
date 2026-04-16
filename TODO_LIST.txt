@@ -1,24 +1,24 @@
 TODO:
 X nepratelsky strely nici bloky na jednu ranu
 X nepratele utoci, jeste nez vidi hrace
-X nepratele jsou hloupi hlupaci
 X nepratele se spawnujou v terenu A TAKY UPLNE MIMO MAPU
-- upgrady
-- postupny stupnovani obtiznosti
-	- vic nepratel
-	- silnejsi staty
-X hrac tezi 2x rychlejs ve smeru vlevo a nahoru
-- animace smrti jsou pochybny
-	- u nepratel
-	- u hrace
-- asi kdyz umru, tak to vyhodi spoustu erroru o reference not set to an instance of an object Enemy.Update, Queen.Update
-	- jooo no a taky se komplet rozjebe kamera
-- praskliny
-- hnizda jsou absolutne masivni a PUSTY
-	- masivni
-	X PUSTY
-- ruzny tvrdosti
+X hnizda PUSTY
+X ruzny tvrdosti
 	X podle hloubky
-	-ruzny bloky
+	X ruzny bloky
 X svetla projektilum
-- kralovna se furt obcas spawne ve zdi
+X hrac tezi 2x rychlejs ve smeru vlevo a nahoru
+X kralovna se furt obcas spawne ve zdi
+X asi kdyz umru, tak to vyhodi spoustu erroru o reference not set to an instance of an object Enemy.Update, Queen.Update
+	X jooo no a taky se komplet rozjebe kamera
+X postupny stupnovani obtiznosti
+	X vic nepratel
+	X silnejsi staty
+X animace smrti jsou pochybny
+	X u nepratel
+	X u hrace
+- nepratele jsou hloupi hlupaci
+- upgrady
+- praskliny
+	X objevovani
+	- textura

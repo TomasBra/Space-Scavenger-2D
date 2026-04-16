@@ -7,8 +7,28 @@ using UnityEngine.Tilemaps;
 
 public class Queen : Health
 {
+    public static float GetHPDepthCoef(int absoluteDepth)
+    {
+        float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
+        float bonus = relativeDepth * 6.0f;
+
+        return 1.0f + bonus;
+    }
+
+    public static float GetSpawnCooldownDepthCoef(int absoluteDepth)
+    {
+        float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
+        float bonus = relativeDepth * 2.0f;
+
+        return 1 / (1.0f + bonus);
+    }
+
     [SerializeField]
-    private float SPAWN_COOL_DOWN; //v sekundach
+    private float DEFAULT_SPAWN_COOLDOWN;
+    private float spawnCooldown; //v sekundach
+
+    [SerializeField]
+    private float DEFAULT_HP;
 
     [SerializeField]
     private GameObject SpawnableObject;
@@ -33,6 +53,13 @@ public class Queen : Health
         mapManager = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
 
         raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore));
+    }
+
+    public void ScaleByDepth(int absoluteDepth)
+    {
+        spawnCooldown = DEFAULT_SPAWN_COOLDOWN * GetSpawnCooldownDepthCoef(absoluteDepth);
+        maxHP = DEFAULT_HP * GetHPDepthCoef(absoluteDepth);
+        HP = maxHP;
     }
 
     // Update is called once per frame
@@ -63,7 +90,7 @@ public class Queen : Health
             {
                 isTriggered = false;
             }
-            else if ((Time.time - lastSpawnTime) >= SPAWN_COOL_DOWN)
+            else if ((Time.time - lastSpawnTime) >= spawnCooldown)
             {
                 lastSpawnTime = Time.time;
                 Spawn(SpawnableObject);

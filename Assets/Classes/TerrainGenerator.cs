@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Properties;
 using UnityEngine;
 
 public class TempTile
@@ -11,7 +12,7 @@ public class TempTile
         EMPTY,
         DIRT,
         BEDROCK,
-        GROUND,
+        GROUND, // unused
         IRON,
         COPPER,
         GOLD,
@@ -228,6 +229,7 @@ public class TerrainGenerator
         int startRow;
         int startCol;
         float distFromNearest;
+        bool willRepeat;
         int minNestDist = DEF_MIN_NEST_DIST;
         do
         {
@@ -251,7 +253,23 @@ public class TerrainGenerator
                 minNestDist--;
             }
 
-        } while (tiles[startRow, startCol].type != TempTile.TileType.DIRT || distFromNearest <= minNestDist);
+            // cannot spawn nest right next to another nest or bedrock
+            bool isNeighborBad = false;
+            List<TempTile> neighbors = GetNeighbors_3x3(startRow, startCol, new TempTile.TileType[2] { TempTile.TileType.BEDROCK, TempTile.TileType.NEST_BORDER });
+            if (neighbors.Count > 0)
+            {
+                isNeighborBad = true;
+            }
+
+            // to successfully start a nest:
+                // dont neighbor another nest tile or bedrock tile
+                // must start in dirt
+                // distance from another nest must be enough
+            willRepeat = isNeighborBad
+                || tiles[startRow, startCol].type != TempTile.TileType.DIRT
+                || distFromNearest <= minNestDist;
+
+        } while (willRepeat);
 
         TempTile[,] tilesBackup = new TempTile[HEIGHT, WIDTH];
 
@@ -398,7 +416,7 @@ public class TerrainGenerator
     {
         for (int col = 0; col < WIDTH; col++)
         {
-            tiles[0, col] = new TempTile(0, col, TempTile.TileType.GROUND);
+            tiles[0, col] = new TempTile(0, col, TempTile.TileType.BEDROCK);
             tiles[HEIGHT - 1,col] = new TempTile(HEIGHT - 1, col, TempTile.TileType.BEDROCK);
         }
 
@@ -407,6 +425,8 @@ public class TerrainGenerator
             tiles[row, 0] = new TempTile(row, 0, TempTile.TileType.BEDROCK);
             tiles[row, WIDTH - 1] = new TempTile(row, WIDTH - 1, TempTile.TileType.BEDROCK);
         }
+
+        tiles[0, WIDTH / 2] = new TempTile(0, WIDTH / 2, TempTile.TileType.EMPTY);
     }
 
     void GenerateNests(int nestCount, bool isQueen)
