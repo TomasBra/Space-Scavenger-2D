@@ -17,8 +17,13 @@ X postupny stupnovani obtiznosti
 X animace smrti jsou pochybny
 	X u nepratel
 	X u hrace
-- nepratele jsou hloupi hlupaci
-- upgrady
-- praskliny
+X praskliny
 	X objevovani
-	- textura
+	X textura
+X sprite vypadlych materialu
+- nepratele jsou hloupi hlupaci
+	- zasekavaji se pri path findingu
+	- zasekavaji se pri wanderingu
+- upgrady
+- materialy vypadavaji nejak nakrivo
+- materialy by se nemusely spawnovat vedle sebe
