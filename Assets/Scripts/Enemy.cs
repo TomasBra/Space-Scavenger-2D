@@ -180,17 +180,17 @@ public class Enemy : Health
 
     public override bool TakeDamage(float damage, Vector2? knockbackDirection = null, bool destroyable = true)
     {
+        if (dead)
+            return true;
+
         System.Random random = new System.Random();
-        bool died = base.TakeDamage(damage, knockbackDirection, false);
-
-
+        bool died = base.TakeDamage(damage, knockbackDirection, true);
         if (died)
         {
-            if (random.Next(0,10) < 2)
+            if (random.Next(0, 10) < 2)
             {
                 Instantiate(MeatPrefab, this.transform.position, quaternion.identity);
             }
-            Destroy(this.gameObject);
         }
 
         return died;

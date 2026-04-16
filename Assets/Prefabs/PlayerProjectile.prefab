@@ -195,6 +195,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playah: {fileID: 0}
   animator: {fileID: 0}
+  EXPLOSION_ANIM_TIME: 0
   lifeTime: 3
   speed: 6
   tagsToIgnore:
@@ -207,6 +208,8 @@ MonoBehaviour:
   damage: 10
   mining_damage: 10
   direction: {x: 0, y: 0}
+  bounces: 0
+  explosion_radius: 3
 --- !u!50 &6176690850458448079
 Rigidbody2D:
   serializedVersion: 5

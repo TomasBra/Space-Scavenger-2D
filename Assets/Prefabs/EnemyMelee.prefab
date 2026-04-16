@@ -111,12 +111,13 @@ MonoBehaviour:
   player: {fileID: 0}
   playah: {fileID: 0}
   animator: {fileID: 0}
+  DeathAnimClip: {fileID: 7400000, guid: 5b7c8df2a0c07e346825ce0be8a8bcfe, type: 2}
   maxHP: 10
-  DEATH_ANIM_TIME: 0.3
   HP: 0
   dead: 0
   material: {fileID: 0}
   FLASH_TIME: 0.5
+  death_offset: 0
   STOP_MOVE_DISTANCE: 0.95
   SPEED: 4
   DAMAGE: 3
@@ -126,6 +127,7 @@ MonoBehaviour:
   ATACK_COOL_DOWN: 1
   MIN_ATTACK_DISTANCE: 1.2
   Projectile: {fileID: 0}
+  isTriggered: 0
   MeatPrefab: {fileID: 2914244009387907540, guid: 8b10673779b8eb44e8a2c05f2ec23d57, type: 3}
 --- !u!50 &3093368364431400676
 Rigidbody2D:

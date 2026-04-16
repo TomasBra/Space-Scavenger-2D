@@ -68,7 +68,6 @@ public class Playah : Health
     public void Start()
     {
         base.Start();
-        DEATH_ANIM_TIME = 0.8f;
         healthBar.SetMaxHealth(maxHP);
 
         InitParticleSystems();
@@ -149,7 +148,7 @@ public class Playah : Health
         if (shouldDie)
         {
             string currentSceneName = SceneManager.GetActiveScene().name;
-            this.Invoke(() => SceneManager.LoadScene(currentSceneName), DEATH_ANIM_TIME);
+            this.Invoke(() => SceneManager.LoadScene(currentSceneName), death_offset);
         }
         return shouldDie;
     }

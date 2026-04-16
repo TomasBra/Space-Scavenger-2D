@@ -5,9 +5,10 @@ using UnityEngine;
 public class Health : GameObject2D
 {
     [SerializeField]
-    public float maxHP = 3f;
+    protected AnimationClip DeathAnimClip;
+
     [SerializeField]
-    public float DEATH_ANIM_TIME = 0.3f;
+    public float maxHP = 3f;
 
     [HideInInspector]
     public float HP;
@@ -25,11 +26,18 @@ public class Health : GameObject2D
     private float _lastDamageTime;
     private bool _isFlashing;
 
+    public float death_offset;
+
     public void Start()
     {
         base.Start();
         HP = maxHP;
         material = GetComponent<SpriteRenderer>().material;
+
+        if(DeathAnimClip != null )
+            death_offset = DeathAnimClip.length;
+        else
+            death_offset = 0;
     }
 
     public void Update()
@@ -46,6 +54,8 @@ public class Health : GameObject2D
 
     public virtual bool TakeDamage(float damage, Vector2? knockbackDirection = null, bool destroyable = true)
     {
+        if (dead)
+            return true;
         _lastDamageTime = Time.time;
 
         if (!_isFlashing)
@@ -65,11 +75,12 @@ public class Health : GameObject2D
         {
             SetFlashAmount(0); // WARN: tohle jsem pripsal
             StopAllCoroutines();
+            dead = true;
+
             if (destroyable)
             {
-                dead = true;
                 SetAnimatorTrigger("Dead");
-                this.Invoke(() => Destroy(transform.gameObject), DEATH_ANIM_TIME);
+                this.Invoke(() => Destroy(transform.gameObject), death_offset);
             }
             return true;
         }

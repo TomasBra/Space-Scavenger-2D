@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Projectile : GameObject2D
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+
+
+    [SerializeField]
+    public AnimationClip ExplosionAnimationClip;
 
     [SerializeField]
     public float lifeTime = 3;
@@ -33,11 +37,22 @@ public class Projectile : GameObject2D
 
     public int bounces = 0;
 
+    public float explosion_radius = 0;
+
+    private float explosion_offset;
+
+    private bool dead = false;
+
     void Start()
     {
         base.Start();
         spawnTime = DateTime.Now;
         SetUpIngoreLayer();
+
+        if (ExplosionAnimationClip != null)
+            explosion_offset = ExplosionAnimationClip.length;
+        else
+            explosion_offset = 0;
     }
 
     void SetUpIngoreLayer()
@@ -54,7 +69,14 @@ public class Projectile : GameObject2D
     {
         base.Update();
         if ((DateTime.Now - spawnTime).TotalSeconds > lifeTime)
-            Destroy(this.gameObject);
+        {
+            this.Invoke(() => Destroy(this.gameObject), explosion_offset);
+            dead = true;
+        }
+
+
+        if (dead)
+            return;
 
         rigidbody.linearVelocity = direction.normalized * speed;
 
@@ -62,6 +84,12 @@ public class Projectile : GameObject2D
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        if (dead)
+            return;
+
+        if (tagsToIgnore.Any(entry => entry == col.gameObject.tag))
+            return;
+
         if (col.gameObject.CompareTag(TILEMAP_TAG))
         {
             ContactPoint2D contact = col.GetContact(0);
@@ -79,11 +107,40 @@ public class Projectile : GameObject2D
             health.TakeDamage(damage);
         }
 
-
-        if (tagsToIgnore.Any(entry => entry == col.gameObject.tag))
-            Destroy(gameObject);
+        if (bounces == 0)
+        {
+            direction = new Vector2(0, 0);
+            this.Invoke(() => Destroy(this.gameObject), explosion_offset);
+            dead = true;
+        }
 
         direction = Vector2.Reflect(direction, col.GetContact(0).normal);
+        spawnTime = DateTime.Now;
+        bounces--;
+    }
+
+    private void Explode()
+    {
+        explosion_radius = 2;
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(ENEMY_TAG);
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            if (Vector2.Distance(this.transform.position, enemies[i].transform.position) < explosion_radius)
+            {
+                Health helthComponent = enemies[i].GetComponent<Health>();
+                if (helthComponent == null)
+                    continue;
+
+                helthComponent.TakeDamage(damage);
+            }
+        }
+
+        SetAnimatorTrigger("Explode");
+
+
+
     }
 }
 
