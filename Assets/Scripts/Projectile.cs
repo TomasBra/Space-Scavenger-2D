@@ -60,9 +60,8 @@ public class Projectile : GameObject2D
 
     }
 
-    void OnCollisionStay2D(Collision2D col)
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        
         if (col.gameObject.CompareTag(TILEMAP_TAG))
         {
             ContactPoint2D contact = col.GetContact(0);
@@ -84,7 +83,7 @@ public class Projectile : GameObject2D
         if (tagsToIgnore.Any(entry => entry == col.gameObject.tag))
             Destroy(gameObject);
 
-        direction = Vector2.Reflect(direction, col.contacts[0].normal);
+        direction = Vector2.Reflect(direction, col.GetContact(0).normal);
     }
 }
 

@@ -68,6 +68,13 @@ public class Enemy : Health
         SetRandomWanderDirection();
     }
 
+    protected void SetRandomWanderDirection()
+    {
+        float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2.0f);
+
+        wanderDirection = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+    }
+
     const float MAGIC = 0.08f;
 
     // Update is called once per frame
