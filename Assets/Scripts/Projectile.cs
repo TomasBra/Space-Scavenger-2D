@@ -164,21 +164,6 @@ public class Projectile : GameObject2D
                     break;
             }
         }
-
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(ENEMY_TAG);
-
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            if (Vector2.Distance(this.transform.position, enemies[i].transform.position) < explosion_radius)
-            {
-                Health helthComponent = enemies[i].GetComponent<Health>();
-                if (helthComponent == null)
-                    continue;
-
-                helthComponent.TakeDamage(damage);
-            }
-        }
-
         SetAnimatorTrigger("Explode");
 
 

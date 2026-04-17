@@ -1,10 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.GameCenter;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
-using static TempTile;
-using static TileData;
-using static UnityEngine.Rendering.DebugUI.Table;
+using UnityEngine.UIElements;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class MapManager : GameObject2D
 {
@@ -28,6 +29,12 @@ public class MapManager : GameObject2D
 
     [SerializeField]
     private TileBase[] dirtTiles;
+
+    [SerializeField]
+    private Tilemap shadowMap;
+
+    [SerializeField]
+    private TileBase shadowTile;
 
     // materials
     [SerializeField]
@@ -140,13 +147,13 @@ public class MapManager : GameObject2D
             {
                 // background
                 dirtBgMap.SetTile(RowCol2GridPosition(i, j), dirtBgTile);
-
+                shadowMap.SetTile(RowCol2GridPosition(i, j), shadowTile);
                 // tiles
                 switch (typeGrid[i, j].type)
                 {
                     case TempTile.TileType.EMPTY:
                         break;
-                    case TempTile.TileType.DIRT:                        
+                    case TempTile.TileType.DIRT:
                         AddTile(i, j, TileData.TileType.DIRT);
                         break;
                     case TempTile.TileType.IRON:
@@ -176,11 +183,13 @@ public class MapManager : GameObject2D
                         break;
                     default:
                         throw new System.Exception("PEPA UTOCI!!!");
+                        Debug.Log("Peperino Bombardino");
                         break;
                 }
             }
         }
 
+        this.RemoveTile(new Vector3Int(MAP_WIDTH / 2, 0));
         itemCounter.SetSamples(killedQueenCount, maxQueenCount);
     }
 
@@ -225,30 +234,37 @@ public class MapManager : GameObject2D
         switch (tileType)
         {
             case TileData.TileType.DIRT:
+                shadowMap.SetTile(gridPosition, shadowTile);
                 break;
             case TileData.TileType.IRON:
                 tileTypeMap.SetTile(gridPosition, ironTile);
+                shadowMap.SetTile(gridPosition, shadowTile);
                 break;
             case TileData.TileType.COPPER:
                 tileTypeMap.SetTile(gridPosition, copperTile);
+                shadowMap.SetTile(gridPosition, shadowTile);
                 break;
             case TileData.TileType.GOLD:
                 tileTypeMap.SetTile(gridPosition, goldTile);
+                shadowMap.SetTile(gridPosition, shadowTile);
                 break;
             case TileData.TileType.BEDROCK:
                 tileTypeMap.SetTile(gridPosition, bedrockTile);
+                shadowMap.SetTile(gridPosition, null);
                 durability = float.PositiveInfinity;
                 break;
             case TileData.TileType.GROUND: // unused
                 tileTypeMap.SetTile(gridPosition, groundTile);
+                shadowMap.SetTile(gridPosition, null);
                 break;
             case TileData.TileType.NEST_BORDER:
                 tileTypeMap.SetTile(gridPosition, nestBorderTile);
+                shadowMap.SetTile(gridPosition, shadowTile);
                 break;
             default:
-                throw new System.Exception("PEPA UTOCI!!!");
                 break;
         }
+
 
         int materialCount = Random.Range(1, 4);
         tileDatas[gridPosition] = new TileData(this, row, col, tileType, durability, materialCount);
@@ -258,10 +274,7 @@ public class MapManager : GameObject2D
     {
         Vector3Int gridPosition = RowCol2GridPosition(row, col);
 
-        dirtMap.SetTile(gridPosition, null);
-        tileTypeMap.SetTile(gridPosition, null);
-        crackMap.SetTile(gridPosition, null);
-        lightMap.SetTile(gridPosition, null);
+        RemoveTile(gridPosition);
     }
 
     public void RemoveTile(Vector3Int gridPosition)
@@ -269,7 +282,82 @@ public class MapManager : GameObject2D
         dirtMap.SetTile(gridPosition, null);
         tileTypeMap.SetTile(gridPosition, null);
         crackMap.SetTile(gridPosition, null);
+
+        //odstranim shadow plus sousedni
+        shadowMap.SetTile(gridPosition, null);
+
+        //nejak vyresit odstraneni stinu z celeho otevreneho hnizda
+        TileData? tile = GetTile(gridPosition);
+        if (tile != null && tile.type == TileData.TileType.NEST_BORDER)
+        {
+            this.RemoveShadowFromEmptyNeighbours(gridPosition);
+        }
+
+
+        List<Vector3Int> neighbours = GetNeighbours(gridPosition);
+        foreach (Vector3Int neighbour in neighbours)
+            shadowMap.SetTile(neighbour, null);
+
         tileDatas.Remove(gridPosition);
+    }
+
+    public void RemoveShadowFromEmptyNeighbours(Vector3Int gridPosition)
+    {
+        List<Vector3Int> toRemoveShadow = new List<Vector3Int>();
+        Queue<Vector3Int> queue = new Queue<Vector3Int>();
+        HashSet<Vector3Int> visited = new HashSet<Vector3Int>();
+
+        //BFS - Be fast, shithead!
+
+        List<Vector3Int> neighbours = GetNeighbours(gridPosition);
+        foreach (Vector3Int neighbour in neighbours)
+            queue.Enqueue(neighbour);
+
+        while (queue.Count > 0)
+        {
+            Vector3Int position = queue.Dequeue();
+            if (visited.Contains(position))
+                continue;
+
+            visited.Add(position);
+
+            TileData? tile = GetTile(position);
+            TileBase tileBase = shadowMap.GetTile(position);
+
+            if ((tile != null && tile.type != TileData.TileType.NEST_BORDER) || tileBase != shadowTile)
+                continue;
+
+            toRemoveShadow.Add(position);
+
+            neighbours = GetNeighbours(position);
+            foreach (Vector3Int neighbour in neighbours)
+                if(!visited.Contains(neighbour))
+                    queue.Enqueue(neighbour);
+        }
+
+
+        StartCoroutine(RemoveShadowCoroutine(toRemoveShadow));
+    }
+
+    private IEnumerator RemoveShadowCoroutine(List<Vector3Int> positions)
+    {
+        foreach (Vector3Int position in positions)
+        {
+            shadowMap.SetTile(position, null);
+            yield return new WaitForSeconds(0.003f);
+        }
+    }
+
+    public List<Vector3Int> GetNeighbours(Vector3Int gridPosition)
+    {
+        List<Vector3Int> neigbours = new List<Vector3Int>();
+
+        neigbours.Add(new Vector3Int(gridPosition.x-1, gridPosition.y));
+        neigbours.Add(new Vector3Int(gridPosition.x+1, gridPosition.y));
+        neigbours.Add(new Vector3Int(gridPosition.x, gridPosition.y-1));
+        neigbours.Add(new Vector3Int(gridPosition.x, gridPosition.y+1));
+
+        return neigbours;
     }
 
     public void SpawnEnemies(int row, int col, int count)

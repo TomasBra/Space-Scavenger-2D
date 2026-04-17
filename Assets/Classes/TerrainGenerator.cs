@@ -425,8 +425,6 @@ public class TerrainGenerator
             tiles[row, 0] = new TempTile(row, 0, TempTile.TileType.BEDROCK);
             tiles[row, WIDTH - 1] = new TempTile(row, WIDTH - 1, TempTile.TileType.BEDROCK);
         }
-
-        tiles[0, WIDTH / 2] = new TempTile(0, WIDTH / 2, TempTile.TileType.EMPTY);
     }
 
     void GenerateNests(int nestCount, bool isQueen)

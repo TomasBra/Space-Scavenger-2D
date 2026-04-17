@@ -213,7 +213,7 @@ MonoBehaviour:
   mining_damage: 100
   direction: {x: 0, y: 0}
   bounces: 3
-  explosion_radius: 3
+  explosion_radius: 1
 --- !u!50 &6176690850458448079
 Rigidbody2D:
   serializedVersion: 5
