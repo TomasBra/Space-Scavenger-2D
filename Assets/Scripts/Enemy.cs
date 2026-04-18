@@ -47,6 +47,9 @@ public class Enemy : Health
         return 1.0f + bonus;
     }
 
+    public const float WANDER_BOUNCE_COOLDOWN = 0.1f;
+    protected DateTime lastWanderBounceTime;
+
     [SerializeField]
     protected float STOP_MOVE_DISTANCE;
 
@@ -93,7 +96,7 @@ public class Enemy : Health
     protected const float MAX_TRIGGER_DISTANCE = 11;
     public bool isTriggered = false;
     protected Vector2 wanderDirection;
-    protected const float WANDER_SPEED_COEF = 0.25f;
+    protected const float WANDER_SPEED_COEF = 0.33f;
 
     protected string[] layersToIgnore = new string[] { "Enemies", "EnemyProjectiles", "PlayerProjectiles" };
     protected LayerMask raycastIgnoreMask;
@@ -106,6 +109,7 @@ public class Enemy : Health
     {
         base.Start();
         lastAttack = DateTime.Now;
+        lastWanderBounceTime = DateTime.Now;
 
         tilemap = GameObject.Find("DirtTilemap").GetComponent<Tilemap>();
 
@@ -251,5 +255,15 @@ public class Enemy : Health
         }
 
         return died;
+    }
+
+    public void OnCollisionStay2D(Collision2D collision)
+    {
+        if ((float)(DateTime.Now - lastWanderBounceTime).TotalSeconds >= WANDER_BOUNCE_COOLDOWN)
+        { 
+            lastWanderBounceTime = DateTime.Now;
+            // bounce
+            wanderDirection = Vector2.Reflect(wanderDirection, collision.GetContact(0).normal);
+        }
     }
 }

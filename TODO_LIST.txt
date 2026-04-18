@@ -22,8 +22,12 @@ X praskliny
 	X textura
 X sprite vypadlych materialu
 - nepratele jsou hloupi hlupaci
-	- zasekavaji se pri path findingu
-	- zasekavaji se pri wanderingu
+	- zasekavaji se pri path findingu : moh bys castit ze dvou boku a sledovat, jestli vidi a kdyz ne, tak pathfinding
+	X zasekavaji se pri wanderingu
+- to samy jde udelat u strel
 - upgrady
 - materialy vypadavaji nejak nakrivo
 - materialy by se nemusely spawnovat vedle sebe
+-! material mizi
+- bfs pro odstinovani prochazi i sikmo
+- to gui chce spravit

@@ -46,10 +46,14 @@ public class Projectile : GameObject2D
 
     private bool dead = false;
 
+    protected const float BOUNCE_COOLDOWN = 0.1f;
+    protected DateTime lastBounceTime;
+
     void Start()
     {
         base.Start();
         spawnTime = DateTime.Now;
+        lastBounceTime = spawnTime;
         SetUpIngoreLayer();
 
         if (ExplosionAnimationClip != null)
@@ -118,7 +122,7 @@ public class Projectile : GameObject2D
             health.TakeDamage(damage);
         }
 
-        if (bounces == 0)
+        if (bounces <= 0)
         {
             direction = new Vector2(0, 0);
             ContactPoint2D contact = col.GetContact(0);
@@ -135,6 +139,19 @@ public class Projectile : GameObject2D
         bounces--;
     }
 
+    // TODO: mozna by to slo resit nejak takhle
+    /*
+    public void OnCollisionStay2D(Collision2D collision)
+    {
+        if ((float)(DateTime.Now - lastBounceTime).TotalSeconds >= BOUNCE_COOLDOWN)
+        {
+            lastBounceTime = DateTime.Now;
+
+            direction = Vector2.Reflect(direction, collision.GetContact(0).normal);
+            spawnTime = DateTime.Now;
+            bounces--;
+        }
+    }*/
     private void Explode(Vector2 position)
     {
         for (int i = 0; i < tagsExplosionDealDamage.Count; i++)
