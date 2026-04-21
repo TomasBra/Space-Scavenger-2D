@@ -6,19 +6,19 @@ using static TileData;
 
 public class Playah : Health
 {
-    private const float LASER_DISTANCE = 4.5f;
+    public float LASER_DISTANCE = 4.5f;
 
     //upgradovatelný věci
-    private const float LASER_MINING_DAMAGE_PER_SECOND = 5;
-    private const float LASER_DAMAGE_PER_SECOND = 1;
+    public float LASER_MINING_DAMAGE_PER_SECOND = 5;
+    public float LASER_DAMAGE_PER_SECOND = 1;
 
     [SerializeField]
     public int PROJECTILE_COUNT = 3;
-    private const float PROJECTILE_SPAWN_COOL_DOWN = 1; //počet sekund mezi vystrely
-    private const float PROJECTILE_DAMAGE = 5;
-    private const float PROJECTILE_MINING_DAMAGE = 5;
-    private const float PROJECTILE_SPEED = 6;
-    private const float PROJECTILE_LIFETIME = 3; //sekundach
+    public float PROJECTILE_SPAWN_COOL_DOWN = 1; //počet sekund mezi vystrely
+    public float PROJECTILE_DAMAGE = 5;
+    public float PROJECTILE_MINING_DAMAGE = 5;
+    public float PROJECTILE_SPEED = 6;
+    public float PROJECTILE_LIFETIME = 3; //sekundach
 
     [SerializeField]
     public float SPEED;
