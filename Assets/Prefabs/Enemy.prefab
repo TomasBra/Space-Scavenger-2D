@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1911380719107023154}
   - component: {fileID: 674111196482826402}
   - component: {fileID: 2518397964730516416}
+  - component: {fileID: 1951021156273830022}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
@@ -215,3 +216,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1951021156273830022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7011711083779050010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9771dadd257c34a9eeccb9a8a220ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IgnoreCollider
+  layersToIgnore: []
+  tagsToIgnore:
+  - Meat
+  - Iron
+  - Copper
+  - Gold

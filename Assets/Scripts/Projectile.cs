@@ -25,8 +25,6 @@ public class Projectile : GameObject2D
     private List<string> tagsExplosionDealDamage = new List<string>(); //zde jsou vsechny tagy, kterym dealujeme damage pri explozi
     [SerializeField]
     private List<string> tagsToIgnore = new List<string>();
-    [SerializeField]
-    private List<string> layersToIgnore= new List<string>();
 
     //private GameObject target;
 
@@ -54,21 +52,11 @@ public class Projectile : GameObject2D
         base.Start();
         spawnTime = DateTime.Now;
         lastBounceTime = spawnTime;
-        SetUpIngoreLayer();
 
         if (ExplosionAnimationClip != null)
             explosion_offset = ExplosionAnimationClip.length;
         else
             explosion_offset = 0;
-    }
-
-    void SetUpIngoreLayer()
-    {
-        for (int i = 0; i < layersToIgnore.Count; i++)
-        {
-            Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer(layersToIgnore[i]));
-            Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer(layersToIgnore[i]));
-        }
     }
 
     // Update is called once per frame
