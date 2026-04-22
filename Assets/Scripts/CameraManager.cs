@@ -2,11 +2,25 @@ using UnityEngine;
 
 public class CameraManager : GameObject2D
 {
+    enum GameState
+    { 
+        LANDING,
+        PLAY,
+        TAKEOFF
+    }
+
+    GameState currentGameState = GameState.PLAY;
+
     [SerializeField]
     public float SPEED;
 
     [SerializeField]
-    public Camera camera;
+    public Camera mainCamera;
+
+    [SerializeField]
+    public GameObject rocket;
+
+    private MapManager mapManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,6 +28,8 @@ public class CameraManager : GameObject2D
         base.Start();
 
         transform.position = new Vector3(MapManager.MAP_WIDTH / 2.0f, 1.0f, -10.0f);
+
+        mapManager = GameObject.FindGameObjectWithTag("MapManager").GetComponent<MapManager>();
     }
 
     // Update is called once per frame
@@ -21,19 +37,32 @@ public class CameraManager : GameObject2D
     {
         base.Update();
 
-        float destY = player.transform.position.y;
         float destX;
-        if (player.transform.position.y < 0.0f)
+        float destY;
+        Vector3 trackedPosition;
+
+        if (currentGameState == GameState.LANDING || currentGameState == GameState.TAKEOFF)
         {
-            destX = player.transform.position.x;
+            trackedPosition = rocket.transform.position;
+        }
+        else
+        {
+            trackedPosition = player.transform.position;
+        }
+
+        destY = trackedPosition.y;
+
+        if (trackedPosition.y < 0.0f)
+        {
+            destX = trackedPosition.x;
         }
         else
         {
             destX = MapManager.MAP_WIDTH / 2.0f;
         }
 
-        float cameraHalfWidth = camera.orthographicSize * camera.aspect;
-        float cameraHalfHeight = camera.orthographicSize / camera.aspect;
+        float cameraHalfWidth = mainCamera.orthographicSize * mainCamera.aspect;
+        float cameraHalfHeight = mainCamera.orthographicSize / mainCamera.aspect;
 
         // limit in X
         if (destX + cameraHalfWidth > MapManager.MAP_WIDTH)

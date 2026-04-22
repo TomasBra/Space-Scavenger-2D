@@ -458,9 +458,18 @@ public class TerrainGenerator
         {
             int currCluster = random.Next(minCluster, maxCluster + 1);
 
-            Tuple<int, int> startRowCol = FindTile(TempTile.TileType.DIRT, depthFunc);
+            int tryCount = 5;
+            Tuple<int, int> startRowCol;
+            do
+            {
+                startRowCol = FindTile(TempTile.TileType.DIRT, depthFunc);
 
-            HashSet<TempTile> visited = new HashSet<TempTile>();
+                tryCount--;
+            }
+            while (tryCount > 0
+                && GetNeighbors_Cross(startRowCol.Item1, startRowCol.Item2, new TempTile.TileType[1] { tileType }).Count > 0);
+
+            HashSet < TempTile > visited = new HashSet<TempTile>();
             PriorityQueue<TempTile> pq = new PriorityQueue<TempTile>();
             pq.Enqueue(tiles[startRowCol.Item1, startRowCol.Item2], 0);
 
