@@ -140,7 +140,6 @@ MonoBehaviour:
   - Enemies
   - EnemyProjectiles
   - PlayerProjectiles
-  - Ignore Raycast
   tagsToIgnore:
   - Meat
   - Iron

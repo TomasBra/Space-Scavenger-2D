@@ -52,7 +52,6 @@ public class Projectile : GameObject2D
         base.Start();
         spawnTime = DateTime.Now;
         // TODO: smazat lastBounceTime = spawnTime;
-        SetUpIngoreLayer();
 
         if (ExplosionAnimationClip != null)
             explosion_offset = ExplosionAnimationClip.length;
