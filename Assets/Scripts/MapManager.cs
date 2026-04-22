@@ -9,6 +9,15 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class MapManager : GameObject2D
 {
+    public enum GameState
+    {
+        LANDING,
+        PLAY,
+        TAKEOFF
+    }
+
+    public GameState currentGameState = GameState.LANDING;
+
     private static readonly Vector2Int[] directions4 = new Vector2Int[4]
         {
             new Vector2Int(1, 0),

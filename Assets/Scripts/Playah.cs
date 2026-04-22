@@ -36,7 +36,6 @@ public class Playah : Health
     [SerializeField]
     public GameObject ProjectilePrefab;
 
-
     [SerializeField]
     private GameObject mapManager;
 
