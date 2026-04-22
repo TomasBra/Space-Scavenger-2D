@@ -325,13 +325,19 @@ public class MapManager : GameObject2D
             TileBase tileBase = shadowMap.GetTile(position);
 
             if ((tile != null && tile.type != TileData.TileType.NEST_BORDER) || tileBase != shadowTile)
+            {
                 continue;
+            }
 
             toRemoveShadow.Add(position);
 
+            if (tile != null && tile.type == TileData.TileType.NEST_BORDER)
+            {
+                continue;
+            }
             neighbours = GetNeighbours(position);
             foreach (Vector3Int neighbour in neighbours)
-                if(!visited.Contains(neighbour))
+                if (!visited.Contains(neighbour))
                     queue.Enqueue(neighbour);
         }
 
@@ -422,7 +428,6 @@ public class MapManager : GameObject2D
     {
         List<TileData> tilesInRadius = new List<TileData>();
         Vector3Int gridPosition = dirtMap.WorldToCell(wordPosition);
-
         
         if (tileDatas.ContainsKey(gridPosition)) {
             TileData center = tileDatas[gridPosition];
@@ -440,7 +445,7 @@ public class MapManager : GameObject2D
                     continue;
 
                 TileData nearTile = tileDatas[gridNearPosition];
-                if(Vector2.Distance(dirtMap.CellToWorld(gridNearPosition), wordPosition) <= radius)
+                if(Vector2.Distance(dirtMap.CellToWorld(gridNearPosition) + dirtMap.cellSize / 2.0f, wordPosition) <= radius)
                 {
                     tilesInRadius.Add(nearTile);
                 }
@@ -473,7 +478,7 @@ public class MapManager : GameObject2D
         float relativeDurability = remainingDurability / maxDurability;
 
         Vector3Int gridPosition = new Vector3Int(tileData.col, -tileData.row);
-        Vector2 position = dirtMap.CellToWorld(gridPosition);
+        Vector2 position = dirtMap.CellToWorld(gridPosition) + dirtMap.cellSize / 2.0f;
 
         if (relativeDurability <= 0.0f)
         {

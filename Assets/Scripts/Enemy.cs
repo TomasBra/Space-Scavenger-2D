@@ -104,18 +104,21 @@ public class Enemy : Health
     [SerializeField]
     protected GameObject MeatPrefab;
 
+    protected CircleCollider2D enemyCollider;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
         base.Start();
+
+        enemyCollider = GetComponent<CircleCollider2D>();
+        raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore));
+        tilemap = GameObject.Find("DirtTilemap").GetComponent<Tilemap>();
+
         lastAttack = DateTime.Now;
         lastWanderBounceTime = DateTime.Now;
 
-        tilemap = GameObject.Find("DirtTilemap").GetComponent<Tilemap>();
-
         prevPlayerGridPos = tilemap.WorldToCell(player.transform.position);
-
-        raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore));
 
         SetRandomWanderDirection();
     }
@@ -145,16 +148,27 @@ public class Enemy : Health
         if (dead)
             return;
 
-        Vector2 toPlayer = player.transform.position - this.transform.position;
+        Vector2 toPlayer = player.transform.position - transform.position;
         float playerDistance = toPlayer.magnitude;
         Vector2 moveDirection = Vector2.zero;
         float currentSpeed = speed;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, toPlayer, Mathf.Infinity, raycastIgnoreMask);
+        Vector2 pos2D = new Vector2(transform.position.x, transform.position.y);
+        Vector2 playerPos2D = new Vector2(player.transform.position.x, player.transform.position.y);
+
+        // hitting
+        Vector2 origin1 = pos2D + toPlayer.RotateZ(90).normalized * enemyCollider.radius;
+        RaycastHit2D hit1 = Physics2D.Raycast(origin1, playerPos2D - origin1, Mathf.Infinity, raycastIgnoreMask);
+
+        Vector2 origin2 = pos2D + toPlayer.RotateZ(-90).normalized * enemyCollider.radius;
+        RaycastHit2D hit2 = Physics2D.Raycast(origin2, playerPos2D -  origin2, Mathf.Infinity, raycastIgnoreMask);
+
+        bool isFullyInSight = hit1.collider.transform.tag == PLAYER_TAG && hit2.collider.transform.tag == PLAYER_TAG;
+        bool isPartiallyInSight = hit1.collider.transform.tag == PLAYER_TAG || hit2.collider.transform.tag == PLAYER_TAG;
 
         if (!isTriggered)
         {
             // trigger if player is in sight
-            if (hit.collider.transform.tag == PLAYER_TAG)
+            if (isPartiallyInSight)
             {
                 isTriggered = true;
             }
@@ -168,7 +182,7 @@ public class Enemy : Health
         else
         {
             // untrigger
-            if (playerDistance > MAX_TRIGGER_DISTANCE && hit.collider.transform.tag != PLAYER_TAG)
+            if (playerDistance > MAX_TRIGGER_DISTANCE && !isPartiallyInSight)
             {
                 isTriggered = false;
             }
@@ -176,7 +190,7 @@ public class Enemy : Health
             {
                 // go after player
                 // go straight
-                if (hit.collider.transform.tag == PLAYER_TAG)
+                if (isFullyInSight)
                 {
                     moveDirection = toPlayer;
                     if (playerDistance < STOP_MOVE_DISTANCE)

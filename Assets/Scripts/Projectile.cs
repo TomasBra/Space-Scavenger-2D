@@ -45,13 +45,14 @@ public class Projectile : GameObject2D
     private bool dead = false;
 
     protected const float BOUNCE_COOLDOWN = 0.1f;
-    protected DateTime lastBounceTime;
+    protected float currBounceCooldown = 0.0f;
 
     void Start()
     {
         base.Start();
         spawnTime = DateTime.Now;
-        lastBounceTime = spawnTime;
+        // TODO: smazat lastBounceTime = spawnTime;
+        SetUpIngoreLayer();
 
         if (ExplosionAnimationClip != null)
             explosion_offset = ExplosionAnimationClip.length;
@@ -75,7 +76,7 @@ public class Projectile : GameObject2D
             return;
 
         rigidbody.linearVelocity = direction.normalized * speed;
-
+        currBounceCooldown += -Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -113,35 +114,61 @@ public class Projectile : GameObject2D
         if (bounces <= 0)
         {
             direction = new Vector2(0, 0);
-            ContactPoint2D contact = col.GetContact(0);
+            // ContactPoint2D contact = col.GetContact(0);
             // posun lehce dovnit� zasa�en�ho tile
-            Vector2 hitPoint = contact.point - contact.normal * 0.05f;
-            Explode(hitPoint);
-            rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+            // Vector2 hitPoint = contact.point - contact.normal * 0.05f;
+            Explode(transform.position); // hitPoint
+
             this.Invoke(() => Destroy(this.gameObject), explosion_offset);
             dead = true;
         }
 
-        direction = Vector2.Reflect(direction, col.GetContact(0).normal);
-        spawnTime = DateTime.Now;
-        bounces--;
+        // nevim
+        List<ContactPoint2D> contacts = new List<ContactPoint2D>();
+        col.GetContacts(contacts);
+        foreach (ContactPoint2D contact in contacts)
+        {
+            direction = Vector2.Reflect(direction, contact.normal);
+            spawnTime = DateTime.Now;
+            bounces--;
+        }
     }
 
     // TODO: mozna by to slo resit nejak takhle
     /*
-    public void OnCollisionStay2D(Collision2D collision)
+    public void OnCollisionStay2D(Collision2D col)
     {
-        if ((float)(DateTime.Now - lastBounceTime).TotalSeconds >= BOUNCE_COOLDOWN)
-        {
-            lastBounceTime = DateTime.Now;
+        if (dead)
+            return;
 
-            direction = Vector2.Reflect(direction, collision.GetContact(0).normal);
+        if (tagsToIgnore.Any(entry => entry == col.gameObject.tag))
+            return;
+
+        if (currBounceCooldown <= 0.0f)
+        {
+            currBounceCooldown = BOUNCE_COOLDOWN;
+
+            direction = Vector2.Reflect(direction, col.GetContact(0).normal);
             spawnTime = DateTime.Now;
             bounces--;
         }
     }*/
+    /*
+    public void OnCollisionExit2D(Collision2D col)
+    {
+        if (dead)
+            return;
+
+        if (tagsToIgnore.Any(entry => entry == col.gameObject.tag))
+            return;
+
+        currBounceCooldown = 0.0f;
+    }*/
+
     private void Explode(Vector2 position)
     {
+        rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+
         for (int i = 0; i < tagsExplosionDealDamage.Count; i++)
         {
             switch (tagsExplosionDealDamage[i])

@@ -14804,7 +14804,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 471482407
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5115618752126089108, guid: 72b49d48beaa2ff499d598a11b8fe979, type: 3}
@@ -14903,6 +14903,15 @@ MonoBehaviour:
   material: {fileID: 0}
   FLASH_TIME: 0.4
   death_offset: 0
+  LASER_DISTANCE: 4.5
+  LASER_MINING_DAMAGE_PER_SECOND: 5
+  LASER_DAMAGE_PER_SECOND: 1
+  PROJECTILE_COUNT: 3
+  PROJECTILE_SPAWN_COOL_DOWN: 1
+  PROJECTILE_DAMAGE: 5
+  PROJECTILE_MINING_DAMAGE: 5
+  PROJECTILE_SPEED: 6
+  PROJECTILE_LIFETIME: 3
   SPEED: 3.5
   ironOre: 0
   copperOre: 0
