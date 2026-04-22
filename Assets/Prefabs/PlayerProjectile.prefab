@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 8367419329464844036}
   - component: {fileID: 2911447159040689239}
   - component: {fileID: 9143872091962154195}
+  - component: {fileID: -653654262948065270}
   - component: {fileID: 6176690850458448079}
   - component: {fileID: 5395206630304822124}
   - component: {fileID: -533044455817630760}
@@ -205,15 +206,32 @@ MonoBehaviour:
   tagsToIgnore:
   - Player
   - Projectile
-  layersToIgnore:
-  - Ignore Raycast
-  - EnemyProjectiles
-  - PlayerProjectiles
   damage: 10
   mining_damage: 100
   direction: {x: 0, y: 0}
   bounces: 3
   explosion_radius: 1
+--- !u!114 &-653654262948065270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8470639361405265912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9771dadd257c34a9eeccb9a8a220ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IgnoreCollider
+  layersToIgnore:
+  - Ignore Raycast
+  - EnemyProjectiles
+  - PlayerProjectiles
+  tagsToIgnore:
+  - Meat
+  - Iron
+  - Copper
+  - Gold
 --- !u!50 &6176690850458448079
 Rigidbody2D:
   serializedVersion: 5
