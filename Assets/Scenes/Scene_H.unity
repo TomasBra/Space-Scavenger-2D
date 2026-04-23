@@ -152,6 +152,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playah: {fileID: 0}
   animator: {fileID: 0}
+  currentGameState: 0
   itemCounter: {fileID: 1823712008}
   dirtMap: {fileID: 584870995}
   dirtTiles:
@@ -633,6 +634,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &315979426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315979423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f223b41d93101240ac656875e4e64bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Rocket
+  mapManager: {fileID: 67817725}
 --- !u!1 &325443062
 GameObject:
   m_ObjectHideFlags: 0
@@ -4713,6 +4727,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8001091792416298940, guid: 28970e11ca3262e428efe9b3a7b007d7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 315979424}
+    - targetCorrespondingSourceObject: {fileID: 8001091792416298940, guid: 28970e11ca3262e428efe9b3a7b007d7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 315979426}
   m_SourcePrefab: {fileID: 100100000, guid: 28970e11ca3262e428efe9b3a7b007d7, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
