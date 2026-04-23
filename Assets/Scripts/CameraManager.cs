@@ -2,15 +2,6 @@ using UnityEngine;
 
 public class CameraManager : GameObject2D
 {
-    enum GameState
-    { 
-        LANDING,
-        PLAY,
-        TAKEOFF
-    }
-
-    GameState currentGameState = GameState.PLAY;
-
     [SerializeField]
     public float SPEED;
 
@@ -41,7 +32,8 @@ public class CameraManager : GameObject2D
         float destY;
         Vector3 trackedPosition;
 
-        if (currentGameState == GameState.LANDING || currentGameState == GameState.TAKEOFF)
+        if (mapManager.currentGameState == MapManager.GameState.LANDING
+            || mapManager.currentGameState == MapManager.GameState.TAKEOFF)
         {
             trackedPosition = rocket.transform.position;
         }

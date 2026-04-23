@@ -57,6 +57,8 @@ public class Projectile : GameObject2D
             explosion_offset = ExplosionAnimationClip.length;
         else
             explosion_offset = 0;
+
+        audioManager.PlayClip("Shoot");
     }
 
     // Update is called once per frame
@@ -130,6 +132,7 @@ public class Projectile : GameObject2D
             direction = Vector2.Reflect(direction, contact.normal);
             spawnTime = DateTime.Now;
             bounces--;
+            audioManager.PlayClip("Reflection");
         }
     }
 
@@ -196,7 +199,7 @@ public class Projectile : GameObject2D
             }
         }
         SetAnimatorTrigger("Explode");
-
+        audioManager.PlayClip("Explosion");
 
 
     }

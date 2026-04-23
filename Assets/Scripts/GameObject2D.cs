@@ -43,6 +43,9 @@ public class GameObject2D : MonoBehaviour
     [HideInInspector]
     public Animator animator;
 
+    [HideInInspector]
+    public AudioManager audioManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
@@ -50,6 +53,7 @@ public class GameObject2D : MonoBehaviour
         player = GameObject.FindGameObjectWithTag(PLAYER_TAG);
         playah = player.GetComponent<Playah>();
         animator = GetComponent<Animator>();
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame

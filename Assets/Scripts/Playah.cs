@@ -36,7 +36,6 @@ public class Playah : Health
     [SerializeField]
     public GameObject ProjectilePrefab;
 
-
     [SerializeField]
     private GameObject mapManager;
 
@@ -309,24 +308,28 @@ public class Playah : Health
         {
             case IRON_TAG:
                 ironOre += 1;
+                audioManager.PlayClip("PickUpItem");
                 itemCounter.SetIron(ironOre);
                 Destroy(col.gameObject);
                 break;
 
             case COPPER_TAG:
                 copperOre += 1;
+                audioManager.PlayClip("PickUpItem");
                 itemCounter.SetCopper(copperOre);
                 Destroy(col.gameObject);
                 break;
 
             case GOLD_TAG:
                 goldOre += 1;
+                audioManager.PlayClip("PickUpItem");
                 itemCounter.SetGold(goldOre);
                 Destroy(col.gameObject);
                 break;
 
             case MEAT_TAG:
                 meat++;
+                audioManager.PlayClip("PickUpItem");
                 itemCounter.SetMeat(meat);
                 Destroy(col.gameObject);
                 break;
