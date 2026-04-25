@@ -1,16 +1,144 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UpgradeMenu : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] GameObject upgradeMenu;
     [SerializeField] GameObject player;
 
-    /// <summary>
-    ///  tady se budou inicializovat ceny
-    /// </summary>
-    public void Start()
+    [Header("Inventory UI")]
+    [SerializeField] TMP_Text copperText;
+    [SerializeField] TMP_Text ironText;
+    [SerializeField] TMP_Text goldText;
+
+    [Header("Upgrade Items")]
+    [SerializeField] UpgradeItemUI[] upgradeItems;
+
+    private Playah playerScript;
+
+    private Dictionary<UPGRADE, Upgrades> upgrades;
+
+    void Awake()
     {
+        playerScript = player.GetComponent<Playah>();
+
+        upgrades = new Dictionary<UPGRADE, Upgrades>
+        {
+            {
+                UPGRADE.PROJECTILE_COUNT,
+                new Upgrades(
+                    new Price[]
+                    {
+                        new Price(20, 0, 0),
+                        new Price(45, 10, 0),
+                        new Price(90, 25, 1)
+                    },
+                    UPGRADE.PROJECTILE_COUNT
+                )
+            },
+
+            {
+                UPGRADE.PROJECTILE_SPAWN_COOL_DOWN,
+                new Upgrades(
+                    new Price[]
+                    {
+                        new Price(15, 5, 0),
+                        new Price(40, 15, 0),
+                        new Price(85, 35, 1)
+                    },
+                    UPGRADE.PROJECTILE_SPAWN_COOL_DOWN
+                )
+            },
+
+            {
+                UPGRADE.PROJECTILE_DAMAGE,
+                new Upgrades(
+                    new Price[]
+                    {
+                        new Price(10, 0, 0),
+                        new Price(25, 5, 0),
+                        new Price(50, 20, 1)
+                    },
+                    UPGRADE.PROJECTILE_DAMAGE
+                )
+            },
+
+            {
+                UPGRADE.PROJECTILE_SPEED,
+                new Upgrades(
+                    new Price[]
+                    {
+                        new Price(12, 0, 0),
+                        new Price(30, 8, 0),
+                        new Price(65, 20, 1)
+                    },
+                    UPGRADE.PROJECTILE_SPEED
+                )
+            },
+
+            {
+                UPGRADE.PROJECTILE_LIFETIME,
+                new Upgrades(
+                    new Price[]
+                    {
+                        new Price(15, 0, 0),
+                        new Price(35, 10, 0),
+                        new Price(75, 25, 1)
+                    },
+                    UPGRADE.PROJECTILE_LIFETIME
+                )
+            }
+        };
+        foreach (var upgrade in upgrades.Values)
+        {
+            upgrade.SetPlayer(player);
+        }
+
+        foreach (var item in upgradeItems)
+        {
+            item.Init(this);
+        }
+    }
+
+    void OnEnable()
+    {
+        RefreshInventory();
+        RefreshAllUpgradeItems();
+    }
+
+    public Upgrades GetUpgrade(UPGRADE type)
+    {
+        return upgrades[type];
+    }
+
+    public void TryBuyUpgrade(UPGRADE type)
+    {
+        bool bought = upgrades[type].BuyUpgrade();
+
+        if (bought)
+        {
+            RefreshInventory();
+            RefreshAllUpgradeItems();
+        }
+    }
+
+    public void RefreshInventory()
+    {
+        if (playerScript == null) return;
+
+        copperText.text = playerScript.copperOre.ToString();
+        ironText.text = playerScript.ironOre.ToString();
+        goldText.text = playerScript.goldOre.ToString();
+    }
+
+    public void RefreshAllUpgradeItems()
+    {
+        foreach (var item in upgradeItems)
+        {
+            item.Refresh();
+        }
     }
 
     public void PauseGame()
@@ -19,15 +147,12 @@ public class UpgradeMenu : MonoBehaviour
         player.SetActive(false);
         Time.timeScale = 0;
     }
+
     public void ResumeGame()
     {
         upgradeMenu.SetActive(false);
         player.SetActive(true);
         Time.timeScale = 1;
-    }
-
-    public void UpgradeLaserDamage()
-    {
     }
 }
 
@@ -42,12 +167,11 @@ public class Price
 
     public Price(int copper, int iron = 0, int gold = 0)
     {
-        this.copperPrice = copper; 
-        this.ironPrice = iron;
-        this.goldPrice = gold;
+        copperPrice = copper;
+        ironPrice = iron;
+        goldPrice = gold;
     }
 }
-
 
 public enum UPGRADE
 {
@@ -64,46 +188,50 @@ public enum UPGRADE
 
 public class Upgrades
 {
-
     Playah player;
     UPGRADE upgrade_type;
-    Price[] prices { get; set; }
-    int owned_tier = 0; ///< jaky tier mam koupeny, ze zacatku nula :]
+
+    Price[] prices;
+
+    int owned_tier = 0;
     int max_tier = 0;
+
+    public int OwnedTier => owned_tier;
+    public int MaxTier => max_tier;
+    public bool IsMaxed => owned_tier >= max_tier;
+
     public Upgrades(Price[] prices, UPGRADE upgrade_type)
     {
-        this.prices = prices; 
+        this.prices = prices;
         this.max_tier = prices.Length;
         this.upgrade_type = upgrade_type;
     }
 
-    public Upgrades(Price price, UPGRADE upgrade_type)
+    public Price GetCurrentPrice()
     {
-        this.prices = new Price[1];
-        this.prices[0] = price;
-        max_tier = 1;
+        if (IsMaxed) return null;
+        return prices[owned_tier];
     }
 
     public void SetPlayer(GameObject playerObj)
     {
         player = playerObj.GetComponent<Playah>();
-        if (player == null) {
-            Debug.Log("Hrac se nedokazal nacist");
-        }
-    }
-
-    public bool buyUpgrade()
-    {
-        if (owned_tier >= max_tier)
-        {
-            Debug.Log("Max tier reached");
-            return false;
-        }
 
         if (player == null)
         {
+            Debug.LogError("Hrac se nedokazal nacist");
+        }
+    }
+
+    public bool BuyUpgrade()
+    {
+        if (IsMaxed)
+        {
+            Debug.Log("max tier mame");
             return false;
         }
+
+        if (player == null) return false;
 
         Price price = prices[owned_tier];
 
@@ -111,69 +239,61 @@ public class Upgrades
             player.ironOre < price.ironPrice ||
             player.goldOre < price.goldPrice)
         {
+            Debug.Log("Nemas dost surovin");
             return false;
         }
 
-        // odečtení
         player.copperOre -= price.copperPrice;
         player.ironOre -= price.ironPrice;
         player.goldOre -= price.goldPrice;
 
         owned_tier++;
 
-        ApplyUpgrade();///< aplikace upgradu
+        ApplyUpgrade();
 
         return true;
     }
-
 
     private void ApplyUpgrade()
     {
         switch (upgrade_type)
         {
-            /// < HP upgrade
             case UPGRADE.HP:
-                player.maxHP += 20; ///< pridam o 2o hp
-                player.HP += 20; ///< pak ho i o ty hp dohealuju protoze je to super
+                player.maxHP += 20;
+                player.HP += 20;
                 break;
 
-            ///< Projektyly upgrade
             case UPGRADE.PROJECTILE_COUNT:
-                player.PROJECTILE_COUNT += 2; //< vzdy pridavam dve navic
+                player.PROJECTILE_COUNT += 2;
                 break;
 
             case UPGRADE.PROJECTILE_SPAWN_COOL_DOWN:
-                player.PROJECTILE_SPAWN_COOL_DOWN *= 0.9f; //<= strilim o deset procent rychleji
+                player.PROJECTILE_SPAWN_COOL_DOWN *= 0.9f;
                 break;
 
             case UPGRADE.PROJECTILE_DAMAGE:
-                player.PROJECTILE_DAMAGE *= 1.2f; //<dmg o dvacet procent vetsi
+                player.PROJECTILE_DAMAGE *= 1.2f;
                 break;
 
-
             case UPGRADE.PROJECTILE_SPEED:
-                player.PROJECTILE_SPEED *= 1.314f; ///<magicka konstanta
+                player.PROJECTILE_SPEED *= 1.314f;
                 break;
 
             case UPGRADE.PROJECTILE_LIFETIME:
-                player.PROJECTILE_LIFETIME *= 1.314f; ///<magicka konstanta
+                player.PROJECTILE_LIFETIME *= 1.314f;
                 break;
 
-
-            ///< Laser Upgrade
             case UPGRADE.LASER_MINING_DAMAGE_PER_SECOND:
-                player.LASER_MINING_DAMAGE_PER_SECOND *= 2; ///< zatim se zvetsuje dvakrat
+                player.LASER_MINING_DAMAGE_PER_SECOND *= 2;
                 break;
 
             case UPGRADE.LASER_DISTANCE:
-                player.LASER_DISTANCE *= 2; ///< zatim se zvetsuje dvakrat
+                player.LASER_DISTANCE *= 2;
                 break;
 
             default:
-                Debug.LogWarning("wtf");
+                Debug.LogWarning("Unknown upgrade");
                 break;
         }
     }
-
-
 }
