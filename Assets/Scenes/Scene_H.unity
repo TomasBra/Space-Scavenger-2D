@@ -221,8 +221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   enemies: []
-  checkInterval: 0.5
-  enableDistance: 20
+  checkInterval: 2
+  enableDistance: 33
 --- !u!1 &79479924
 GameObject:
   m_ObjectHideFlags: 0
@@ -3577,7 +3577,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.625
+  orthographic size: 7.625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

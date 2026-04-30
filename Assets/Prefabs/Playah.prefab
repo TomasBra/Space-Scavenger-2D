@@ -14897,6 +14897,8 @@ MonoBehaviour:
   playah: {fileID: 0}
   animator: {fileID: 0}
   audioManager: {fileID: 0}
+  collisionManager: {fileID: 0}
+  optimalization: {fileID: 0}
   DeathAnimClip: {fileID: 7400000, guid: e71675c58216b8d47be83a98eb93ab1c, type: 2}
   maxHP: 50
   HP: 0
@@ -14907,7 +14909,7 @@ MonoBehaviour:
   LASER_DISTANCE: 4.5
   LASER_MINING_DAMAGE_PER_SECOND: 5
   LASER_DAMAGE_PER_SECOND: 1
-  PROJECTILE_COUNT: 3
+  PROJECTILE_COUNT: 1
   PROJECTILE_SPAWN_COOL_DOWN: 1
   PROJECTILE_DAMAGE: 5
   PROJECTILE_MINING_DAMAGE: 5

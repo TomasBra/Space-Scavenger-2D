@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 public class Projectile : GameObject2D
 {
@@ -36,9 +37,13 @@ public class Projectile : GameObject2D
 
     public Vector2 direction;
 
-    public int bounces = 0;
+    [HideInInspector]
+    public int bounces;
 
-    public float explosion_radius = 10;
+    [HideInInspector]
+    public float explosion_radius;
+    [HideInInspector]
+    public int explosionSize;
 
     private float explosion_offset;
 
@@ -69,6 +74,7 @@ public class Projectile : GameObject2D
         base.Update();
         if ((DateTime.Now - spawnTime).TotalSeconds > lifeTime)
         {
+
             Explode(this.transform.position);
             this.Invoke(() => Destroy(this.gameObject), explosion_offset);
             dead = true;
@@ -226,6 +232,11 @@ public class Projectile : GameObject2D
 
     private void Explode(Vector2 position)
     {
+        if (explosionSize == 0)
+        {
+            return;
+        }
+
         rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
 
         for (int i = 0; i < tagsExplosionDealDamage.Count; i++)
@@ -255,7 +266,22 @@ public class Projectile : GameObject2D
                     break;
             }
         }
-        SetAnimatorTrigger("Explode");
+
+        switch (explosionSize)
+        {
+            case 1:
+            SetAnimatorTrigger("Explode1");
+                break;
+            case 2:
+                SetAnimatorTrigger("Explode2");
+                break;
+            case 3:
+                SetAnimatorTrigger("Explode3");
+                break;
+            default:
+                Debug.Log("nejak necekane velkej vybuch (anebo malej)");
+                break;
+        }
         audioManager.PlayClip("Explosion");
 
 

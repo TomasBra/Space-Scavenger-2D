@@ -166,8 +166,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 471482407
+  m_SortingLayer: 3
   m_SortingOrder: -1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5521385146551640076, guid: 25e38fc1d0b3ce6449e915e66fd3bf3c, type: 3}
@@ -198,7 +198,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   audioManager: {fileID: 0}
   collisionManager: {fileID: 0}
-  ExplosionAnimationClip: {fileID: 7400000, guid: f3fbc91f82ab49f429968a2c929657e1, type: 2}
+  optimalization: {fileID: 0}
+  ExplosionAnimationClip: {fileID: 7400000, guid: e31940bc72a17964cb0d5bc16da1d6ff, type: 2}
   lifeTime: 3
   speed: 6
   tagsExplosionDealDamage:
@@ -210,8 +211,9 @@ MonoBehaviour:
   damage: 10
   mining_damage: 100
   direction: {x: 0, y: 0}
-  bounces: 3
+  bounces: 0
   explosion_radius: 1
+  explosionSize: 0
 --- !u!50 &6176690850458448079
 Rigidbody2D:
   serializedVersion: 5

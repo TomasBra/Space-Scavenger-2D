@@ -172,6 +172,9 @@ public class Playah : Health
             projectile.GetComponent<Projectile>().damage = PROJECTILE_DAMAGE;
             projectile.GetComponent<Projectile>().speed = PROJECTILE_SPEED;
             projectile.GetComponent<Projectile>().lifeTime = PROJECTILE_LIFETIME;
+            projectile.GetComponent<Projectile>().bounces = 0; // TODO:
+            projectile.GetComponent<Projectile>().explosion_radius = 1.5f;
+            projectile.GetComponent<Projectile>().explosionSize = 2;
 
             angle += angleBetweenProjectiles;
         }

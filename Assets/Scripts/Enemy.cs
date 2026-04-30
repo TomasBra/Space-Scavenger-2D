@@ -93,6 +93,7 @@ public class Enemy : Health
     [HideInInspector]
     protected Vector3Int prevPlayerGridPos;
 
+    protected const float OPTIMIZATION_WANDER_DISTANCE = 22;
     protected const float MAX_TRIGGER_DISTANCE = 11;
     public bool isTriggered = false;
     protected Vector2 wanderDirection;
@@ -150,6 +151,15 @@ public class Enemy : Health
 
         Vector2 toPlayer = player.transform.position - transform.position;
         float playerDistance = toPlayer.magnitude;
+
+        
+        if (playerDistance >= OPTIMIZATION_WANDER_DISTANCE)
+        {
+            // wander around
+            Move(wanderDirection, WANDER_SPEED_COEF * speed);
+            return;
+        }
+
         Vector2 moveDirection = Vector2.zero;
         float currentSpeed = speed;
         Vector2 pos2D = new Vector2(transform.position.x, transform.position.y);
@@ -161,7 +171,6 @@ public class Enemy : Health
 
         Vector2 origin2 = pos2D + toPlayer.RotateZ(-90).normalized * enemyCollider.radius;
         RaycastHit2D hit2 = Physics2D.Raycast(origin2, playerPos2D - origin2, Mathf.Infinity, raycastIgnoreMask);
-
 
         bool hit1IsPlayer = hit1.collider != null && hit1.collider.CompareTag(PLAYER_TAG);
         bool hit2IsPlayer = hit2.collider != null && hit2.collider.CompareTag(PLAYER_TAG);
