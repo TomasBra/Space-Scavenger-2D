@@ -248,7 +248,9 @@ public class Upgrades
         player.goldOre -= price.goldPrice;
 
         owned_tier++;
-
+        player.itemCounter.SetCopper(player.copperOre);
+        player.itemCounter.SetIron(player.ironOre);
+        player.itemCounter.SetGold(player.goldOre);
         ApplyUpgrade();
 
         return true;

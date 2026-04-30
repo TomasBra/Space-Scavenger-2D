@@ -52,7 +52,7 @@ public class Playah : Health
     private HealthBar healthBar; //ukazatel zivota hrace
 
     [SerializeField]
-    private ItemCounter itemCounter;
+    public ItemCounter itemCounter;
 
     private List<ParticleSystem> laserStartParticleSystems = new List<ParticleSystem>();
     private List<ParticleSystem> laserEndParticleSystems = new List<ParticleSystem>();
