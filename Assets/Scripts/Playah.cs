@@ -58,7 +58,7 @@ public class Playah : Health
     private List<ParticleSystem> laserEndParticleSystems = new List<ParticleSystem>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    private string[] layersToIgnore = new string[] { "EnemyProjectiles", "PlayerProjectiles", "Ignore Raycast" };
+    private string[] layersToIgnore = new string[] { "Player", "EnemyProjectiles", "PlayerProjectiles", "Ignore Raycast" };
     private LayerMask raycastIgnoreMask;
 
 
@@ -189,7 +189,7 @@ public class Playah : Health
         laserEndPosition = shorterVector(FirePoint.transform.position + new Vector3(direction.x, direction.y, 0) * LASER_DISTANCE, mousePosition, FirePoint.transform.position);
         float distance = (laserEndPosition - FirePoint.transform.position).magnitude;
 
-        raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore));
+        raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore) | collisionManager.RaycastIgnoreLayers);
 
         RaycastHit2D hit = Physics2D.Raycast(FirePoint.transform.position, direction, distance, raycastIgnoreMask);
 

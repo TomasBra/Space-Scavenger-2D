@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   enemies: []
   checkInterval: 0.5
-  enableDistance: 20
+  enableDistance: 15
 --- !u!1 &79479924
 GameObject:
   m_ObjectHideFlags: 0

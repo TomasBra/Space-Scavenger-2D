@@ -136,6 +136,8 @@ public class MapManager : GameObject2D
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        base.Start();
+
         tileDatas = new Dictionary<Vector3Int, TileData>();
 
         TempTile[,] typeGrid = new TerrainGenerator(MAP_WIDTH, MAP_HEIGHT).GenerateTerrain();
@@ -386,11 +388,14 @@ public class MapManager : GameObject2D
             {
                 GameObject enemy = Instantiate(RangeEnemyPrefab, position: randomOffsettedPosition(GridPositon, 0.05f), rotation: Quaternion.identity);
                 enemy.GetComponent<Enemy>().ScaleByDepth(row);
+                optimalization.enemies.Add(enemy);
             }
             else
             {
                 GameObject enemy = Instantiate(MeleeEnemyPrefab, position: randomOffsettedPosition(GridPositon, 0.05f), rotation: Quaternion.identity);
                 enemy.GetComponent<Enemy>().ScaleByDepth(row);
+                
+                optimalization.enemies.Add(enemy);
             }
         }
     }
@@ -407,6 +412,7 @@ public class MapManager : GameObject2D
     {
         GameObject queen = Instantiate(QueenPrefab, position: RowCol2GridPosition(row, col) + dirtMap.cellSize / 2.0f, rotation: Quaternion.identity);
         queen.GetComponent<Queen>().ScaleByDepth(row);
+        optimalization.enemies.Add(queen);
 
         float coef = GetEnemyCountDepthCoef(row);
         int enemyCount = (int)Random.Range(MIN_QUEEN_ENEMY_COUNT * coef, MAX_QUEEN_ENEMY_COUNT * coef);
@@ -546,6 +552,6 @@ public class MapManager : GameObject2D
     // Update is called once per frame
     void Update()
     {
-
+        base.Update();
     }
 }

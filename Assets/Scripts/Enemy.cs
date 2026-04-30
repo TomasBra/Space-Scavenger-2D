@@ -112,7 +112,7 @@ public class Enemy : Health
         base.Start();
 
         enemyCollider = GetComponent<CircleCollider2D>();
-        raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore));
+        raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore) | collisionManager.RaycastIgnoreLayers);
         tilemap = GameObject.Find("DirtTilemap").GetComponent<Tilemap>();
 
         lastAttack = DateTime.Now;
@@ -160,10 +160,15 @@ public class Enemy : Health
         RaycastHit2D hit1 = Physics2D.Raycast(origin1, playerPos2D - origin1, Mathf.Infinity, raycastIgnoreMask);
 
         Vector2 origin2 = pos2D + toPlayer.RotateZ(-90).normalized * enemyCollider.radius;
-        RaycastHit2D hit2 = Physics2D.Raycast(origin2, playerPos2D -  origin2, Mathf.Infinity, raycastIgnoreMask);
+        RaycastHit2D hit2 = Physics2D.Raycast(origin2, playerPos2D - origin2, Mathf.Infinity, raycastIgnoreMask);
 
-        bool isFullyInSight = hit1.collider.transform.tag == PLAYER_TAG && hit2.collider.transform.tag == PLAYER_TAG;
-        bool isPartiallyInSight = hit1.collider.transform.tag == PLAYER_TAG || hit2.collider.transform.tag == PLAYER_TAG;
+
+        bool hit1IsPlayer = hit1.collider != null && hit1.collider.CompareTag(PLAYER_TAG);
+        bool hit2IsPlayer = hit2.collider != null && hit2.collider.CompareTag(PLAYER_TAG);
+
+        bool isFullyInSight = hit1IsPlayer && hit2IsPlayer;
+        bool isPartiallyInSight = hit1IsPlayer || hit2IsPlayer;
+
 
         if (!isTriggered)
         {
@@ -193,6 +198,7 @@ public class Enemy : Health
                 if (isFullyInSight)
                 {
                     moveDirection = toPlayer;
+
                     if (playerDistance < STOP_MOVE_DISTANCE)
                     {
                         currentSpeed = 0.0f;
@@ -214,6 +220,7 @@ public class Enemy : Health
                     if (pathToPlayer.Count > 0)
                     {
                         Vector2 toNextPathPoint = pathToPlayer.Peek() - transform.position;
+
                         if (toNextPathPoint.magnitude < MAGIC)
                         {
                             pathToPlayer.Pop();
@@ -222,9 +229,9 @@ public class Enemy : Health
                         moveDirection = toNextPathPoint;
                     }
                 }
-            }
-        
-            if (toPlayer.magnitude < MIN_ATTACK_DISTANCE && (DateTime.Now - lastAttack).TotalSeconds > attackCooldown)
+        }
+
+        if (toPlayer.magnitude < MIN_ATTACK_DISTANCE && (DateTime.Now - lastAttack).TotalSeconds > attackCooldown)
             {
                 lastAttack = DateTime.Now;
                 Attack();
