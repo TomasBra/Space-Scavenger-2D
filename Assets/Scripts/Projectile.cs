@@ -47,6 +47,8 @@ public class Projectile : GameObject2D
     protected const float BOUNCE_COOLDOWN = 0.1f;
     protected float currBounceCooldown = 0.0f;
 
+    private ContactPoint2D lastContactPoint;
+
     void Start()
     {
         base.Start();
@@ -80,8 +82,68 @@ public class Projectile : GameObject2D
         currBounceCooldown += -Time.deltaTime;
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    //private void OnCollisionEnter2D(Collision2D col)
+    //{
+    //    if (dead)
+    //        return;
+
+    //    if (tagsToIgnore.Any(entry => entry == col.gameObject.tag))
+    //        return;
+
+    //    switch (col.gameObject.tag)
+    //    {
+    //        case TILEMAP_TAG:
+    //            ContactPoint2D contact = col.GetContact(0);
+
+    //            // posun lehce dovnit� zasa�en�ho tile
+    //            Vector2 hitPoint = contact.point - contact.normal * 0.05f;
+
+    //            MapManager mm = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
+    //            TileData? tile = mm.HitTile(hitPoint, mining_damage);
+    //            break;
+
+    //        case ENEMY_TAG:
+    //            //zajisti, ze se znici pri prvnim narazu s nepritelem
+    //            bounces = 0;
+    //            break;
+    //    }
+
+    //    Health health = col.gameObject.GetComponent<Health>();
+    //    if (health != null)
+    //    {
+    //        health.TakeDamage(damage);
+    //    }
+
+    //    if (bounces <= 0)
+    //    {
+    //        direction = new Vector2(0, 0);
+    //        // ContactPoint2D contact = col.GetContact(0);
+    //        // posun lehce dovnit� zasa�en�ho tile
+    //        // Vector2 hitPoint = contact.point - contact.normal * 0.05f;
+    //        Explode(transform.position); // hitPoint
+
+    //        this.Invoke(() => Destroy(this.gameObject), explosion_offset);
+    //        dead = true;
+    //    }
+
+    //    // nevim
+    //    List<ContactPoint2D> contacts = new List<ContactPoint2D>();
+    //    col.GetContacts(contacts);
+    //    foreach (ContactPoint2D contact in contacts)
+    //    {
+    //        direction = Vector2.Reflect(direction, contact.normal);
+    //        spawnTime = DateTime.Now;
+    //        bounces--;
+    //        audioManager.PlayClip("Reflection");
+    //    }
+    //}
+
+    public void OnCollisionStay2D(Collision2D col)
     {
+        ContactPoint2D contact = col.GetContact(0);
+        if (Vector2.Distance(contact.point, lastContactPoint.point) < 0.1f)
+            return;
+
         if (dead)
             return;
 
@@ -91,8 +153,6 @@ public class Projectile : GameObject2D
         switch (col.gameObject.tag)
         {
             case TILEMAP_TAG:
-                ContactPoint2D contact = col.GetContact(0);
-
                 // posun lehce dovnit� zasa�en�ho tile
                 Vector2 hitPoint = contact.point - contact.normal * 0.05f;
 
@@ -115,26 +175,23 @@ public class Projectile : GameObject2D
         if (bounces <= 0)
         {
             direction = new Vector2(0, 0);
-            // ContactPoint2D contact = col.GetContact(0);
-            // posun lehce dovnit� zasa�en�ho tile
-            // Vector2 hitPoint = contact.point - contact.normal * 0.05f;
             Explode(transform.position); // hitPoint
 
             this.Invoke(() => Destroy(this.gameObject), explosion_offset);
             dead = true;
         }
 
+        //=================ODRAZ===================
+
+
         // nevim
-        List<ContactPoint2D> contacts = new List<ContactPoint2D>();
-        col.GetContacts(contacts);
-        foreach (ContactPoint2D contact in contacts)
-        {
-            direction = Vector2.Reflect(direction, contact.normal);
-            spawnTime = DateTime.Now;
-            bounces--;
-            audioManager.PlayClip("Reflection");
-        }
+        lastContactPoint = contact;
+        direction = Vector2.Reflect(direction, contact.normal);
+        spawnTime = DateTime.Now;
+        bounces--;
+        audioManager.PlayClip("Reflection");
     }
+
 
     // TODO: mozna by to slo resit nejak takhle
     /*

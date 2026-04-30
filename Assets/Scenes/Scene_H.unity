@@ -3813,12 +3813,16 @@ PrefabInstance:
       objectReference: {fileID: 7400000, guid: e71675c58216b8d47be83a98eb93ab1c, type: 2}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: PROJECTILE_COUNT
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: ProjectilePrefab
       value: 
       objectReference: {fileID: 8470639361405265912, guid: c0bea72224c43ab41b724e6a2ace4588, type: 3}
+    - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
+      propertyPath: PROJECTILE_MINING_DAMAGE
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6253396924218880091, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
