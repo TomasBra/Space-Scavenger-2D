@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2775044283624367991}
   - component: {fileID: 5956540560187679628}
   - component: {fileID: 2702744136136350624}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4847,7 +4847,7 @@ GameObject:
   - component: {fileID: 8745428643111826504}
   - component: {fileID: 4240756797827357044}
   - component: {fileID: 6344996261271031174}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9681,7 +9681,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1438778187253866860}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: EndVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9714,7 +9714,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7932910500433951272}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: StartVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9749,7 +9749,7 @@ GameObject:
   - component: {fileID: 575201768489920920}
   - component: {fileID: 8764307034126764103}
   - component: {fileID: 3747759524821499935}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14584,7 +14584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3545933522411975009}
   - component: {fileID: 6107281840003821224}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: Freeform Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14695,7 +14695,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5979282107659814790}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14734,7 +14734,7 @@ GameObject:
   - component: {fileID: 6120789004674577071}
   - component: {fileID: 651376700773142379}
   - component: {fileID: 3706114154328357824}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: Playah
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -14896,6 +14896,9 @@ MonoBehaviour:
   player: {fileID: 0}
   playah: {fileID: 0}
   animator: {fileID: 0}
+  audioManager: {fileID: 0}
+  collisionManager: {fileID: 0}
+  optimalization: {fileID: 0}
   DeathAnimClip: {fileID: 7400000, guid: e71675c58216b8d47be83a98eb93ab1c, type: 2}
   maxHP: 50
   HP: 0
@@ -14906,7 +14909,7 @@ MonoBehaviour:
   LASER_DISTANCE: 4.5
   LASER_MINING_DAMAGE_PER_SECOND: 5
   LASER_DAMAGE_PER_SECOND: 1
-  PROJECTILE_COUNT: 3
+  PROJECTILE_COUNT: 1
   PROJECTILE_SPAWN_COOL_DOWN: 1
   PROJECTILE_DAMAGE: 5
   PROJECTILE_MINING_DAMAGE: 5
@@ -15085,7 +15088,7 @@ GameObject:
   - component: {fileID: 6739290356409142658}
   - component: {fileID: 4396578991494276502}
   - component: {fileID: 2143070943613136387}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

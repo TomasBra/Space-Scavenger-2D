@@ -14,6 +14,7 @@ TagManager:
   - Meat
   - Rocket
   - AudioManager
+  - CollisionManager
   layers:
   - Default
   - TransparentFX
@@ -22,11 +23,11 @@ TagManager:
   - Water
   - UI
   - Enemies
-  - Projectiles
+  - 
   - EnemyProjectiles
   - PlayerProjectiles
-  - 
-  - 
+  - Player
+  - PickUpItem
   - 
   - 
   - 

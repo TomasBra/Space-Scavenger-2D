@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 2631715537430847277}
   - component: {fileID: 7510994361724035401}
   - component: {fileID: 3983142024316571584}
-  - component: {fileID: -7870384843672006698}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: copper
   m_TagString: Copper
   m_Icon: {fileID: 0}
@@ -157,18 +156,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-7870384843672006698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2883428807591409269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d9771dadd257c34a9eeccb9a8a220ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::IgnoreCollider
-  layersToIgnore: []
-  tagsToIgnore:
-  - Enemy

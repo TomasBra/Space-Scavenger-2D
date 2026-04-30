@@ -52,7 +52,7 @@ public class Queen : Health
         lastSpawnTime = Time.time;
         mapManager = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
 
-        raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore));
+        raycastIgnoreMask = ~(LayerMask.GetMask(layersToIgnore) | collisionManager.RaycastIgnoreLayers);
     }
 
     public void ScaleByDepth(int absoluteDepth)
@@ -75,10 +75,12 @@ public class Queen : Health
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, toPlayer, Mathf.Infinity, raycastIgnoreMask);
 
+        bool hitIsPlayer = hit.collider != null && hit.collider.CompareTag(PLAYER_TAG);
+
         if (!isTriggered)
         {
             // trigger if player is in sight
-            if (hit.collider.transform.tag == PLAYER_TAG)
+            if (hitIsPlayer)
             {
                 isTriggered = true;
             }
@@ -86,7 +88,7 @@ public class Queen : Health
         else
         {
             // untrigger
-            if (playerDistance > MAX_TRIGGER_DISTANCE && hit.collider.transform.tag != PLAYER_TAG)
+            if (playerDistance > MAX_TRIGGER_DISTANCE && !hitIsPlayer)
             {
                 isTriggered = false;
             }
@@ -105,6 +107,7 @@ public class Queen : Health
             //vystøelení a natoèení projektilu správným smìrem
             GameObject enemy = Instantiate(objectToSpawn, position: transform.position, rotation: Quaternion.identity);
             enemy.GetComponent<Enemy>().isTriggered = true;
+            optimalization.enemies.Add(enemy);
         }
     }
 

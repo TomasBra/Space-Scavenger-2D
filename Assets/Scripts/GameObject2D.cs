@@ -46,6 +46,12 @@ public class GameObject2D : MonoBehaviour
     [HideInInspector]
     public AudioManager audioManager;
 
+    [HideInInspector]
+    public CollisionManager collisionManager;
+
+    [HideInInspector]
+    public Optimalization optimalization;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
@@ -54,6 +60,8 @@ public class GameObject2D : MonoBehaviour
         playah = player.GetComponent<Playah>();
         animator = GetComponent<Animator>();
         audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+        collisionManager = GameObject.FindGameObjectWithTag("CollisionManager").GetComponent<CollisionManager>();
+        optimalization = GameObject.FindGameObjectWithTag("MapManager").GetComponent<Optimalization>();
     }
 
     // Update is called once per frame
