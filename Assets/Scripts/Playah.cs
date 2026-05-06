@@ -6,7 +6,7 @@ using static TileData;
 
 public class Playah : Health
 {
-    public float LASER_DISTANCE = 4.5f;
+    public float LASER_DISTANCE = 1.5f; ///< max 4.5
 
     //upgradovatelný věci
     public float LASER_MINING_DAMAGE_PER_SECOND = 5;
