@@ -317,6 +317,8 @@ public class Upgrades
             case UPGRADE.HP:
                 player.maxHP += 20;
                 player.HP += 20;
+                player.healthBar.SetMaxHealth(player.maxHP);
+                player.healthBar.SetHealth(player.HP);
                 break;
             case UPGRADE.MOVEMENT_SPEED:
                 player.SPEED *= 1.25f;

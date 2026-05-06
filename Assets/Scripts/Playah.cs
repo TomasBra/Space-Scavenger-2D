@@ -51,7 +51,7 @@ public class Playah : Health
     private GameObject EndVFX;
 
     [SerializeField]
-    private HealthBar healthBar; //ukazatel zivota hrace
+    public HealthBar healthBar; //ukazatel zivota hrace
 
     [SerializeField]
     public ItemCounter itemCounter;
