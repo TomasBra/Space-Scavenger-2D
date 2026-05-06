@@ -554,7 +554,7 @@ public class MapManager : GameObject2D
         player.SetActive(false);
     }
 
-    public void GoToWinScreen();
+    public void GoToWinScreen()
     { 
     
     }
