@@ -17,6 +17,7 @@ public class Rocket : MonoBehaviour
     private const float MAX_HEIGHT = 20;
     private const float MIN_HEIGHT = 3.0f;
     public const float LANDING_TIME = 8.0f;
+    public const float TAKEOFF_TIME = 8.0f;
 
     private float startTime;
 
@@ -51,11 +52,38 @@ public class Rocket : MonoBehaviour
                 // relative height minimum 0, maximum 1
                 // gravity minimum -0.1, maximum 0.4
 
-                float gravity = -0.6f *Mathf.Pow(((1-relativeHeight)/1.1f), 4);
+                float gravity = -0.6f * Mathf.Pow(((1 - relativeHeight) / 1.1f), 4);
+                smoke.gravityModifier = gravity;
+                smoke.startLifetime = -2.9282f * Mathf.Pow((1f - relativeHeight) / 1.1f, 4) + 2.5f;
+            }
+        }
+        else if (mm.currentGameState == MapManager.GameState.TAKEOFF)
+        {
+            if (time > TAKEOFF_TIME)
+            {
+                mm.GoToWinScreen();
+                
+            }
+            else
+            {
+                float relativeHeight = 1 - landingFunc(time);
+                y = MIN_HEIGHT + (MAX_HEIGHT - MIN_HEIGHT) * relativeHeight;
+                transform.position = new Vector3(MapManager.MAP_WIDTH / 2.0f - 2.5f, y, 0.0f);
+
+                // relative height minimum 0, maximum 1
+                // gravity minimum -0.1, maximum 0.4
+
+                float gravity = -0.6f * Mathf.Pow(((1 - relativeHeight) / 1.1f), 4);
                 smoke.gravityModifier = gravity;
                 smoke.startLifetime = -2.9282f * Mathf.Pow((1f - relativeHeight) / 1.1f, 4) + 2.5f;
             }
         }
 
+    }
+
+    public void TakeOff()
+    {
+        smoke.Play();
+        startTime = Time.time;
     }
 }

@@ -28,7 +28,7 @@ X material mizi
 X materialy vypadavaji nejak nakrivo
 X bfs pro odstinovani prochazi i sikmo
 X materialy by se nemusely spawnovat vedle sebe
-- odrazeni strel
+X odrazeni strel
 - upgrady
 - to gui chce spravit
 - odlisna barva bedrocku

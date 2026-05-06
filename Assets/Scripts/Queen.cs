@@ -31,7 +31,10 @@ public class Queen : Health
     private float DEFAULT_HP;
 
     [SerializeField]
-    private GameObject SpawnableObject;
+    private GameObject SpawnableRanged;
+
+    [SerializeField]
+    private GameObject SpawnableMelee;
 
     [SerializeField]
     public float lastSpawnTime;
@@ -58,6 +61,7 @@ public class Queen : Health
     public void ScaleByDepth(int absoluteDepth)
     {
         spawnCooldown = DEFAULT_SPAWN_COOLDOWN * GetSpawnCooldownDepthCoef(absoluteDepth);
+        Debug.Log(spawnCooldown);
         maxHP = DEFAULT_HP * GetHPDepthCoef(absoluteDepth);
         HP = maxHP;
     }
@@ -95,18 +99,31 @@ public class Queen : Health
             else if ((Time.time - lastSpawnTime) >= spawnCooldown)
             {
                 lastSpawnTime = Time.time;
-                Spawn(SpawnableObject);
+                Spawn();
             }
         }
     }
 
-    void Spawn(GameObject objectToSpawn)
+    void Spawn()
     {
+        GameObject objectToSpawn;
+        float roll = UnityEngine.Random.value;
+
+        if (roll < 0.5f)
+        {
+            objectToSpawn = SpawnableMelee;
+        }
+        else
+        {
+            objectToSpawn = SpawnableRanged;
+        }
+
         if (objectToSpawn != null)
         {
             //vystøelení a natoèení projektilu správným smìrem
             GameObject enemy = Instantiate(objectToSpawn, position: transform.position, rotation: Quaternion.identity);
             enemy.GetComponent<Enemy>().isTriggered = true;
+            enemy.GetComponent<Enemy>().ScaleByDepth(-(int)transform.position.y);
             optimalization.enemies.Add(enemy);
         }
     }

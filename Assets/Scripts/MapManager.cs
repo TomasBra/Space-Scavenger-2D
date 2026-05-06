@@ -152,6 +152,10 @@ public class MapManager : GameObject2D
             }
         }
 
+        // TOODD: smazat
+        maxQueenCount++;
+        SpawnQueenNestEnemies(- 3, MAP_WIDTH / 2);
+
         for (int i = 0; i < MAP_HEIGHT; i++)
         {
             for (int j = 0; j < MAP_WIDTH; j++)
@@ -189,8 +193,8 @@ public class MapManager : GameObject2D
                         SpawnNestEnemies(i, j);
                         break;
                     case TempTile.TileType.QUEEN:
-                        maxQueenCount++;
-                        SpawnQueenNestEnemies(i, j);
+                        //maxQueenCount++; TODO: odkomentovat 
+                        //SpawnQueenNestEnemies(i, j);
                         break;
                     default:
                         throw new System.Exception("PEPA UTOCI!!!");
@@ -546,7 +550,13 @@ public class MapManager : GameObject2D
 
     private void Win()
     {
+        currentGameState = GameState.TAKEOFF;
+        player.SetActive(false);
+    }
 
+    public void GoToWinScreen();
+    { 
+    
     }
 
     // Update is called once per frame
