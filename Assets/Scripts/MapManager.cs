@@ -548,7 +548,9 @@ public class MapManager : GameObject2D
     {
         currentGameState = GameState.TAKEOFF;
         GameObject.FindGameObjectWithTag("Rocket").GetComponent<Rocket>().TakeOff();
-        player.SetActive(false);
+
+        player.GetComponent<SpriteRenderer>().enabled = false;
+        player.GetComponent<Playah>().enabled = false;
     }
 
     public void GoToWinScreen()
