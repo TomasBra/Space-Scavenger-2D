@@ -26,6 +26,7 @@ public class UpgradeMenu : MonoBehaviour
 
         upgrades = new Dictionary<UPGRADE, Upgrades>
         {
+            ///< zbrane s
             {
                 UPGRADE.PROJECTILE_COUNT,
                 new Upgrades(
@@ -89,7 +90,59 @@ public class UpgradeMenu : MonoBehaviour
                     },
                     UPGRADE.PROJECTILE_LIFETIME
                 )
-            }
+            },
+            ///< Laser
+            {
+                UPGRADE.LASER_DAMAGE,
+                new Upgrades(
+                    new Price[]
+                    {
+                        new Price(12, 0, 0),
+                        new Price(30, 8, 0),
+                        new Price(65, 20, 1)
+                    },
+                    UPGRADE.LASER_DAMAGE
+                )
+            },
+
+            {
+                UPGRADE.LASER_DISTANCE,
+                new Upgrades(
+                    new Price[]
+                    {
+                        new Price(30, 0, 0),
+                        new Price(35, 25, 10)
+                    },
+                    UPGRADE.LASER_DISTANCE
+                )
+            },
+
+
+            ///< Hrac 
+            {
+                UPGRADE.HP,
+                new Upgrades(
+                    new Price[]
+                    {
+                        new Price(15, 0, 0),
+                        new Price(35, 10, 0),
+                        new Price(75, 25, 1)
+                    },
+                    UPGRADE.HP
+                )
+            },
+            {
+                UPGRADE.MOVEMENT_SPEED,
+                new Upgrades(
+                    new Price[]
+                    {
+                        new Price(15, 0, 0),
+                        new Price(35, 10, 0),
+                        new Price(75, 25, 1)
+                    },
+                    UPGRADE.MOVEMENT_SPEED
+                )
+            },
         };
         foreach (var upgrade in upgrades.Values)
         {
@@ -176,13 +229,14 @@ public class Price
 public enum UPGRADE
 {
     HP,
+    MOVEMENT_SPEED,
     PROJECTILE_COUNT,
     PROJECTILE_SPAWN_COOL_DOWN,
     PROJECTILE_DAMAGE,
     PROJECTILE_MINING_DAMAGE,
     PROJECTILE_SPEED,
     PROJECTILE_LIFETIME,
-    LASER_MINING_DAMAGE_PER_SECOND,
+    LASER_DAMAGE,
     LASER_DISTANCE
 }
 
@@ -264,6 +318,9 @@ public class Upgrades
                 player.maxHP += 20;
                 player.HP += 20;
                 break;
+            case UPGRADE.MOVEMENT_SPEED:
+                player.SPEED *= 1.25f;
+                break;
 
             case UPGRADE.PROJECTILE_COUNT:
                 player.PROJECTILE_COUNT += 2;
@@ -285,12 +342,12 @@ public class Upgrades
                 player.PROJECTILE_LIFETIME *= 1.314f;
                 break;
 
-            case UPGRADE.LASER_MINING_DAMAGE_PER_SECOND:
+            case UPGRADE.LASER_DAMAGE:
                 player.LASER_MINING_DAMAGE_PER_SECOND *= 2;
                 break;
 
             case UPGRADE.LASER_DISTANCE:
-                player.LASER_DISTANCE *= 2;
+                player.LASER_DISTANCE += 1.5f;
                 break;
 
             default:
