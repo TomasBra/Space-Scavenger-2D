@@ -182,10 +182,17 @@ public class Projectile : GameObject2D
         if (bounces <= 0)
         {
             direction = new Vector2(0, 0);
-            Explode(transform.position); // hitPoint
+            if (explosionSize != 0)
+            {
+                Explode(transform.position); // hitPoint
 
-            this.Invoke(() => Destroy(this.gameObject), explosion_offset);
-            dead = true;
+                this.Invoke(() => Destroy(this.gameObject), explosion_offset);
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
+                dead = true;
         }
 
         //=================ODRAZ===================

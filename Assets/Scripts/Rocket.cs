@@ -2,7 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Rocket : MonoBehaviour
+public class Rocket : GameObject2D
 {
     private float landingFunc(float time)
     {
@@ -27,12 +27,16 @@ public class Rocket : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        base.Start();
         startTime = Time.time;
+        player.GetComponent<SpriteRenderer>().enabled = false;
+        player.GetComponent<Playah>().enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        base.Update();
         MapManager mm = mapManager.GetComponent<MapManager>();
         float time = Time.time - startTime;
         float y = MIN_HEIGHT;
@@ -42,6 +46,8 @@ public class Rocket : MonoBehaviour
             {
                 mm.currentGameState = MapManager.GameState.PLAY;
                 smoke.Stop();
+                player.GetComponent<SpriteRenderer>().enabled = true;
+                player.GetComponent<Playah>().enabled = true;
             }
             else
             {
@@ -52,8 +58,7 @@ public class Rocket : MonoBehaviour
                 // relative height minimum 0, maximum 1
                 // gravity minimum -0.1, maximum 0.4
 
-                float gravity = -0.6f * Mathf.Pow(((1 - relativeHeight) / 1.1f), 4);
-                smoke.gravityModifier = gravity;
+                smoke.gravityModifier = -0.6f * Mathf.Pow(((1 - relativeHeight) / 1.1f), 4);
                 smoke.startLifetime = -2.9282f * Mathf.Pow((1f - relativeHeight) / 1.1f, 4) + 2.5f;
             }
         }
@@ -62,7 +67,6 @@ public class Rocket : MonoBehaviour
             if (time > TAKEOFF_TIME)
             {
                 mm.GoToWinScreen();
-                
             }
             else
             {
@@ -73,8 +77,7 @@ public class Rocket : MonoBehaviour
                 // relative height minimum 0, maximum 1
                 // gravity minimum -0.1, maximum 0.4
 
-                float gravity = -0.6f * Mathf.Pow(((1 - relativeHeight) / 1.1f), 4);
-                smoke.gravityModifier = gravity;
+                smoke.gravityModifier = -0.6f * Mathf.Pow(((1 - relativeHeight) / 1.1f), 4);
                 smoke.startLifetime = -2.9282f * Mathf.Pow((1f - relativeHeight) / 1.1f, 4) + 2.5f;
             }
         }
