@@ -54,6 +54,9 @@ public class Playah : Health
     public HealthBar healthBar; //ukazatel zivota hrace
 
     [SerializeField]
+    public GameObject DeathScreen; //DeathScreen
+
+    [SerializeField]
     public ItemCounter itemCounter;
 
     private List<ParticleSystem> laserStartParticleSystems = new List<ParticleSystem>();
@@ -149,7 +152,7 @@ public class Playah : Health
         if (shouldDie)
         {
             string currentSceneName = SceneManager.GetActiveScene().name;
-            this.Invoke(() => SceneManager.LoadScene(currentSceneName), death_offset);
+            this.Invoke(() => { DeathScreen.SetActive(true); } , death_offset);
         }
         return shouldDie;
     }
