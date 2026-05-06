@@ -2,7 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Rocket : MonoBehaviour
+public class Rocket : GameObject2D
 {
     private float landingFunc(float time)
     {
@@ -32,12 +32,16 @@ public class Rocket : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        base.Start();
         startTime = Time.time;
+        player.GetComponent<SpriteRenderer>().enabled = false;
+        player.GetComponent<Playah>().enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        base.Update();
         MapManager mm = mapManager.GetComponent<MapManager>();
         float time = Time.time - startTime;
         float relativeHeight = landingFunc(time);
@@ -50,6 +54,8 @@ public class Rocket : MonoBehaviour
                 isEngineOn = false;
                 smoke.Stop();
                 flame.Stop();
+                player.GetComponent<SpriteRenderer>().enabled = true;
+                player.GetComponent<Playah>().enabled = true;
             }
             else
             {
