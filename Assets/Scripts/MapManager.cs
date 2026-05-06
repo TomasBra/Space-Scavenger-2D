@@ -560,5 +560,11 @@ public class MapManager : GameObject2D
     void Update()
     {
         base.Update();
+
+        // TODO: smazat
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Win();
+        }
     }
 }
