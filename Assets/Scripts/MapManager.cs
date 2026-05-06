@@ -34,7 +34,7 @@ public class MapManager : GameObject2D
 
     // dirt
     [SerializeField]
-    private Tilemap dirtMap;
+    public Tilemap dirtMap;
 
     [SerializeField]
     private TileBase[] dirtTiles;

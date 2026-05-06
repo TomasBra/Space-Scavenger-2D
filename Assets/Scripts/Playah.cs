@@ -19,6 +19,8 @@ public class Playah : Health
     public float PROJECTILE_MINING_DAMAGE = 5;
     public float PROJECTILE_SPEED = 6;
     public float PROJECTILE_LIFETIME = 3; //sekundach
+    public int PROJECTILE_BOUNCES = 0;
+    public int EXPLOSION_SIZE = 0;
 
     [SerializeField]
     public float SPEED;
@@ -172,9 +174,9 @@ public class Playah : Health
             projectile.GetComponent<Projectile>().damage = PROJECTILE_DAMAGE;
             projectile.GetComponent<Projectile>().speed = PROJECTILE_SPEED;
             projectile.GetComponent<Projectile>().lifeTime = PROJECTILE_LIFETIME;
-            projectile.GetComponent<Projectile>().bounces = 0; // TODO:
-            projectile.GetComponent<Projectile>().explosion_radius = 1.5f;
-            projectile.GetComponent<Projectile>().explosionSize = 2;
+            projectile.GetComponent<Projectile>().bounces = PROJECTILE_BOUNCES; 
+            projectile.GetComponent<Projectile>().explosion_radius = 1f; //TODO
+            projectile.GetComponent<Projectile>().explosionSize = 3;
 
             angle += angleBetweenProjectiles;
         }
