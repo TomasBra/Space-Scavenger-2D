@@ -34,7 +34,7 @@ public class MapManager : GameObject2D
 
     // dirt
     [SerializeField]
-    private Tilemap dirtMap;
+    public Tilemap dirtMap;
 
     [SerializeField]
     private TileBase[] dirtTiles;
@@ -546,7 +546,14 @@ public class MapManager : GameObject2D
 
     private void Win()
     {
+        currentGameState = GameState.TAKEOFF;
+        GameObject.FindGameObjectWithTag("Rocket").GetComponent<Rocket>().TakeOff();
+        player.SetActive(false);
+    }
 
+    public void GoToWinScreen()
+    { 
+    
     }
 
     // Update is called once per frame

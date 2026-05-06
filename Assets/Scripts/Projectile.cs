@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UIElements.Experimental;
 
 public class Projectile : GameObject2D
@@ -232,6 +233,7 @@ public class Projectile : GameObject2D
 
     private void Explode(Vector2 position)
     {
+        MapManager mapManager;
         if (explosionSize == 0)
         {
             return;
@@ -244,7 +246,7 @@ public class Projectile : GameObject2D
             switch (tagsExplosionDealDamage[i])
             {
                 case TILEMAP_TAG:
-                    MapManager mapManager = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
+                    mapManager = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
                     List<TileData> tiles = mapManager.GetTilesNear(position, explosion_radius);
 
                     foreach (TileData tile in tiles)
@@ -252,10 +254,11 @@ public class Projectile : GameObject2D
                     break;
 
                 default:
+                    mapManager = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
                     GameObject[] objects = GameObject.FindGameObjectsWithTag(tagsExplosionDealDamage[i]);
                     foreach (GameObject obj in objects)
                     {
-                        if (Vector2.Distance(obj.transform.position, this.transform.position) > explosion_radius)
+                        if (Vector2.Distance(obj.transform.position - new Vector3(mapManager.dirtMap.cellSize.x/2, mapManager.dirtMap.cellSize.y/2, 0), this.transform.position) > explosion_radius)
                             continue;
                         Health health = obj.gameObject.GetComponent<Health>();
                         if (health != null)
