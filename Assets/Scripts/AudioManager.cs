@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : GameObject2D
 {
     [SerializeField]
     private Sound[] sounds;
@@ -23,6 +23,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        base.Start();
         PlayClip("Theme");
     }
 

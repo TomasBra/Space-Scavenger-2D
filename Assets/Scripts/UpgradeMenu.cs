@@ -197,14 +197,14 @@ public class UpgradeMenu : MonoBehaviour
     public void PauseGame()
     {
         upgradeMenu.SetActive(true);
-        player.SetActive(false);
+        player.GetComponent<Playah>().enabled = false;
         Time.timeScale = 0;
     }
 
     public void ResumeGame()
     {
         upgradeMenu.SetActive(false);
-        player.SetActive(true);
+        player.GetComponent<Playah>().enabled = true;
         Time.timeScale = 1;
     }
 }

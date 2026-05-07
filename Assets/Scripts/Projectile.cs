@@ -72,6 +72,8 @@ public class Projectile : GameObject2D
     // Update is called once per frame
     void Update()
     {
+        if (!game.running)
+            return;
         base.Update();
         if ((DateTime.Now - spawnTime).TotalSeconds > lifeTime)
         {

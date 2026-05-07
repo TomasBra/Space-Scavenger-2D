@@ -82,6 +82,9 @@ public class Playah : Health
     // Update is called once per frame
     public void Update()
     {
+        if (!game.running)
+            return; 
+
         base.Update();
         //DebugUI(); // testovaci funkce, potom smazat
 
@@ -147,6 +150,8 @@ public class Playah : Health
 
     public override bool TakeDamage(float damage, Vector2? knockbackDirection = null, bool destroyable = true)
     {
+        if (!game.running)
+            return false;
         bool shouldDie = base.TakeDamage(damage, knockbackDirection, true);
         healthBar.SetHealth(HP);
         if (shouldDie)
@@ -159,6 +164,9 @@ public class Playah : Health
 
     void Projectiles2D()
     {
+        if (!game.running)
+            return;
+
         const int angleBetweenProjectiles = 30;
 
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -187,6 +195,8 @@ public class Playah : Health
 
     void Laser2D()
     {
+        if (!game.running)
+            return;
         Vector3 laserEndPosition;
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = mousePosition - (Vector2)FirePoint.transform.position;
@@ -312,6 +322,8 @@ public class Playah : Health
     //vyuziva se hlavne ke sbirani predmetu, ktere spadly
     void OnCollisionEnter2D(Collision2D col)
     {
+        if (!game.running)
+            return;
         switch (col.gameObject.tag)
         {
             case IRON_TAG:
