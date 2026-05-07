@@ -116,6 +116,8 @@ public class MapManager : GameObject2D
     private GameObject GoldPrefab;
 
 
+    public GameObject EndScreen;
+
     public const int MAP_WIDTH = 100;
     public const int MAP_HEIGHT = 150;
     public const int SKY_HEIGHT = 10;
@@ -554,8 +556,8 @@ public class MapManager : GameObject2D
     }
 
     public void GoToWinScreen()
-    { 
-    
+    {
+        EndScreen.SetActive(true);
     }
 
     // Update is called once per frame
