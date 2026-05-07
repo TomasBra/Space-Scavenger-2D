@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -32,6 +33,9 @@ public class GameObject2D : MonoBehaviour
     public const string MEAT_TAG = "Meat"; //public nutný kvùli dìdìní
 
     [HideInInspector]
+    public const string GAME_TAG = "Game"; //public nutný kvùli dìdìní
+
+    [HideInInspector]
     public Rigidbody2D rigidbody; //public nutný kvùli dìdìní
 
     [HideInInspector]
@@ -52,6 +56,9 @@ public class GameObject2D : MonoBehaviour
     [HideInInspector]
     public Optimalization optimalization;
 
+    [HideInInspector]
+    public GameScript game;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
@@ -62,6 +69,7 @@ public class GameObject2D : MonoBehaviour
         audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         collisionManager = GameObject.FindGameObjectWithTag("CollisionManager").GetComponent<CollisionManager>();
         optimalization = GameObject.FindGameObjectWithTag("MapManager").GetComponent<Optimalization>();
+        game = GameObject.FindGameObjectWithTag(GAME_TAG).GetComponent<GameScript>();
     }
 
     // Update is called once per frame

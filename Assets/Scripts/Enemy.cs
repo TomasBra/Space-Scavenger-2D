@@ -145,6 +145,8 @@ public class Enemy : Health
     // Update is called once per frame
     public void Update()
     {
+        if (!game.running)
+            return;
         base.Update();
         if (dead)
             return;
