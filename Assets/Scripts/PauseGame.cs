@@ -16,7 +16,6 @@ public class PauseGame : MonoBehaviour
                 Time.timeScale = 0; 
                 if(mapManager.currentGameState != MapManager.GameState.LANDING)
                 {
-                    player.GetComponent<Playah>().enabled = false;
                     player.GetComponent<Playah>().Pause();
                     
                 }
@@ -29,7 +28,8 @@ public class PauseGame : MonoBehaviour
             {
                 Time.timeScale = 1;
                 if (mapManager.currentGameState != MapManager.GameState.LANDING)
-                    player.GetComponent<Playah>().enabled = true;
+                    player.GetComponent<Playah>().Resume();
+
                 canvas.SetActive(false);
                 //player.SetActive(true); 
             }
