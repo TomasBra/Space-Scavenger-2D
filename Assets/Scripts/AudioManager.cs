@@ -77,8 +77,6 @@ public class AudioManager : GameObject2D
 
     public bool PlayClip(string clipName)
     {
-        if (!game.running)
-            return false;
         return PlayClipAfterDelay(clipName, 0f);
     }
 

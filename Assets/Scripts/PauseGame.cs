@@ -1,23 +1,58 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseGame : MonoBehaviour
+public class PauseGame : GameObject2D
 {
-    public GameObject player;
+    
     public GameObject canvas;
+    public GameObject UpgradeMenuCanvas;
     public MapManager mapManager;
 
     void Update()
     {
+        base.Update();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (Time.timeScale == 1)
             {
+                if (UpgradeMenuCanvas.active) return;
                 Time.timeScale = 0; 
                 if(mapManager.currentGameState != MapManager.GameState.LANDING)
                 {
-                    player.GetComponent<Playah>().Pause();
+                    player.GetComponent<SpriteRenderer>().enabled = false;
+                    game.Pause();
+                }
                     
+                
+                canvas.SetActive(true);
+                //player.SetActive(false); 
+            }
+            else
+            {
+                if (UpgradeMenuCanvas.active) return;
+                Time.timeScale = 1;
+                if (mapManager.currentGameState != MapManager.GameState.LANDING)
+                {
+                    player.GetComponent<SpriteRenderer>().enabled = true;
+                    game.Resume();
+                }
+                    
+
+                canvas.SetActive(false);
+                //player.SetActive(true); 
+            }
+        }
+    }
+
+    public void ContinueGame()
+    {
+         if (Time.timeScale == 1)
+            {
+                Time.timeScale = 0; 
+                if(mapManager.currentGameState != MapManager.GameState.LANDING)
+                {
+                    player.GetComponent<SpriteRenderer>().enabled = false;
+                    game.Pause();
                 }
                     
                 
@@ -28,20 +63,15 @@ public class PauseGame : MonoBehaviour
             {
                 Time.timeScale = 1;
                 if (mapManager.currentGameState != MapManager.GameState.LANDING)
-                    player.GetComponent<Playah>().Resume();
+                {
+                    player.GetComponent<SpriteRenderer>().enabled = true;
+                    game.Resume();
+                }
+                    
 
                 canvas.SetActive(false);
                 //player.SetActive(true); 
             }
-        }
-    }
-
-    public void ContinueGame()
-    {
-        Time.timeScale = 1;
-        player.GetComponent<Playah>().enabled = true;
-        canvas.SetActive(false);
-        //player.SetActive(true);
     }
     public void LeaveGame() 
     {

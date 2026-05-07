@@ -391,6 +391,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215ba850cd127414ab70b9d996a8f5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  rigidbody: {fileID: 0}
+  player: {fileID: 0}
+  playah: {fileID: 0}
+  animator: {fileID: 0}
+  audioManager: {fileID: 0}
+  collisionManager: {fileID: 0}
+  optimalization: {fileID: 0}
+  game: {fileID: 0}
   sounds:
   - name: Theme
     clips:
@@ -398,7 +406,7 @@ MonoBehaviour:
     volume: 0.5
     pitch: 1
     loop: 1
-    playOnAwake: 0
+    playOnAwake: 1
     randomPitchMin: 0.95
     randomPitchMax: 1.05
     randomVolumeMin: 0.95
@@ -697,8 +705,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a13961b31583840b8a5283775bf272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseGame
+  rigidbody: {fileID: 0}
   player: {fileID: 1320469771}
+  playah: {fileID: 0}
+  animator: {fileID: 0}
+  audioManager: {fileID: 0}
+  collisionManager: {fileID: 0}
+  optimalization: {fileID: 0}
+  game: {fileID: 0}
   canvas: {fileID: 1849124528}
+  UpgradeMenuCanvas: {fileID: 1376327304}
   mapManager: {fileID: 67817726}
 --- !u!1 &238850745
 GameObject:
@@ -8049,7 +8065,7 @@ GameObject:
   - component: {fileID: 1029864022}
   m_Layer: 0
   m_Name: Game
-  m_TagString: Untagged
+  m_TagString: Game
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8888,6 +8904,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a544be5d7ac3dc54aaf9d17dd435f18f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoserScript
+--- !u!1 &1376327304 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6472171399795280366, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
+  m_PrefabInstance: {fileID: 1700104849}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1406990896
 GameObject:
   m_ObjectHideFlags: 0
