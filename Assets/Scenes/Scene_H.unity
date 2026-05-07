@@ -679,6 +679,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103349039}
   m_CullTransparentMesh: 1
+--- !u!1 &122928339 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6064464362452221233, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
+  m_PrefabInstance: {fileID: 1558855960}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &122928340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122928339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2a13961b31583840b8a5283775bf272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseGame
+  player: {fileID: 1320469771}
+  canvas: {fileID: 1849124528}
+  mapManager: {fileID: 67817726}
 --- !u!1 &155829791 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6064464362452221233, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
@@ -1070,7 +1090,7 @@ GameObject:
   - component: {fileID: 403965877}
   - component: {fileID: 403965876}
   m_Layer: 5
-  m_Name: TRYITAGAIN
+  m_Name: Continue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1140,9 +1160,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1558855962}
-        m_TargetAssemblyTypeName: LoserScript, Assembly-CSharp
-        m_MethodName: RestartGame
+      - m_Target: {fileID: 122928340}
+        m_TargetAssemblyTypeName: PauseGame, Assembly-CSharp
+        m_MethodName: ContinueGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14196,6 +14216,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -200
       objectReference: {fileID: 0}
+    - target: {fileID: 539554293471663408, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 122928340}
+    - target: {fileID: 539554293471663408, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LeaveGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 539554293471663408, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseGame, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1351548227613276874, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
       propertyPath: m_Name
       value: label pause
@@ -14206,7 +14238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6064464362452221233, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6783299464868136008, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
       propertyPath: m_text
@@ -14231,6 +14263,10 @@ PrefabInstance:
     - target: {fileID: 7690118240966587096, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
       propertyPath: m_Name
       value: PauseScreen- canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690118240966587096, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8209480841777017246, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14272,30 +14308,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2045838399363036828, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5699710985018546701, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
       insertIndex: -1
       addedObject: {fileID: 403965875}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6064464362452221233, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 122928340}
   m_SourcePrefab: {fileID: 100100000, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
 --- !u!224 &1558855961 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5699710985018546701, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
   m_PrefabInstance: {fileID: 1558855960}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1558855962 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2045838399363036828, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
-  m_PrefabInstance: {fileID: 1558855960}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a544be5d7ac3dc54aaf9d17dd435f18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LoserScript
 --- !u!1 &1694345136
 GameObject:
   m_ObjectHideFlags: 0
@@ -14951,6 +14980,11 @@ MonoBehaviour:
   copperText: {fileID: 825457333}
   goldText: {fileID: 440465062}
   meatText: {fileID: 1923992777}
+--- !u!1 &1849124528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7690118240966587096, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
+  m_PrefabInstance: {fileID: 1558855960}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1887634959
 GameObject:
   m_ObjectHideFlags: 0
