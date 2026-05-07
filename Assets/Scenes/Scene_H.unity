@@ -330,7 +330,7 @@ MonoBehaviour:
   IronPrefab: {fileID: 749958325539908186, guid: ebeeed446e0463f448932feebb8bd84c, type: 3}
   CopperPrefab: {fileID: 2883428807591409269, guid: c04aaf5a70ac3644c98e00e71442dc0b, type: 3}
   GoldPrefab: {fileID: 5536827144519216521, guid: 256a6aade99b58c43842cf18118ac139, type: 3}
-  EndScreen: {fileID: 155829791}
+  EndScreen: {fileID: 0}
 --- !u!4 &67817727
 Transform:
   m_ObjectHideFlags: 0
@@ -2512,7 +2512,7 @@ Transform:
   m_GameObject: {fileID: 733095881}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.46, z: 0}
+  m_LocalPosition: {x: 0, y: -1.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3316,7 +3316,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.03
+      value: 0.06
       mode: 0
       spread: 0
       speed:
@@ -3435,7 +3435,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 75
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4056,7 +4056,7 @@ ParticleSystem:
     flipU: 0
     flipV: 0
   VelocityModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -4537,7 +4537,7 @@ ParticleSystem:
     radial:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: -2.6
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4598,21 +4598,30 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0
           value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
+          inSlope: -0.8400446
+          outSlope: -0.8400446
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.8106108
+          value: 0.3190508
+          inSlope: -3.8482459
+          outSlope: -3.8482459
+          tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
+          value: -0.9794865
+          inSlope: -6.856447
+          outSlope: -6.856447
+          tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.33333334
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
@@ -16279,6 +16288,5 @@ SceneRoots:
   - {fileID: 1007571329}
   - {fileID: 1612708126155443953}
   - {fileID: 1329776118}
-  - {fileID: 1558855960}
   - {fileID: 761808386}
   - {fileID: 1406990897}

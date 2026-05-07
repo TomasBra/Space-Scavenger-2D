@@ -34,8 +34,7 @@ public class Rocket : GameObject2D
     {
         base.Start();
         startTime = Time.time;
-        player.GetComponent<SpriteRenderer>().enabled = false;
-        player.GetComponent<Playah>().enabled = false;
+        player.GetComponent<Playah>().Pause();
     }
 
     // Update is called once per frame
@@ -54,8 +53,7 @@ public class Rocket : GameObject2D
                 isEngineOn = false;
                 smoke.Stop();
                 flame.Stop();
-                player.GetComponent<SpriteRenderer>().enabled = true;
-                player.GetComponent<Playah>().enabled = true;
+                player.GetComponent<Playah>().Resume();
             }
             else
             {
@@ -86,9 +84,14 @@ public class Rocket : GameObject2D
             smoke.startLifetime = -2.9282f * Mathf.Pow((1f - relativeHeight) / 1.1f, 4) + 2.5f;
             smoke.emissionRate = (1.0f - relativeHeight) * 50.0f;
 
-            flame.emissionRate = relativeHeight * 50.0f;
 
-            flame.startLifetime = 0.1f + relativeHeight * 2.0f;
+            var velocity = flame.velocityOverLifetime;
+            velocity.enabled = true;
+            velocity.speedModifier = relativeHeight * 2.0f + 0.5f;
+
+            //flame.emissionRate = relativeHeight * 50.0f;
+
+            //flame.startLifetime = 0.1f + relativeHeight * 2.0f;
         }
     }
 
