@@ -15,6 +15,7 @@ TagManager:
   - Rocket
   - AudioManager
   - CollisionManager
+  - Game
   layers:
   - Default
   - TransparentFX

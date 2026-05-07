@@ -16,6 +16,9 @@ public class MeleeEnemy : Enemy
     // Update is called once per frame
     void Update()
     {
+        if (!game.running)
+            return;
+
         base.Update();
         if (dead)
             return;

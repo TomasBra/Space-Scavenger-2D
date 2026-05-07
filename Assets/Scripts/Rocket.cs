@@ -34,7 +34,8 @@ public class Rocket : GameObject2D
     {
         base.Start();
         startTime = Time.time;
-        player.GetComponent<Playah>().Pause();
+        player.GetComponent<Renderer>().enabled = false;
+        game.Pause();
     }
 
     // Update is called once per frame
@@ -53,7 +54,8 @@ public class Rocket : GameObject2D
                 isEngineOn = false;
                 smoke.Stop();
                 flame.Stop();
-                player.GetComponent<Playah>().Resume();
+                player.GetComponent<Renderer>().enabled = true;
+                game.Resume();
             }
             else
             {
@@ -63,6 +65,9 @@ public class Rocket : GameObject2D
         }
         else if (mm.currentGameState == MapManager.GameState.TAKEOFF)
         {
+            player.GetComponent<Renderer>().enabled = false;
+            game.Pause();
+
             if (time > TAKEOFF_TIME)
             {
                 mm.GoToWinScreen();
