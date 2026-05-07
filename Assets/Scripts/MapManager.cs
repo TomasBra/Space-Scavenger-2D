@@ -115,6 +115,8 @@ public class MapManager : GameObject2D
     [SerializeField]
     private GameObject GoldPrefab;
 
+    public LayerMask layerMask;
+
 
     public const int MAP_WIDTH = 100;
     public const int MAP_HEIGHT = 150;
@@ -124,6 +126,8 @@ public class MapManager : GameObject2D
     public const int MIN_QUEEN_ENEMY_COUNT = 11;
     public const int MAX_QUEEN_ENEMY_COUNT = 15;
     public const float DEFAULT_DURABILITY = 4.0f;
+
+    static List<Vector2> pointsAroundTile;
 
     public static float GetEnemyCountDepthCoef(int absoluteDepth)
     {
@@ -137,6 +141,17 @@ public class MapManager : GameObject2D
     void Start()
     {
         base.Start();
+
+        pointsAroundTile = new List<Vector2>();
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                pointsAroundTile.Add(new Vector2(i * 0.5f, j * 0.5f));
+            }
+        }
+
+        layerMask = LayerMask.GetMask("TileMap");
 
         tileDatas = new Dictionary<Vector3Int, TileData>();
 
@@ -420,10 +435,9 @@ public class MapManager : GameObject2D
         SpawnEnemies(row, col, enemyCount);
     }
 
-    public TileData? GetTile(Vector2 wordPosition)
+    public TileData? GetTile(Vector2 worldPosition)
     {
-        Vector3Int gridPosition = dirtMap.WorldToCell(wordPosition);
-        // Debug.Log(gridPosition);
+        Vector3Int gridPosition = dirtMap.WorldToCell(worldPosition);
 
         if(!tileDatas.ContainsKey(gridPosition))
             return null;
@@ -439,11 +453,71 @@ public class MapManager : GameObject2D
         return tileDatas[gridPosition];
     }
 
-    public List<TileData> GetTilesNear(Vector2 wordPosition, float radius)
+    public List<TileData> GetTilesNear(Vector2 worldPosition, float radius)
     {
+        /*
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(wordPosition, radius, layerMask);
+         
+        Debug.Log(colliders.Length); // TODO: smazat
+
+        foreach (Collider2D collider in colliders)
+        {
+            Debug.Log(collider.attachedRigidbody.position);
+            Vector2 position = collider.attachedRigidbody.position;
+            Vector3Int gridPos = dirtMap.WorldToCell(position);
+            tilesInRadius.Add(GetTile(gridPos));
+        }
+
+        return tilesInRadius;
+        */
+
         List<TileData> tilesInRadius = new List<TileData>();
-        Vector3Int gridPosition = dirtMap.WorldToCell(wordPosition);
-        
+
+        for (int y = (int)(worldPosition.y - Mathf.Ceil(radius * 1.1f)); y <= (int)(worldPosition.y + Mathf.Ceil(radius * 1.1f)); y++)
+        {
+            for (int x = (int)(worldPosition.x - Mathf.Ceil(radius * 1.1f)); x <= (int)(worldPosition.x + Mathf.Ceil(radius * 1.1f)); x++)
+            {
+                Vector3Int gridPosition = new Vector3Int(x, y, 0);
+                if (!tileDatas.ContainsKey(gridPosition))
+                    continue;
+
+                TileData tile = GetTile(gridPosition);
+
+                foreach (Vector2 p in pointsAroundTile)
+                {
+                    Vector2 pointPosition = new Vector2(gridPosition.x, gridPosition.y) + p;
+
+                    if (Vector2.Distance(worldPosition, pointPosition) <= radius)
+                    {
+                        tilesInRadius.Add(tile);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return tilesInRadius;
+
+        /*
+        for (int y = gridPosition.y - (int)System.Math.Ceiling(radius); y <= gridPosition.y + (int)System.Math.Ceiling(radius); y++)
+        {
+            for (int x = gridPosition.x - (int)System.Math.Ceiling(radius); x <= gridPosition.x + (int)System.Math.Ceiling(radius); x++)
+            {
+                Vector3Int gridNearPosition = new Vector3Int(x, y, gridPosition.z);
+                if (!tileDatas.ContainsKey(gridNearPosition))
+                    continue;
+
+                TileData nearTile = tileDatas[gridNearPosition];
+                if (Vector2.Distance(dirtMap.CellToWorld(gridNearPosition) + dirtMap.cellSize / 2.0f, worldPosition) <= radius)
+                {
+                    tilesInRadius.Add(nearTile);
+                }
+            }
+        }
+
+        return tilesInRadius;*/
+
+        /*
         if (tileDatas.ContainsKey(gridPosition)) {
             TileData center = tileDatas[gridPosition];
             tilesInRadius.Add(center);
@@ -467,8 +541,7 @@ public class MapManager : GameObject2D
             }
         }
 
-
-        return tilesInRadius;
+        return tilesInRadius;*/
     }
 
     //vraci typ tilu, ktery byl vytezen, jestlize nebyl vytezen, tak vraci null

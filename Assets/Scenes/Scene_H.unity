@@ -330,6 +330,9 @@ MonoBehaviour:
   IronPrefab: {fileID: 749958325539908186, guid: ebeeed446e0463f448932feebb8bd84c, type: 3}
   CopperPrefab: {fileID: 2883428807591409269, guid: c04aaf5a70ac3644c98e00e71442dc0b, type: 3}
   GoldPrefab: {fileID: 5536827144519216521, guid: 256a6aade99b58c43842cf18118ac139, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &67817727
 Transform:
   m_ObjectHideFlags: 0
@@ -1365,8 +1368,7 @@ GameObject:
   - component: {fileID: 584870994}
   - component: {fileID: 584870993}
   - component: {fileID: 584870998}
-  - component: {fileID: 584870997}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DirtTilemap
   m_TagString: TileMap
   m_Icon: {fileID: 0}
@@ -1420,7 +1422,7 @@ TilemapCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_CompositeOperation: 1
+  m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
@@ -1544,53 +1546,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!66 &584870997
-CompositeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 584870991}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 584870993}
-    m_ColliderPaths: []
-  m_CompositePaths:
-    m_Paths: []
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
-  m_UseDelaunayMesh: 0
-  m_CompositeGameObject: {fileID: 584870991}
 --- !u!50 &584870998
 Rigidbody2D:
   serializedVersion: 5

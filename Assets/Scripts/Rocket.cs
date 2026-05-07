@@ -11,11 +11,18 @@ public class Rocket : GameObject2D
         return Mathf.Pow(relativeTime - 1.0f, 2);
     }
 
+    private float takeoffFunc(float time)
+    {
+        float relativeTime = time / LANDING_TIME;
+
+        return Mathf.Pow(relativeTime, 2);
+    }
+
     [SerializeField]
     private GameObject mapManager;
 
     private const float MAX_HEIGHT = 30;
-    private const float MIN_HEIGHT = 3.0f;
+    private const float MIN_HEIGHT = 3.0f - 1.0f / 16.0f;
     public const float LANDING_TIME = 10.0f;
     public const float TAKEOFF_TIME = 12.0f;
 
@@ -44,10 +51,11 @@ public class Rocket : GameObject2D
         base.Update();
         MapManager mm = mapManager.GetComponent<MapManager>();
         float time = Time.time - startTime;
-        float relativeHeight = landingFunc(time);
+        float relativeHeight = MIN_HEIGHT;
         float y;
         if (mm.currentGameState == MapManager.GameState.LANDING)
         {
+            relativeHeight = landingFunc(time);
             if (time >= LANDING_TIME)
             {
                 mm.currentGameState = MapManager.GameState.PLAY;
@@ -65,6 +73,7 @@ public class Rocket : GameObject2D
         }
         else if (mm.currentGameState == MapManager.GameState.TAKEOFF)
         {
+            relativeHeight = takeoffFunc(time);
             if (time > TAKEOFF_TIME)
             {
                 mm.GoToWinScreen();
@@ -81,10 +90,10 @@ public class Rocket : GameObject2D
             // relative height minimum 0, maximum 1
             // gravity minimum -0.1, maximum 0.4
 
-            float gravity = -0.6f * Mathf.Pow(((1 - relativeHeight) / 1.1f), 4);
+            float gravity = -0.6f * Mathf.Pow((1 - relativeHeight) / 1.1f, 4);
             smoke.gravityModifier = gravity;
             smoke.startLifetime = -2.9282f * Mathf.Pow((1f - relativeHeight) / 1.1f, 4) + 2.5f;
-            smoke.emissionRate = (1.0f - relativeHeight) * 50.0f;
+            smoke.emissionRate = Mathf.Pow(1.0f - relativeHeight, 10.0f) * 50.0f;
 
             flame.emissionRate = relativeHeight * 50.0f;
 

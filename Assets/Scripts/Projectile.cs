@@ -76,7 +76,7 @@ public class Projectile : GameObject2D
         if ((DateTime.Now - spawnTime).TotalSeconds > lifeTime)
         {
 
-            Explode(this.transform.position);
+            Explode(this.transform.position, null, null);
             this.Invoke(() => Destroy(this.gameObject), explosion_offset);
             dead = true;
         }
@@ -157,6 +157,8 @@ public class Projectile : GameObject2D
         if (tagsToIgnore.Any(entry => entry == col.gameObject.tag))
             return;
 
+        TileData? tile = null;
+
         switch (col.gameObject.tag)
         {
             case TILEMAP_TAG:
@@ -164,7 +166,8 @@ public class Projectile : GameObject2D
                 Vector2 hitPoint = contact.point - contact.normal * 0.05f;
 
                 MapManager mm = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
-                TileData? tile = mm.HitTile(hitPoint, mining_damage);
+                mm.HitTile(hitPoint, mining_damage);
+                tile = mm.GetTile(hitPoint);
                 break;
 
             case ENEMY_TAG:
@@ -184,7 +187,7 @@ public class Projectile : GameObject2D
             direction = new Vector2(0, 0);
             if (explosionSize != 0)
             {
-                Explode(transform.position); // hitPoint
+                Explode(transform.position, tile, health);
 
                 this.Invoke(() => Destroy(this.gameObject), explosion_offset);
             }
@@ -238,7 +241,7 @@ public class Projectile : GameObject2D
         currBounceCooldown = 0.0f;
     }*/
 
-    private void Explode(Vector2 position)
+    private void Explode(Vector2 position, TileData tileToIgnore, Health objectToIgnore)
     {
         MapManager mapManager;
         if (explosionSize == 0)
@@ -257,22 +260,53 @@ public class Projectile : GameObject2D
                     List<TileData> tiles = mapManager.GetTilesNear(position, explosion_radius);
 
                     foreach (TileData tile in tiles)
-                        mapManager.HitTile(tile, mining_damage);
+                    {
+                        if (!ReferenceEquals(tile, tileToIgnore))
+                        {
+                            mapManager.HitTile(tile, mining_damage);
+                        }
+                    }
                     break;
 
                 default:
-                    mapManager = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
+                    Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosion_radius);
+
+                    foreach (Collider2D collider in colliders)
+                    { 
+                        GameObject go = collider.gameObject;
+
+                        bool dealDamage = false;
+                        foreach (string tag in tagsExplosionDealDamage)
+                        {
+                            if (go.tag == tag)
+                            {
+                                dealDamage = true;
+                                break;
+                            }
+                        }
+
+                        if (dealDamage)
+                        {
+                            Health health = go.gameObject.GetComponent<Health>();
+                            if (health != null && !ReferenceEquals(health, objectToIgnore))
+                            {
+                                health.TakeDamage(damage);
+                            }
+                        }
+                    }
+
+                    /*mapManager = GameObject.FindGameObjectWithTag(MAP_MANAGER_TAG).GetComponent<MapManager>();
                     GameObject[] objects = GameObject.FindGameObjectsWithTag(tagsExplosionDealDamage[i]);
                     foreach (GameObject obj in objects)
                     {
                         if (Vector2.Distance(obj.transform.position - new Vector3(mapManager.dirtMap.cellSize.x/2, mapManager.dirtMap.cellSize.y/2, 0), this.transform.position) > explosion_radius)
                             continue;
                         Health health = obj.gameObject.GetComponent<Health>();
-                        if (health != null)
+                        if (health != null && !ReferenceEquals(health, objectToIgnore))
                         {
                             health.TakeDamage(damage);
                         }
-                    }
+                    }*/
                     break;
             }
         }
