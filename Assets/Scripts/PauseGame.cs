@@ -15,7 +15,13 @@ public class PauseGame : MonoBehaviour
             {
                 Time.timeScale = 0; 
                 if(mapManager.currentGameState != MapManager.GameState.LANDING)
+                {
                     player.GetComponent<Playah>().enabled = false;
+                    player.GetComponent<Playah>().Pause();
+                    
+                }
+                    
+                
                 canvas.SetActive(true);
                 //player.SetActive(false); 
             }
