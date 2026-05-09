@@ -175,21 +175,24 @@ MonoBehaviour:
   playah: {fileID: 0}
   animator: {fileID: 0}
   audioManager: {fileID: 0}
+  collisionManager: {fileID: 0}
+  optimalization: {fileID: 0}
+  game: {fileID: 0}
   DeathAnimClip: {fileID: 7400000, guid: b1f1058a2ce7c9c4ca1f1e0237f0c47f, type: 2}
-  maxHP: 5
+  maxHP: -1
   HP: 10
   dead: 0
   material: {fileID: 0}
   FLASH_TIME: 0.4
   death_offset: 0
   STOP_MOVE_DISTANCE: 3
-  DEFAULT_SPEED: 2
-  DEFAULT_DAMAGE: 6
+  DEFAULT_SPEED: 1.8
+  DEFAULT_DAMAGE: 5
   DEFAULT_MINING_DAMAGE: 2
   PROJECTILE_SPEED: 6
   PROJECTILE_LIFETIME: 3
-  DEFAULT_ATTACK_COOLDOWN: 5
-  DEFAULT_HP: 5
+  DEFAULT_ATTACK_COOLDOWN: 3
+  DEFAULT_HP: 3
   MIN_ATTACK_DISTANCE: 5
   Projectile: {fileID: 8470639361405265912, guid: 78a367a46cb3fab4baa629a11da391c5, type: 3}
   isTriggered: 0

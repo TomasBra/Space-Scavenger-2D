@@ -163,16 +163,18 @@ MonoBehaviour:
   audioManager: {fileID: 0}
   collisionManager: {fileID: 0}
   optimalization: {fileID: 0}
+  game: {fileID: 0}
   DeathAnimClip: {fileID: 7400000, guid: f3fbc91f82ab49f429968a2c929657e1, type: 2}
-  maxHP: 50
+  maxHP: -1
   HP: 0
   dead: 0
   material: {fileID: 0}
   FLASH_TIME: 0.5
   death_offset: 0
-  DEFAULT_SPAWN_COOLDOWN: 4
+  DEFAULT_SPAWN_COOLDOWN: 3
   DEFAULT_HP: 40
-  SpawnableObject: {fileID: 7011711083779050010, guid: 63cdbfd51ddaca34690526a24f2939b8, type: 3}
+  SpawnableRanged: {fileID: 0}
+  SpawnableMelee: {fileID: 0}
   lastSpawnTime: 0
   isTriggered: 0
 --- !u!70 &5603154631804977796

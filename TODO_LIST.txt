@@ -29,7 +29,8 @@ X materialy vypadavaji nejak nakrivo
 X bfs pro odstinovani prochazi i sikmo
 X materialy by se nemusely spawnovat vedle sebe
 X odrazeni strel
-- upgrady
-- to gui chce spravit
+X upgrady
+X to gui chce spravit
 - odlisna barva bedrocku
-- raketa
+X raketa
+- hnizda nespawnovat u vstupu

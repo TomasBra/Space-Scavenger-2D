@@ -32,9 +32,9 @@ public class UpgradeMenu : MonoBehaviour
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(20, 0, 0),
-                        new Price(45, 10, 0),
-                        new Price(90, 25, 1)
+                        new Price(8, 5, 2),
+                        new Price(14, 8, 5),
+                        new Price(20, 11, 8)
                     },
                     UPGRADE.PROJECTILE_COUNT
                 )
@@ -45,9 +45,9 @@ public class UpgradeMenu : MonoBehaviour
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(15, 5, 0),
-                        new Price(40, 15, 0),
-                        new Price(85, 35, 1)
+                        new Price(5, 5, 0),
+                        new Price(10, 10, 0),
+                        new Price(15, 8, 5)
                     },
                     UPGRADE.PROJECTILE_SPAWN_COOL_DOWN
                 )
@@ -59,8 +59,8 @@ public class UpgradeMenu : MonoBehaviour
                     new Price[]
                     {
                         new Price(10, 0, 0),
-                        new Price(25, 5, 0),
-                        new Price(50, 20, 1)
+                        new Price(20, 10, 0),
+                        new Price(30, 20, 10)
                     },
                     UPGRADE.PROJECTILE_DAMAGE
                 )
@@ -71,9 +71,9 @@ public class UpgradeMenu : MonoBehaviour
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(12, 0, 0),
-                        new Price(30, 8, 0),
-                        new Price(65, 20, 1)
+                        new Price(2, 0, 0),
+                        new Price(8, 6, 0),
+                        new Price(14, 9, 0)
                     },
                     UPGRADE.PROJECTILE_SPEED
                 )
@@ -84,9 +84,9 @@ public class UpgradeMenu : MonoBehaviour
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(15, 0, 0),
-                        new Price(35, 10, 0),
-                        new Price(75, 25, 1)
+                        new Price(2, 0, 0),
+                        new Price(8, 6, 0),
+                        new Price(14, 9, 1)
                     },
                     UPGRADE.PROJECTILE_LIFETIME
                 )
@@ -97,9 +97,9 @@ public class UpgradeMenu : MonoBehaviour
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(12, 0, 0),
-                        new Price(30, 8, 0),
-                        new Price(65, 20, 1)
+                        new Price(6, 0, 0),
+                        new Price(8, 4, 0),
+                        new Price(10, 8, 2)
                     },
                     UPGRADE.LASER_DAMAGE
                 )
@@ -124,9 +124,9 @@ public class UpgradeMenu : MonoBehaviour
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(15, 0, 0),
-                        new Price(35, 10, 0),
-                        new Price(75, 25, 1)
+                        new Price(10, 0, 0),
+                        new Price(15, 8, 0),
+                        new Price(25, 12, 4)
                     },
                     UPGRADE.HP
                 )
@@ -136,9 +136,9 @@ public class UpgradeMenu : MonoBehaviour
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(15, 0, 0),
-                        new Price(35, 10, 0),
-                        new Price(75, 25, 1)
+                        new Price(5, 5, 0),
+                        new Price(10, 10, 0),
+                        new Price(20, 20, 0)
                     },
                     UPGRADE.MOVEMENT_SPEED
                 )
@@ -337,11 +337,11 @@ public class Upgrades
                 break;
 
             case UPGRADE.PROJECTILE_SPEED:
-                player.PROJECTILE_SPEED *= 1.314f;
+                player.PROJECTILE_BOUNCES += 1;
                 break;
 
             case UPGRADE.PROJECTILE_LIFETIME:
-                player.PROJECTILE_LIFETIME *= 1.314f;
+                player.EXPLOSION_SIZE += 1;
                 break;
 
             case UPGRADE.LASER_DAMAGE:

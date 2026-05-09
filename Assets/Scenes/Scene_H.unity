@@ -331,10 +331,10 @@ MonoBehaviour:
   IronPrefab: {fileID: 749958325539908186, guid: ebeeed446e0463f448932feebb8bd84c, type: 3}
   CopperPrefab: {fileID: 2883428807591409269, guid: c04aaf5a70ac3644c98e00e71442dc0b, type: 3}
   GoldPrefab: {fileID: 5536827144519216521, guid: 256a6aade99b58c43842cf18118ac139, type: 3}
-  EndScreen: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 0
+  EndScreen: {fileID: 0}
 --- !u!4 &67817727
 Transform:
   m_ObjectHideFlags: 0
@@ -2479,7 +2479,7 @@ Transform:
   m_GameObject: {fileID: 733095881}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.62, z: 0}
+  m_LocalPosition: {x: 0, y: -1.359, z: 3.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2648,7 +2648,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.78
+      scalar: 0.55
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -3283,7 +3283,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.06
+      value: 0.04
       mode: 0
       spread: 0
       speed:
@@ -3402,7 +3402,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 75
+      scalar: 125
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4504,7 +4504,7 @@ ParticleSystem:
     radial:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -2.6
+      scalar: -1.98
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -9304,11 +9304,15 @@ PrefabInstance:
       objectReference: {fileID: 7400000, guid: e71675c58216b8d47be83a98eb93ab1c, type: 2}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: EXPLOSION_SIZE
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: PROJECTILE_COUNT
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
+      propertyPath: PROJECTILE_SPEED
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: ProjectilePrefab
@@ -9317,6 +9321,10 @@ PrefabInstance:
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: PROJECTILE_MINING_DAMAGE
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
+      propertyPath: PROJECTILE_SPAWN_COOL_DOWN
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 6253396924218880091, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: m_LocalScale.x
@@ -10126,6 +10134,10 @@ PrefabInstance:
     - target: {fileID: 7297185635036925189, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7299799911327682155, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
+      propertyPath: upgradeType
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7328052600941405192, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
       propertyPath: m_AnchorMax.x
@@ -11386,6 +11398,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: a3bacece3f6415144b3e84b188dc23ff, type: 2}
     - target: {fileID: 5690981797620879040, guid: 28970e11ca3262e428efe9b3a7b007d7, type: 3}
+      propertyPath: ShapeModule.angle
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690981797620879040, guid: 28970e11ca3262e428efe9b3a7b007d7, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690981797620879040, guid: 28970e11ca3262e428efe9b3a7b007d7, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 1
       objectReference: {fileID: 0}
@@ -11399,7 +11419,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8153421031038453944, guid: 28970e11ca3262e428efe9b3a7b007d7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.39
+      value: -1.478
+      objectReference: {fileID: 0}
+    - target: {fileID: 8153421031038453944, guid: 28970e11ca3262e428efe9b3a7b007d7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8232410511867612554, guid: 28970e11ca3262e428efe9b3a7b007d7, type: 3}
       propertyPath: m_LocalPosition.x

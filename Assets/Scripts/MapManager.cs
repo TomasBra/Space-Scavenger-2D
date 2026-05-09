@@ -123,10 +123,10 @@ public class MapManager : GameObject2D
     public const int MAP_WIDTH = 100;
     public const int MAP_HEIGHT = 150;
     public const int SKY_HEIGHT = 10;
-    public const int MIN_ENEMY_COUNT = 7;
-    public const int MAX_ENEMY_COUNT = 10;
-    public const int MIN_QUEEN_ENEMY_COUNT = 11;
-    public const int MAX_QUEEN_ENEMY_COUNT = 15;
+    public const int MIN_ENEMY_COUNT = 4;
+    public const int MAX_ENEMY_COUNT = 7;
+    public const int MIN_QUEEN_ENEMY_COUNT = 6;
+    public const int MAX_QUEEN_ENEMY_COUNT = 11;
     public const float DEFAULT_DURABILITY = 4.0f;
 
     static List<Vector2> pointsAroundTile;
@@ -370,15 +370,24 @@ public class MapManager : GameObject2D
         }
 
 
-        StartCoroutine(RemoveShadowCoroutine(toRemoveShadow));
+        RemoveShadow(toRemoveShadow);
     }
 
+    /*
     private IEnumerator RemoveShadowCoroutine(List<Vector3Int> positions)
     {
         foreach (Vector3Int position in positions)
         {
             shadowMap.SetTile(position, null);
             yield return new WaitForSeconds(0.003f);
+        }
+    }*/
+
+    private void RemoveShadow(List<Vector3Int> positions)
+    {
+        foreach (Vector3Int position in positions)
+        {
+            shadowMap.SetTile(position, null);
         }
     }
 

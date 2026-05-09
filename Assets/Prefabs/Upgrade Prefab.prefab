@@ -1473,7 +1473,7 @@ GameObject:
   - component: {fileID: 4922371424043924093}
   - component: {fileID: 5149192011149683418}
   m_Layer: 0
-  m_Name: UpgradeItem LIFETIME
+  m_Name: UpgradeItem EXPLOSION
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1974,7 +1974,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8270360537771332982}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.7516103
+  m_Size: 0.75161016
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5206,7 +5206,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BULLET SPEED
+  m_text: BOUNCES
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ba4327be7a05f1745a9c1af796271a01, type: 2}
   m_sharedMaterial: {fileID: 3281120125504422079, guid: ba4327be7a05f1745a9c1af796271a01, type: 2}
@@ -6564,7 +6564,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &907999027057891182
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6666,7 +6666,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8562116762219474160}
   m_HandleRect: {fileID: 3000655321266733660}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7614,7 +7614,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: RUN SPEED
+  m_text: SPEED
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ba4327be7a05f1745a9c1af796271a01, type: 2}
   m_sharedMaterial: {fileID: 3281120125504422079, guid: ba4327be7a05f1745a9c1af796271a01, type: 2}
@@ -7834,7 +7834,7 @@ GameObject:
   - component: {fileID: 3409074805635069283}
   - component: {fileID: 7299799911327682155}
   m_Layer: 0
-  m_Name: UpgradeItem PROJECTILE SPEED
+  m_Name: UpgradeItem BOUNCES
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7875,7 +7875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939c132a5e4fcd54c85bb012b8720c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeItemUI
-  upgradeType: 6
+  upgradeType: 7
   copperCostText: {fileID: 7313509867016775177}
   ironCostText: {fileID: 1550659531414614101}
   goldCostText: {fileID: 8321688369881279384}
@@ -8508,7 +8508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939c132a5e4fcd54c85bb012b8720c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeItemUI
-  upgradeType: 3
+  upgradeType: 4
   copperCostText: {fileID: 6002228024114656963}
   ironCostText: {fileID: 78771162732471257}
   goldCostText: {fileID: 3565503465182049481}
@@ -9296,7 +9296,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9214117087860277648
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9651,7 +9651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939c132a5e4fcd54c85bb012b8720c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeItemUI
-  upgradeType: 2
+  upgradeType: 3
   copperCostText: {fileID: 8184820810684731617}
   ironCostText: {fileID: 3166131396174009977}
   goldCostText: {fileID: 8874561345224998853}
@@ -10063,7 +10063,7 @@ RectTransform:
   m_Father: {fileID: 3176531949157507695}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12289,7 +12289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939c132a5e4fcd54c85bb012b8720c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeItemUI
-  upgradeType: 1
+  upgradeType: 2
   copperCostText: {fileID: 1053127291154034071}
   ironCostText: {fileID: 2310348742940929897}
   goldCostText: {fileID: 1809950018080933079}
@@ -13198,7 +13198,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 11, y: 0}
+  m_AnchoredPosition: {x: 11, y: -0.000061035156}
   m_SizeDelta: {x: -34.381, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8552186868857004669
@@ -14036,7 +14036,7 @@ RectTransform:
   m_Father: {fileID: 6904617480921609588}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -15330,7 +15330,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LIFETIME
+  m_text: EXPLOSION
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ba4327be7a05f1745a9c1af796271a01, type: 2}
   m_sharedMaterial: {fileID: 3281120125504422079, guid: ba4327be7a05f1745a9c1af796271a01, type: 2}

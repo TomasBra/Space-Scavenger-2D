@@ -8,7 +8,7 @@ public class Health : GameObject2D
     protected AnimationClip DeathAnimClip;
 
     [SerializeField]
-    public float maxHP = 3f;
+    public float maxHP;
 
     [HideInInspector]
     public float HP;
