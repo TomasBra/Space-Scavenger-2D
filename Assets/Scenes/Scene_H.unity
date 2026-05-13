@@ -404,19 +404,13 @@ MonoBehaviour:
   optimalization: {fileID: 0}
   game: {fileID: 0}
   sounds:
-  - name: Theme
-    clips:
-    - {fileID: 8300000, guid: 0e403fdba04696c4e889f1c85656a417, type: 3}
-    volume: 0.2
-    pitch: 1
-    playOffset: 5
-    source: {fileID: 0}
   - name: PickUpItem
     clips:
     - {fileID: 8300000, guid: 6396467a89ef57f42be1c26de38d0a5d, type: 3}
-    volume: 1
+    volume: 2
     pitch: 1
     playOffset: 0
+    loop: 0
     source: {fileID: 0}
   - name: Shoot
     clips:
@@ -424,6 +418,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     playOffset: 0
+    loop: 0
     source: {fileID: 0}
   - name: Explosion
     clips:
@@ -431,21 +426,32 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     playOffset: 0
+    loop: 0
     source: {fileID: 0}
   - name: Reflection
     clips:
     - {fileID: 8300000, guid: 6e829386fdf32af47a4bbd78a6bc057e, type: 3}
-    volume: 1
+    volume: 0
     pitch: 1
     playOffset: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Laser
+    clips:
+    - {fileID: 8300000, guid: a7d921fa7ff953a47a562d4f3563ef4c, type: 3}
+    volume: 0.07
+    pitch: 1
+    playOffset: 0
+    loop: 1
     source: {fileID: 0}
   theme:
     name: theme
     clips:
     - {fileID: 8300000, guid: 0e403fdba04696c4e889f1c85656a417, type: 3}
-    volume: 0.219
+    volume: 0.15
     pitch: 0.91
-    playOffset: 4.7
+    playOffset: 5
+    loop: 0
     source: {fileID: 0}
   themeAudiosource: {fileID: 79479927}
 --- !u!4 &79479926
@@ -9344,7 +9350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: SPEED
-      value: 3
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: maxHP
@@ -9388,7 +9394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: PROJECTILE_SPEED
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: ProjectilePrefab
