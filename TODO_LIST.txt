@@ -31,6 +31,8 @@ X materialy by se nemusely spawnovat vedle sebe
 X odrazeni strel
 X upgrady
 X to gui chce spravit
-- odlisna barva bedrocku
 X raketa
-- hnizda nespawnovat u vstupu
+- odlisna barva bedrocku
+- hnizda nespawnovat u vstupu (spravit)
+- smoke particly
+- kralovna chytrejsi spawn nepratel >:)

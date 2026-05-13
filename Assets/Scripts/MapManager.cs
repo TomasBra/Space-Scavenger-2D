@@ -378,7 +378,7 @@ public class MapManager : GameObject2D
         }
 
 
-        RemoveShadowCoroutine(toRemoveShadow);
+        StartCoroutine(RemoveShadowCoroutine(toRemoveShadow));
     }
 
 
