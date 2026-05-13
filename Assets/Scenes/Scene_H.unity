@@ -9344,7 +9344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: SPEED
-      value: 3.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: maxHP
@@ -9388,7 +9388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: PROJECTILE_SPEED
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: ProjectilePrefab
