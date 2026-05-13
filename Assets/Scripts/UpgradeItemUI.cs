@@ -34,7 +34,6 @@ public class UpgradeItemUI : MonoBehaviour
 
     public void Refresh()
     {
-        
         if (menu == null) return;
 
         Upgrades upgrade = menu.GetUpgrade(upgradeType);

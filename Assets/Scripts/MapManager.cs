@@ -26,6 +26,7 @@ public class MapManager : GameObject2D
             new Vector2Int(0, -1)
         };
 
+    private const int MAX_MAX_QUEEN_COUNT = 3;
     private int maxQueenCount = 0;
     private int killedQueenCount = 0;
 
@@ -120,8 +121,8 @@ public class MapManager : GameObject2D
 
     public GameObject EndScreen;
 
-    public const int MAP_WIDTH = 100;
-    public const int MAP_HEIGHT = 150;
+    public const int MAP_WIDTH = 75; // 100
+    public const int MAP_HEIGHT = 120; // 150
     public const int SKY_HEIGHT = 10;
     public const int MIN_ENEMY_COUNT = 4;
     public const int MAX_ENEMY_COUNT = 7;
@@ -184,6 +185,9 @@ public class MapManager : GameObject2D
                     case TempTile.TileType.DIRT:
                         AddTile(i, j, TileData.TileType.DIRT);
                         break;
+                    case TempTile.TileType.ENTRANCE:
+                        AddTile(i, j, TileData.TileType.DIRT);
+                        break;
                     case TempTile.TileType.IRON:
                         AddTile(i, j, TileData.TileType.IRON);
                         break;
@@ -216,6 +220,8 @@ public class MapManager : GameObject2D
                 }
             }
         }
+
+        maxQueenCount = Mathf.Min(maxQueenCount, MAX_MAX_QUEEN_COUNT);
 
         this.RemoveTile(new Vector3Int(MAP_WIDTH / 2, 0));
         itemCounter.SetSamples(killedQueenCount, maxQueenCount);

@@ -11,6 +11,7 @@ public class TempTile
     {
         EMPTY,
         DIRT,
+        ENTRANCE,
         BEDROCK,
         GROUND, // unused
         IRON,
@@ -55,13 +56,13 @@ public class TerrainGenerator
     const int NEST_COUNT = 15;
     const int QUEEN_NEST_COUNT = 5; 
 
-    const int MIN_NEST_SIZE = 120; //50
-    const int MAX_NEST_SIZE = 200; // 100
-    const int MIN_QUEEN_NEST_SIZE = 230;
-    const int MAX_QUEEN_NEST_SIZE = 350;
+    const int MIN_NEST_SIZE = 80; //50 //120
+    const int MAX_NEST_SIZE = 120; // 100 //200
+    const int MIN_QUEEN_NEST_SIZE = 130; //230
+    const int MAX_QUEEN_NEST_SIZE = 200; //350
 
     const float MIN_NEST_DEPTH = 0.08f;
-    const float MIN_QUEEN_NEST_DEPTH = 0.24f;
+    const float MIN_QUEEN_NEST_DEPTH = 0.17f;
 
     char[] representations = { ' ', 'o', '#', '@', '$', '%', '*' };
 
@@ -92,7 +93,7 @@ public class TerrainGenerator
 
     float GoldDepthFunc(float depth)
     {
-        return (float)Math.Cbrt(depth);
+        return Mathf.Pow(depth, 0.4f);
     }
 
     float CopperDepthFunc(float depth)
@@ -107,7 +108,7 @@ public class TerrainGenerator
 
     float QueenNestDepthFunc(float depth)
     {
-        return (float)Math.Cbrt(MIN_QUEEN_NEST_DEPTH + depth * (1 - MIN_QUEEN_NEST_DEPTH));
+        return Mathf.Sqrt(MIN_QUEEN_NEST_DEPTH + depth * (1 - MIN_QUEEN_NEST_DEPTH));
     }
 
     /*
@@ -404,6 +405,10 @@ public class TerrainGenerator
                 {
                     tiles[i, j] = new TempTile(i, j, TempTile.TileType.NEST_BORDER);
                 }
+                else if (Mathf.Sqrt(i * i + (WIDTH / 2 - j) * (WIDTH / 2 - j)) <= 3.0f)
+                {
+                    tiles[i, j] = new TempTile(i, j, TempTile.TileType.ENTRANCE);
+                }
                 else
                 {
                     tiles[i, j] = new TempTile(i, j, TempTile.TileType.DIRT);
@@ -535,9 +540,9 @@ public class TerrainGenerator
         GenerateNests(NEST_COUNT, false);
         //PolishBorders();
 
-        GenerateOre(TempTile.TileType.IRON, 250, 2, 3, IronDepthFunc);
-        GenerateOre(TempTile.TileType.COPPER, 225, 1, 4, CopperDepthFunc);
-        GenerateOre(TempTile.TileType.GOLD, 200, 1, 3, GoldDepthFunc);
+        GenerateOre(TempTile.TileType.IRON, 225, 2, 4, IronDepthFunc);
+        GenerateOre(TempTile.TileType.COPPER, 250, 2, 4, CopperDepthFunc);
+        GenerateOre(TempTile.TileType.GOLD, 200, 2, 3, GoldDepthFunc);
 
         GenerateBedrockBorders();
 

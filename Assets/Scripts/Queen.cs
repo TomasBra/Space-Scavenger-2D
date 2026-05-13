@@ -10,7 +10,7 @@ public class Queen : Health
     public static float GetHPDepthCoef(int absoluteDepth)
     {
         float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
-        float bonus = relativeDepth * 7.0f;
+        float bonus = relativeDepth * 13.0f;
 
         return 1.0f + bonus;
     }
@@ -18,7 +18,7 @@ public class Queen : Health
     public static float GetSpawnCooldownDepthCoef(int absoluteDepth)
     {
         float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
-        float bonus = relativeDepth * 2.4f;
+        float bonus = relativeDepth * 3.0f;
 
         return 1 / (1.0f + bonus);
     }

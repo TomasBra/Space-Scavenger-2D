@@ -9324,7 +9324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: PROJECTILE_SPAWN_COOL_DOWN
-      value: 0.6
+      value: 0.66
       objectReference: {fileID: 0}
     - target: {fileID: 6253396924218880091, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: m_LocalScale.x
@@ -9678,6 +9678,10 @@ PrefabInstance:
     - target: {fileID: 323144895548597397, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 437550593765608578, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
+      propertyPath: m_text
+      value: DAMAGE
       objectReference: {fileID: 0}
     - target: {fileID: 556267617760140340, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
       propertyPath: m_AnchorMax.y
@@ -10095,6 +10099,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 47.837463
       objectReference: {fileID: 0}
+    - target: {fileID: 6612841067070746529, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
+      propertyPath: m_text
+      value: PROJECTILES
+      objectReference: {fileID: 0}
     - target: {fileID: 7093332096649345186, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
       propertyPath: m_fontColor.b
       value: 0.9921569
@@ -10199,6 +10207,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1320469771}
+    - target: {fileID: 7835369704233870085, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
+      propertyPath: m_text
+      value: FIRE RATE
+      objectReference: {fileID: 0}
     - target: {fileID: 7851300282770136931, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
       propertyPath: m_SizeDelta.x
       value: 618.05
@@ -10250,6 +10262,12 @@ PrefabInstance:
     - target: {fileID: 8370786782506556383, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 118.130875
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428283045818597589, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
+      propertyPath: m_text
+      value: 'MINING POWER
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 8440921557509675081, guid: ea5845f7da799764aa12eb618e27dc74, type: 3}
       propertyPath: m_AnchorMax.x

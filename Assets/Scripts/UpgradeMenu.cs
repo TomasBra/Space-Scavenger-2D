@@ -26,15 +26,15 @@ public class UpgradeMenu : MonoBehaviour
 
         upgrades = new Dictionary<UPGRADE, Upgrades>
         {
-            ///< zbrane s
+            ///< zbrane 
             {
                 UPGRADE.PROJECTILE_COUNT,
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(8, 5, 2),
-                        new Price(14, 8, 5),
-                        new Price(20, 11, 8)
+                        new Price(6, 5, 5),
+                        new Price(9, 9, 10),
+                        new Price(13, 14, 16)
                     },
                     UPGRADE.PROJECTILE_COUNT
                 )
@@ -45,9 +45,10 @@ public class UpgradeMenu : MonoBehaviour
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(5, 5, 0),
-                        new Price(10, 10, 0),
-                        new Price(15, 8, 5)
+                        new Price(4, 0, 0),
+                        new Price(6, 5, 0),
+                        new Price(9, 10, 6),
+                        new Price(13, 16, 13)
                     },
                     UPGRADE.PROJECTILE_SPAWN_COOL_DOWN
                 )
@@ -58,37 +59,38 @@ public class UpgradeMenu : MonoBehaviour
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(10, 0, 0),
-                        new Price(20, 10, 0),
-                        new Price(30, 20, 10)
+                        new Price(4, 0, 0),
+                        new Price(6, 5, 0),
+                        new Price(9, 10, 6),
+                        new Price(13, 16, 13)
                     },
                     UPGRADE.PROJECTILE_DAMAGE
                 )
             },
 
             {
-                UPGRADE.PROJECTILE_SPEED,
+                UPGRADE.PROJECTILE_BOUNCES,
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(2, 0, 0),
-                        new Price(8, 6, 0),
-                        new Price(14, 9, 0)
+                        new Price(6, 5, 5),
+                        new Price(9, 9, 10),
+                        new Price(13, 14, 16)
                     },
-                    UPGRADE.PROJECTILE_SPEED
+                    UPGRADE.PROJECTILE_BOUNCES
                 )
             },
 
             {
-                UPGRADE.PROJECTILE_LIFETIME,
+                UPGRADE.PROJECTILE_EXPLOSION,
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(2, 0, 0),
-                        new Price(8, 6, 0),
-                        new Price(14, 9, 1)
+                        new Price(6, 5, 5),
+                        new Price(9, 9, 10),
+                        new Price(13, 14, 16)
                     },
-                    UPGRADE.PROJECTILE_LIFETIME
+                    UPGRADE.PROJECTILE_EXPLOSION
                 )
             },
             ///< Laser
@@ -97,9 +99,11 @@ public class UpgradeMenu : MonoBehaviour
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(6, 0, 0),
-                        new Price(8, 4, 0),
-                        new Price(10, 8, 2)
+                        new Price(2, 2, 0),
+                        new Price(4, 3, 0),
+                        new Price(7, 5, 2),
+                        new Price(11, 8, 7),
+                        new Price(16, 12, 13)
                     },
                     UPGRADE.LASER_DAMAGE
                 )
@@ -124,9 +128,11 @@ public class UpgradeMenu : MonoBehaviour
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(10, 0, 0),
-                        new Price(15, 8, 0),
-                        new Price(25, 12, 4)
+                        new Price(3, 0, 0),
+                        new Price(5, 2, 0),
+                        new Price(8, 5, 2),
+                        new Price(12, 8, 7),
+                        new Price(17, 12, 13)
                     },
                     UPGRADE.HP
                 )
@@ -136,9 +142,10 @@ public class UpgradeMenu : MonoBehaviour
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(5, 5, 0),
-                        new Price(10, 10, 0),
-                        new Price(20, 20, 0)
+                        new Price(3, 0, 0),
+                        new Price(5, 3, 0),
+                        new Price(8, 7, 6),
+                        new Price(12, 12, 13)
                     },
                     UPGRADE.MOVEMENT_SPEED
                 )
@@ -234,8 +241,8 @@ public enum UPGRADE
     PROJECTILE_SPAWN_COOL_DOWN,
     PROJECTILE_DAMAGE,
     PROJECTILE_MINING_DAMAGE,
-    PROJECTILE_SPEED,
-    PROJECTILE_LIFETIME,
+    PROJECTILE_BOUNCES,
+    PROJECTILE_EXPLOSION,
     LASER_DAMAGE,
     LASER_DISTANCE
 }
@@ -321,7 +328,7 @@ public class Upgrades
                 player.healthBar.SetHealth(player.HP);
                 break;
             case UPGRADE.MOVEMENT_SPEED:
-                player.SPEED *= 1.25f;
+                player.SPEED += 1.0f;
                 break;
 
             case UPGRADE.PROJECTILE_COUNT:
@@ -329,18 +336,18 @@ public class Upgrades
                 break;
 
             case UPGRADE.PROJECTILE_SPAWN_COOL_DOWN:
-                player.PROJECTILE_SPAWN_COOL_DOWN *= 0.9f;
+                player.PROJECTILE_SPAWN_COOL_DOWN *= 0.75f;
                 break;
 
             case UPGRADE.PROJECTILE_DAMAGE:
-                player.PROJECTILE_DAMAGE *= 1.2f;
+                player.PROJECTILE_DAMAGE *= 1.37f;
                 break;
 
-            case UPGRADE.PROJECTILE_SPEED:
+            case UPGRADE.PROJECTILE_BOUNCES:
                 player.PROJECTILE_BOUNCES += 1;
                 break;
 
-            case UPGRADE.PROJECTILE_LIFETIME:
+            case UPGRADE.PROJECTILE_EXPLOSION:
                 player.EXPLOSION_SIZE += 1;
                 break;
 

@@ -10,7 +10,7 @@ public class Enemy : Health
     public static float GetSpeedDepthCoef(int absoluteDepth)
     {
         float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
-        float bonus = relativeDepth * 1.6f;
+        float bonus = relativeDepth * 2.1f;
 
         return 1.0f + bonus;
     }
@@ -18,7 +18,7 @@ public class Enemy : Health
     public static float GetHPDepthCoef(int absoluteDepth)
     {
         float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
-        float bonus = relativeDepth * 4.4f;
+        float bonus = relativeDepth * 11.0f;
 
         return 1.0f + bonus;
     }
@@ -26,7 +26,7 @@ public class Enemy : Health
     public static float GetDamageDepthCoef(int absoluteDepth)
     {
         float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
-        float bonus = relativeDepth * 3.0f;
+        float bonus = relativeDepth * 3.3f;
 
         return 1.0f + bonus;
     }
@@ -34,7 +34,7 @@ public class Enemy : Health
     public static float GetAttackCooldownDepthCoef(int absoluteDepth)
     {
         float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
-        float bonus = relativeDepth * 3.0f;
+        float bonus = relativeDepth * 3.3f;
 
         return 1 / (1.0f + bonus);
     }
@@ -42,7 +42,7 @@ public class Enemy : Health
     public static float GetMiningDamageDepthCoef(int absoluteDepth)
     {
         float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
-        float bonus = relativeDepth * 5.0f;
+        float bonus = Mathf.Pow(16, relativeDepth);
 
         return 1.0f + bonus;
     }

@@ -252,6 +252,9 @@ public class Projectile : GameObject2D
         }
 
         rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+        
+        Destroy(rigidbody);
+        Destroy(GetComponent<CircleCollider2D>());
 
         for (int i = 0; i < tagsExplosionDealDamage.Count; i++)
         {
