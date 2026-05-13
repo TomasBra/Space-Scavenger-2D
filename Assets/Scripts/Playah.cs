@@ -122,10 +122,18 @@ public class Playah : Health
         if (Input.GetMouseButton(0))
         {
             Laser2D();
+            StartLaserParticles();
         }
         else
         {
             GetComponent<LineRenderer>().positionCount = 0;
+            audioManager.StopClip("Laser");
+            StopLaserParticles();
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            audioManager.PlayClip("Laser");
         }
 
         if (Input.GetMouseButton(1))
@@ -135,15 +143,6 @@ public class Playah : Health
                 lastShoot = Time.time;
                 Projectiles2D();
             }
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartLaserParticles();
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            StopLaserParticles();
         }
     }
 
@@ -378,15 +377,16 @@ public class Playah : Health
 
     void StartLaserParticles()
     {
-
         foreach (ParticleSystem partSys in laserStartParticleSystems)
         {
-            partSys.Play();
+            if (partSys != null && !partSys.isPlaying)
+                partSys.Play();
         }
 
         foreach (ParticleSystem partSys in laserEndParticleSystems)
         {
-            partSys.Play();
+            if (partSys != null && !partSys.isPlaying)
+                partSys.Play();
         }
     }
 

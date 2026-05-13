@@ -2,11 +2,10 @@
 using TMPro;
 using UnityEngine;
 
-public class UpgradeMenu : MonoBehaviour
+public class UpgradeMenu : GameObject2D
 {
     [Header("UI")]
     [SerializeField] GameObject upgradeMenu;
-    [SerializeField] GameObject player;
 
     [Header("Inventory UI")]
     [SerializeField] TMP_Text copperText;
@@ -162,6 +161,16 @@ public class UpgradeMenu : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        base.Start();
+    }
+
+    private void Update()
+    {
+        base.Update();
+    }
+
     void OnEnable()
     {
         RefreshInventory();
@@ -203,6 +212,7 @@ public class UpgradeMenu : MonoBehaviour
 
     public void PauseGame()
     {
+        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().StopClip("Laser");
         upgradeMenu.SetActive(true);
         player.GetComponent<Playah>().enabled = false;
         Time.timeScale = 0;

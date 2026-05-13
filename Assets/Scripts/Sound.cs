@@ -10,34 +10,14 @@ public class Sound
     public AudioClip[] clips;
 
     [Header("Základní nastavení")]
-    [Range(0f, 1f)]
+    [Range(0f, 2f)]
     public float volume = 1f;
 
     [Range(-3f, 3f)]
     public float pitch = 1f;
 
+    public float playOffset = 0;
     public bool loop = false;
-
-    public bool playOnAwake = false;
-
-    [Header("Náhodná variace pro SFX")]
-    [Range(0.5f, 1.5f)]
-    public float randomPitchMin = 0.95f;
-
-    [Range(0.5f, 1.5f)]
-    public float randomPitchMax = 1.05f;
-
-    [Range(0f, 1.5f)]
-    public float randomVolumeMin = 0.95f;
-
-    [Range(0f, 1.5f)]
-    public float randomVolumeMax = 1.0f;
-
-    [Header("Omezení souèasného pøehrávání")]
-    public int maxSimultaneousCount = 3;
-
-    [Header("Mixer")]
-    public AudioMixerGroup outputMixerGroup;
 
     [HideInInspector]
     public AudioSource source;

@@ -378,10 +378,10 @@ public class MapManager : GameObject2D
         }
 
 
-        RemoveShadow(toRemoveShadow);
+        RemoveShadowCoroutine(toRemoveShadow);
     }
 
-    /*
+
     private IEnumerator RemoveShadowCoroutine(List<Vector3Int> positions)
     {
         foreach (Vector3Int position in positions)
@@ -389,15 +389,15 @@ public class MapManager : GameObject2D
             shadowMap.SetTile(position, null);
             yield return new WaitForSeconds(0.003f);
         }
-    }*/
-
-    private void RemoveShadow(List<Vector3Int> positions)
-    {
-        foreach (Vector3Int position in positions)
-        {
-            shadowMap.SetTile(position, null);
-        }
     }
+
+    //private void RemoveShadow(List<Vector3Int> positions)
+    //{
+    //    foreach (Vector3Int position in positions)
+    //    {
+    //        shadowMap.SetTile(position, null);
+    //    }
+    //}
 
     public List<Vector3Int> GetNeighbours(Vector3Int gridPosition)
     {
