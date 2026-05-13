@@ -10,7 +10,7 @@ public class Queen : Health
     public static float GetHPDepthCoef(int absoluteDepth)
     {
         float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
-        float bonus = relativeDepth * 13.0f;
+        float bonus = relativeDepth * 16.0f;
 
         return 1.0f + bonus;
     }

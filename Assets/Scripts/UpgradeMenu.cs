@@ -328,7 +328,7 @@ public class Upgrades
                 player.healthBar.SetHealth(player.HP);
                 break;
             case UPGRADE.MOVEMENT_SPEED:
-                player.SPEED += 1.0f;
+                player.SPEED += 0.8f;
                 break;
 
             case UPGRADE.PROJECTILE_COUNT:
