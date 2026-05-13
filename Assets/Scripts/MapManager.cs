@@ -118,7 +118,6 @@ public class MapManager : GameObject2D
 
     public LayerMask layerMask;
 
-
     public GameObject EndScreen;
 
     public const int MAP_WIDTH = 75; // 100
@@ -222,6 +221,9 @@ public class MapManager : GameObject2D
         }
 
         maxQueenCount = Mathf.Min(maxQueenCount, MAX_MAX_QUEEN_COUNT);
+
+        Debug.Log("max queen count: " + maxQueenCount);
+        Debug.Log("killed queen count: " + killedQueenCount);
 
         this.RemoveTile(new Vector3Int(MAP_WIDTH / 2, 0));
         itemCounter.SetSamples(killedQueenCount, maxQueenCount);

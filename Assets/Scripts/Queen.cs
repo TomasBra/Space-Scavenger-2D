@@ -18,7 +18,7 @@ public class Queen : Health
     public static float GetSpawnCooldownDepthCoef(int absoluteDepth)
     {
         float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
-        float bonus = relativeDepth * 3.0f;
+        float bonus = relativeDepth * 1.9f;
 
         return 1 / (1.0f + bonus);
     }
@@ -61,7 +61,7 @@ public class Queen : Health
     public void ScaleByDepth(int absoluteDepth)
     {
         spawnCooldown = DEFAULT_SPAWN_COOLDOWN * GetSpawnCooldownDepthCoef(absoluteDepth);
-        Debug.Log(spawnCooldown);
+        Debug.Log("queen spawn cooldown: " + spawnCooldown); // TODO: smazat
         maxHP = DEFAULT_HP * GetHPDepthCoef(absoluteDepth);
         HP = maxHP;
     }
@@ -84,8 +84,9 @@ public class Queen : Health
         if (!isTriggered)
         {
             // trigger if player is in sight
-            if (hitIsPlayer)
+            if (hitIsPlayer && playerDistance <= MAX_TRIGGER_DISTANCE)
             {
+                Debug.Log("triggering, player dist: " + playerDistance); // TODO: smazat
                 isTriggered = true;
             }
         }
@@ -130,12 +131,17 @@ public class Queen : Health
 
     public override bool TakeDamage(float damage, Vector2? knockbackDirection = null, bool destroyable = true)
     {
+        if (this.dead)
+        {
+            return this.dead;
+        }
+
         bool dead = base.TakeDamage(damage, knockbackDirection, destroyable);
 
         //pokud neni mrtva a dostal jsem damage, tak snizim zbyvajici cas do spawnuti
         if (!dead)
         {
-            lastSpawnTime -= damage * Mathf.Min(maxHP / HP, 10); //koeficient od 1 do 10
+            lastSpawnTime -= (damage / HP * 10.0f) * spawnCooldown;
         }
         else
         {

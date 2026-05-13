@@ -24,7 +24,7 @@ public class Rocket : GameObject2D
     private const float MAX_HEIGHT = 30;
     private const float MIN_HEIGHT = 3.0f - 1.0f / 16.0f;
     public const float LANDING_TIME = 10.0f;
-    public const float TAKEOFF_TIME = 12.0f;
+    public const float TAKEOFF_TIME = 8.0f;
 
     private float startTime;
 

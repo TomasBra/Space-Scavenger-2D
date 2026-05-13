@@ -171,10 +171,10 @@ MonoBehaviour:
   material: {fileID: 0}
   FLASH_TIME: 0.5
   death_offset: 0
-  DEFAULT_SPAWN_COOLDOWN: 3
+  DEFAULT_SPAWN_COOLDOWN: 4
   DEFAULT_HP: 40
-  SpawnableRanged: {fileID: 0}
-  SpawnableMelee: {fileID: 0}
+  SpawnableRanged: {fileID: 7011711083779050010, guid: 63cdbfd51ddaca34690526a24f2939b8, type: 3}
+  SpawnableMelee: {fileID: 1712925141052959967, guid: 06fbfeb3e15827e44965a26ccd178308, type: 3}
   lastSpawnTime: 0
   isTriggered: 0
 --- !u!70 &5603154631804977796

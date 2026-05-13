@@ -334,7 +334,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 0
-  EndScreen: {fileID: 0}
+  EndScreen: {fileID: 852976394}
 --- !u!4 &67817727
 Transform:
   m_ObjectHideFlags: 0
@@ -7929,6 +7929,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2086321659}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &852976394 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6064464362452221233, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
+  m_PrefabInstance: {fileID: 1612708126155443953}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1007571326
 GameObject:
   m_ObjectHideFlags: 0
@@ -8773,7 +8778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6783299464868136008, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
       propertyPath: m_text
-      value: YOU DIED MOTHERFUCKER
+      value: YOU DIED!
       objectReference: {fileID: 0}
     - target: {fileID: 6783299464868136008, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
       propertyPath: m_fontColor.b
@@ -11345,6 +11350,10 @@ PrefabInstance:
     - target: {fileID: 6064464362452221233, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6783299464868136008, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
+      propertyPath: m_text
+      value: YOU WON!
       objectReference: {fileID: 0}
     - target: {fileID: 8209480841777017246, guid: a2da2d4096c934645a3de3cefa75a064, type: 3}
       propertyPath: m_LocalPosition.x
