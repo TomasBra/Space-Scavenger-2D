@@ -184,9 +184,6 @@ public class MapManager : GameObject2D
                     case TempTile.TileType.DIRT:
                         AddTile(i, j, TileData.TileType.DIRT);
                         break;
-                    case TempTile.TileType.ENTRANCE:
-                        AddTile(i, j, TileData.TileType.DIRT);
-                        break;
                     case TempTile.TileType.IRON:
                         AddTile(i, j, TileData.TileType.IRON);
                         break;

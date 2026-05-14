@@ -11,7 +11,6 @@ public class TempTile
     {
         EMPTY,
         DIRT,
-        ENTRANCE,
         BEDROCK,
         GROUND, // unused
         IRON,
@@ -268,7 +267,8 @@ public class TerrainGenerator
                 // distance from another nest must be enough
             willRepeat = isNeighborBad
                 || tiles[startRow, startCol].type != TempTile.TileType.DIRT
-                || distFromNearest <= minNestDist;
+                || distFromNearest <= minNestDist
+                || (Mathf.Sqrt(startRow * startRow + (WIDTH / 2 - startCol) * (WIDTH / 2 - startCol)) <= 11.0f);
 
         } while (willRepeat);
 
@@ -404,10 +404,6 @@ public class TerrainGenerator
                 if (i == 0 || i == HEIGHT - 1 || j == 0 || j == WIDTH - 1)
                 {
                     tiles[i, j] = new TempTile(i, j, TempTile.TileType.NEST_BORDER);
-                }
-                else if (Mathf.Sqrt(i * i + (WIDTH / 2 - j) * (WIDTH / 2 - j)) <= 3.0f)
-                {
-                    tiles[i, j] = new TempTile(i, j, TempTile.TileType.ENTRANCE);
                 }
                 else
                 {

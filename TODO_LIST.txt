@@ -36,3 +36,5 @@ X raketa
 - hnizda nespawnovat u vstupu (spravit)
 - smoke particly
 - kralovna chytrejsi spawn nepratel >:)
+- maso
+- vzorky
