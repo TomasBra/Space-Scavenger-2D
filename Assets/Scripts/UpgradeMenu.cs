@@ -31,7 +31,7 @@ public class UpgradeMenu : GameObject2D
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(26, 26, 26),
+                        new Price(24, 24, 24),
                     },
                     UPGRADE.PROJECTILE_COUNT
                 )
@@ -70,7 +70,7 @@ public class UpgradeMenu : GameObject2D
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(28, 28, 28),
+                        new Price(24, 24, 24),
                     },
                     UPGRADE.PROJECTILE_BOUNCES
                 )
@@ -81,7 +81,7 @@ public class UpgradeMenu : GameObject2D
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(20, 20, 20),
+                        new Price(14, 14, 14),
                         new Price(5, 5, 5),
                         new Price(9, 9, 9)
                     },
