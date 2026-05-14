@@ -332,6 +332,8 @@ public class MapManager : GameObject2D
             shadowMap.SetTile(neighbour, null);
 
         tileDatas.Remove(gridPosition);
+
+        audioManager.PlayClip("BlockDestroyed");
     }
 
     public void RemoveShadowFromEmptyNeighbours(Vector3Int gridPosition)

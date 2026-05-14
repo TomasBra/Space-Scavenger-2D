@@ -415,7 +415,7 @@ MonoBehaviour:
   - name: Shoot
     clips:
     - {fileID: 8300000, guid: 6e829386fdf32af47a4bbd78a6bc057e, type: 3}
-    volume: 1
+    volume: 0.8
     pitch: 1
     playOffset: 0
     loop: 0
@@ -439,10 +439,18 @@ MonoBehaviour:
   - name: Laser
     clips:
     - {fileID: 8300000, guid: a7d921fa7ff953a47a562d4f3563ef4c, type: 3}
-    volume: 0.07
-    pitch: 1
+    volume: 0.04
+    pitch: 0.9
     playOffset: 0
     loop: 1
+    source: {fileID: 0}
+  - name: BlockDestroyed
+    clips:
+    - {fileID: 8300000, guid: 828b361286365e2429c01932e2deb30d, type: 3}
+    volume: 0.1
+    pitch: 1
+    playOffset: 0
+    loop: 0
     source: {fileID: 0}
   theme:
     name: theme
