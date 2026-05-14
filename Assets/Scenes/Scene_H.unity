@@ -9397,6 +9397,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
+      propertyPath: LASER_DISTANCE
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120789004674577071, guid: 75e880ec9a3d85c4a865d11090ef2814, type: 3}
       propertyPath: PROJECTILE_COUNT
       value: 1
       objectReference: {fileID: 0}
