@@ -59,7 +59,7 @@ public class MapManager : GameObject2D
     [SerializeField]
     private TileBase nestBorderTile;
     [SerializeField]
-    private TileBase bedrockTile;
+    private TileBase[] bedrockTiles;
     [SerializeField]
     private TileBase groundTile; // unused
 
@@ -282,7 +282,7 @@ public class MapManager : GameObject2D
                 shadowMap.SetTile(gridPosition, shadowTile);
                 break;
             case TileData.TileType.BEDROCK:
-                tileTypeMap.SetTile(gridPosition, bedrockTile);
+                tileTypeMap.SetTile(gridPosition, bedrockTiles[dirtIdx]);
                 shadowMap.SetTile(gridPosition, null);
                 durability = float.PositiveInfinity;
                 break;

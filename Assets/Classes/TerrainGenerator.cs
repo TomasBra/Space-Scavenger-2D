@@ -92,12 +92,12 @@ public class TerrainGenerator
 
     float GoldDepthFunc(float depth)
     {
-        return Mathf.Pow(depth, 0.4f);
+        return Mathf.Sqrt(depth);
     }
 
     float CopperDepthFunc(float depth)
     {
-        return depth * depth * depth;
+        return depth * depth;
     }
 
     float NestDepthFunc(float depth)
@@ -268,7 +268,7 @@ public class TerrainGenerator
             willRepeat = isNeighborBad
                 || tiles[startRow, startCol].type != TempTile.TileType.DIRT
                 || distFromNearest <= minNestDist
-                || (Mathf.Sqrt(startRow * startRow + (WIDTH / 2 - startCol) * (WIDTH / 2 - startCol)) <= 11.0f);
+                || (Mathf.Sqrt(startRow * startRow + (WIDTH / 2 - startCol) * (WIDTH / 2 - startCol)) <= 5.0f);
 
         } while (willRepeat);
 
@@ -312,6 +312,11 @@ public class TerrainGenerator
 
             foreach (var neighbor in neighbors)
             {
+                if (Mathf.Sqrt(neighbor.row * neighbor.row + (WIDTH / 2 - neighbor.col) * (WIDTH / 2 - neighbor.col)) <= 5.0f)
+                {
+                    continue;
+                }
+
                 //neighbor.visited = true;
                 if (!visited.Contains(neighbor))
                 {
@@ -340,6 +345,11 @@ public class TerrainGenerator
 
             foreach (var neighbor in neighbors)
             {
+                if (Mathf.Sqrt(neighbor.row * neighbor.row + (WIDTH / 2 - neighbor.col) * (WIDTH / 2 - neighbor.col)) <= 5.0f)
+                {
+                    continue;
+                }
+
                 // neighbor.visited = true;
                 if (!visited.Contains(neighbor))
                 {

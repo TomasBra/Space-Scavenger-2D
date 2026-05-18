@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: bedrock_tile
+  m_Name: bedrock3
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
-  m_Sprite: {fileID: 8715820745954868566, guid: 6c787a4d49bf6d84baf3fc5822f990df, type: 3}
+  m_Sprite: {fileID: 1750836333756589864, guid: 562ed7bdde1b9604883dfe93514fdc90, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

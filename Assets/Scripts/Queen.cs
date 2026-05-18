@@ -18,7 +18,7 @@ public class Queen : Health
     public static float GetSpawnCooldownDepthCoef(int absoluteDepth)
     {
         float relativeDepth = absoluteDepth / (float)MapManager.MAP_HEIGHT;
-        float bonus = relativeDepth * 1.9f;
+        float bonus = relativeDepth * 1.6f;
 
         return 1 / (1.0f + bonus);
     }
@@ -122,7 +122,11 @@ public class Queen : Health
         if (objectToSpawn != null)
         {
             //vystøelení a natoèení projektilu správným smìrem
-            GameObject enemy = Instantiate(objectToSpawn, position: transform.position, rotation: Quaternion.identity);
+            Vector2 toPlayer = player.transform.position - transform.position;
+            Vector2 spawnOffset = toPlayer.RotateZ(UnityEngine.Random.Range(-80.0f, 80.0f)).normalized * 1.1f;
+            Vector3 spawnPosition = transform.position + new Vector3(spawnOffset.x, spawnOffset.y, 0.0f);
+
+            GameObject enemy = Instantiate(objectToSpawn, position: spawnPosition, rotation: Quaternion.identity);
             enemy.GetComponent<Enemy>().isTriggered = true;
             enemy.GetComponent<Enemy>().ScaleByDepth(-(int)transform.position.y);
             optimalization.enemies.Add(enemy);

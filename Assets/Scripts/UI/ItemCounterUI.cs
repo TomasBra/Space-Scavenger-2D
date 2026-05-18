@@ -23,7 +23,7 @@ public class ItemCounter : MonoBehaviour
 
     public void SetSamples(int amount, int maxAmount)
     { 
-        sampleText.text = amount.ToString() + "/" + maxAmount.ToString();
+        sampleText.text = "ELIMINATE QUEENS: " + amount.ToString() + "/" + maxAmount.ToString();
     }
 
     public void SetIron(int amount)

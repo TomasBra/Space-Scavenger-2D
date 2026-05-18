@@ -6,6 +6,9 @@ using static TileData;
 
 public class Playah : Health
 {
+    [SerializeField]
+    public Camera mainCamera;
+
     public float LASER_DISTANCE = 1.5f; ///< max 4.5
 
     //upgradovatelný věci
@@ -90,7 +93,7 @@ public class Playah : Health
 
         if (Input.GetKeyDown(KeyCode.E) && meat > 0 && HP < maxHP)
         {
-            HP += 10;
+            HP += maxHP / 5.0f;
             HP = Mathf.Min(HP, maxHP);
             healthBar.SetHealth(HP);
 
@@ -101,16 +104,31 @@ public class Playah : Health
         Vector2 direction = new Vector2(0.0f, 0.0f);
         if (Input.GetKey(KeyCode.D))
         {
-            direction.x += 1.0f;
-            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
+            if (transform.position.x + GetComponent<CircleCollider2D>().radius < mainCamera.transform.position.x + mainCamera.orthographicSize * mainCamera.aspect)
+            {
+                direction.x += 1.0f;
+                transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
+            }
         }
         if (Input.GetKey(KeyCode.A))
         {
-            direction.x += -1.0f;
-            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+            if (transform.position.x - GetComponent<CircleCollider2D>().radius > mainCamera.transform.position.x - mainCamera.orthographicSize * mainCamera.aspect)
+            {
+                direction.x += -1.0f;
+                transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+            }
         }
-        if (Input.GetKey(KeyCode.W)) direction.y += 1.0f;
-        if (Input.GetKey(KeyCode.S)) direction.y += -1.0f;
+        if (Input.GetKey(KeyCode.W))
+        {
+            if (transform.position.y + GetComponent<CircleCollider2D>().radius < mainCamera.transform.position.y + mainCamera.orthographicSize)
+            {
+                direction.y += 1.0f;
+            }
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            direction.y += -1.0f;
+        }
 
         direction.Normalize();
 

@@ -54,7 +54,7 @@ public class CameraManager : GameObject2D
         }
 
         float cameraHalfWidth = mainCamera.orthographicSize * mainCamera.aspect;
-        float cameraHalfHeight = mainCamera.orthographicSize / mainCamera.aspect;
+        float cameraHalfHeight = mainCamera.orthographicSize;// / mainCamera.aspect;
 
         // limit in X
         if (destX + cameraHalfWidth > MapManager.MAP_WIDTH)
@@ -71,9 +71,9 @@ public class CameraManager : GameObject2D
         {
             destY = MapManager.SKY_HEIGHT - cameraHalfHeight;
         }
-        else if (destY - cameraHalfHeight < -MapManager.MAP_HEIGHT)
+        else if (destY - cameraHalfHeight < -MapManager.MAP_HEIGHT + 1)
         {
-            destY = -MapManager.MAP_HEIGHT + cameraHalfHeight;
+            destY = -MapManager.MAP_HEIGHT + cameraHalfHeight + 1;
         }
 
         Vector3 dest = new Vector3(destX, destY, -10.0f);

@@ -32,9 +32,9 @@ X odrazeni strel
 X upgrady
 X to gui chce spravit
 X raketa
-- odlisna barva bedrocku
-- hnizda nespawnovat u vstupu (spravit)
-- smoke particly
-- kralovna chytrejsi spawn nepratel >:)
+X odlisna barva bedrocku
+X hnizda nespawnovat u vstupu (spravit)
+X smoke particly
+X kralovna chytrejsi spawn nepratel >:)
 - maso
-- vzorky
+X vzorky

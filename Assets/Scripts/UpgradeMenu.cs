@@ -31,9 +31,7 @@ public class UpgradeMenu : GameObject2D
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(6, 5, 5),
-                        new Price(9, 9, 10),
-                        new Price(13, 14, 16)
+                        new Price(24, 24, 24),
                     },
                     UPGRADE.PROJECTILE_COUNT
                 )
@@ -46,8 +44,8 @@ public class UpgradeMenu : GameObject2D
                     {
                         new Price(4, 0, 0),
                         new Price(6, 5, 0),
-                        new Price(9, 10, 6),
-                        new Price(13, 16, 13)
+                        new Price(9, 10, 0),
+                        new Price(13, 16, 15)
                     },
                     UPGRADE.PROJECTILE_SPAWN_COOL_DOWN
                 )
@@ -60,8 +58,8 @@ public class UpgradeMenu : GameObject2D
                     {
                         new Price(4, 0, 0),
                         new Price(6, 5, 0),
-                        new Price(9, 10, 6),
-                        new Price(13, 16, 13)
+                        new Price(9, 10, 0),
+                        new Price(13, 16, 15)
                     },
                     UPGRADE.PROJECTILE_DAMAGE
                 )
@@ -72,9 +70,7 @@ public class UpgradeMenu : GameObject2D
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(6, 5, 5),
-                        new Price(9, 9, 10),
-                        new Price(13, 14, 16)
+                        new Price(24, 24, 24),
                     },
                     UPGRADE.PROJECTILE_BOUNCES
                 )
@@ -85,9 +81,9 @@ public class UpgradeMenu : GameObject2D
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(6, 5, 5),
-                        new Price(9, 9, 10),
-                        new Price(13, 14, 16)
+                        new Price(14, 14, 14),
+                        new Price(5, 5, 5),
+                        new Price(9, 9, 9)
                     },
                     UPGRADE.PROJECTILE_EXPLOSION
                 )
@@ -113,8 +109,8 @@ public class UpgradeMenu : GameObject2D
                 new Upgrades(
                     new Price[]
                     {
-                        new Price(30, 0, 0),
-                        new Price(35, 25, 10)
+                        new Price(5, 5, 0),
+                        new Price(10, 8, 4),
                     },
                     UPGRADE.LASER_DISTANCE
                 )
@@ -129,9 +125,9 @@ public class UpgradeMenu : GameObject2D
                     {
                         new Price(3, 0, 0),
                         new Price(5, 2, 0),
-                        new Price(8, 5, 2),
+                        new Price(8, 5, 0),
                         new Price(12, 8, 7),
-                        new Price(17, 12, 13)
+                        new Price(17, 12, 15)
                     },
                     UPGRADE.HP
                 )

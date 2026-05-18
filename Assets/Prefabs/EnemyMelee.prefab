@@ -130,7 +130,7 @@ MonoBehaviour:
   PROJECTILE_LIFETIME: 0
   DEFAULT_ATTACK_COOLDOWN: 1
   DEFAULT_HP: 5
-  MIN_ATTACK_DISTANCE: 1.2
+  MIN_ATTACK_DISTANCE: 1
   Projectile: {fileID: 0}
   isTriggered: 0
   MeatPrefab: {fileID: 2914244009387907540, guid: 8b10673779b8eb44e8a2c05f2ec23d57, type: 3}
